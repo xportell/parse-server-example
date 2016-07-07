@@ -6,7 +6,7 @@ Parse.Cloud.define('hello', function(req, res) {
 
 //Use Parse.Cloud.define to define as many cloud functions as you want.
 //For example:
-var _ = require('../node_modules/underscore/underscore.js');
+//var _ = require('../node_modules/underscore/underscore.js');
 
 /*
 Parse.Cloud.define("isMe", function(request, response) {
