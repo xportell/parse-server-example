@@ -3,7 +3,7 @@ Parse.Cloud.define('hello', function(req, res) {
   res.success('Hi');
 });
 
-/*
+
 //Use Parse.Cloud.define to define as many cloud functions as you want.
 //For example:
 var _ = require('./underscore.js')
@@ -290,4 +290,4 @@ Parse.Cloud.define("push", function(request, response) {
 	    }
 	 });
 	  
-});*/
+});
