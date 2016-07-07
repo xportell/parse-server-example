@@ -3,7 +3,7 @@ Parse.Cloud.define('hello', function(req, res) {
   res.success('Hi');
 });
 
-
+/*
 //Use Parse.Cloud.define to define as many cloud functions as you want.
 //For example:
 var _ = require('./underscore.js')
@@ -53,7 +53,7 @@ function signupAsBasicUser(name, password, email) {
 }
 
 
-/*Parse.Cloud.afterSave("Like", function(request) {
+Parse.Cloud.afterSave("Like", function(request) {
 	
 	var like = {
      "__type": "Pointer",
@@ -76,7 +76,7 @@ function signupAsBasicUser(name, password, email) {
 	  }
 	});
 });
-*/
+
 Parse.Cloud.afterDelete("Like", function(request) {
 	var like = {
 	        "__type": "Pointer",
@@ -290,4 +290,4 @@ Parse.Cloud.define("push", function(request, response) {
 	    }
 	 });
 	  
-});
+});*/
