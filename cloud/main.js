@@ -53,7 +53,7 @@ function signupAsBasicUser(name, password, email) {
 }
 
 
-Parse.Cloud.afterSave("Like", function(request) {
+/*Parse.Cloud.afterSave("Like", function(request) {
 	
 	var like = {
      "__type": "Pointer",
@@ -76,7 +76,7 @@ Parse.Cloud.afterSave("Like", function(request) {
 	  }
 	});
 });
-//aqui
+*/
 Parse.Cloud.afterDelete("Like", function(request) {
 	var like = {
 	        "__type": "Pointer",
