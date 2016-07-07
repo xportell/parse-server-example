@@ -1,10 +1,13 @@
-// Use Parse.Cloud.define to define as many cloud functions as you want.
-// For example:
- var _ = require('underscore.js');
- 
-Parse.Cloud.define("hello", function(request, response) {
-  response.success("Hello world!");
+
+Parse.Cloud.define('hello', function(req, res) {
+  res.success('Hi');
 });
+
+/*
+//Use Parse.Cloud.define to define as many cloud functions as you want.
+//For example:
+var _ = require('underscore.js');
+
 
 Parse.Cloud.define("isMe", function(request, response) {
 		var Profile = Parse.Object.extend("Profile");
@@ -23,40 +26,40 @@ Parse.Cloud.define("isMe", function(request, response) {
 Parse.Cloud.define("signupAsBasicUser", function(request, response) {
 	var postParams = request.body;
 	signupAsBasicUser(request.params.username, request.params.password, request.params.email).then(function(user) {
-        response.success(user);
-    }, function(error) {
-        response.error(error);
-    });
+     response.success(user);
+ }, function(error) {
+     response.error(error);
+ });
 });
 
 //return a promise fulfilled with a signed-up user who is added to the 'Basic User" role
 //
 function signupAsBasicUser(name, password, email) {
-    var user = new Parse.User();
-    user.set("username", name);
-    user.set("password", password);
-    user.set("email", email);
-    return user.signUp().then(function() {
-        var query = new Parse.Query(Parse.Role);
-        query.equalTo("name", 'BasicUser');
-        return query.find();
-    }).then(function(roles) {
-        if (roles.length < 1) return Parse.Promise.error("no such role");
-        roles[0].getUsers().add(user);
-        return roles[0].save();
-    }).then(function() {
-        return user;
-    });
+ var user = new Parse.User();
+ user.set("username", name);
+ user.set("password", password);
+ user.set("email", email);
+ return user.signUp().then(function() {
+     var query = new Parse.Query(Parse.Role);
+     query.equalTo("name", 'BasicUser');
+     return query.find();
+ }).then(function(roles) {
+     if (roles.length < 1) return Parse.Promise.error("no such role");
+     roles[0].getUsers().add(user);
+     return roles[0].save();
+ }).then(function() {
+     return user;
+ });
 }
 
 
 Parse.Cloud.afterSave("Like", function(request) {
 	
 	var like = {
-        "__type": "Pointer",
-        "className": "Like",
-        "objectId": request.object.id,
-    };
+     "__type": "Pointer",
+     "className": "Like",
+     "objectId": request.object.id,
+ };
 
 	var Post = Parse.Object.extend("Post");
 	var post = new Post();
@@ -64,7 +67,7 @@ Parse.Cloud.afterSave("Like", function(request) {
 	//console.log(post);
 	Parse.Cloud.useMasterKey();
 	post.addUnique("likes", like);
-	post.save({ useMasterKey: true },{
+	post.save(null,{
 	  success: function(post) {
 	    // save succeeded
 	  },
@@ -99,10 +102,10 @@ Parse.Cloud.afterDelete("Like", function(request) {
 Parse.Cloud.afterSave("Comment", function(request) {
 	
 	var comment = {
-        "__type": "Pointer",
-        "className": "Comment",
-        "objectId": request.object.id,
-    };
+     "__type": "Pointer",
+     "className": "Comment",
+     "objectId": request.object.id,
+ };
 
 	var Post = Parse.Object.extend("Post");
 	var post = new Post();
@@ -197,16 +200,7 @@ Parse.Cloud.define("getTimeline", function(request, response) {
 			  		//console.log(results);
 		  			//console.log(results[postIDsIndex[comments.attributes.postId.id]].attributes.comments);
 	  				//console.log(typeof results[postIDsIndex[comments.attributes.postId.id]].attributes.comments);
-		  			/*if(typeof results[postIDsIndex[comments.attributes.postId.id]].attributes.comments === "undefined"){
-		  				console.log('undefined');
-		  					tmp.push(comments);
-		  					
-		  			}
-		  			else{
-
-		  				tmp = results[postIDsIndex[comments.attributes.postId.id]].attributes.comments;
-		  				tmp.push(comments);
-		  			}*/
+		  			
 	  				tmp.push(comments);
 
 		  			results[postIDsIndex[comments.attributes.postId.id]].attributes.comments = tmp;
@@ -227,28 +221,6 @@ Parse.Cloud.define("getTimeline", function(request, response) {
 	
 });
 
-/*Parse.Cloud.afterSave("Post", function(request) {	
-	
-	console.log(request.object.attributes.installationID);
-	var query = new Parse.Query(Parse.Installation);
-	//query.notEqualTo("installationId", request.object.attributes.installationID);
-	query.equalTo('channels', 'NewPosts');
-	console.log(query);
-
-	Parse.Push.send({
-	  where: query, // Set our Installation query
-	  data: {
-	    alert: request.object.attributes.text
-	  }
-	}, {
-	  success: function() {
-	    // Push was successful
-	  },
-	  error: function(error) {
-	    // Handle error
-	  }
-	});
-});*/
 
 Parse.Cloud.define("publish", function(request, response) {
 	//var Post = Parse.Object.extend("Post");
@@ -318,5 +290,4 @@ Parse.Cloud.define("push", function(request, response) {
 	    }
 	 });
 	  
-});
-
+});*/
