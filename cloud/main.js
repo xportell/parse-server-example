@@ -1,4 +1,8 @@
 
+console.log('Loading cloud.....');
+console.log( __dirname);
+
+
 Parse.Cloud.define('hello', function(req, res) {
   res.success('Hi');
 });
