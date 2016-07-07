@@ -220,7 +220,7 @@ Parse.Cloud.define("getTimeline", function(request, response) {
 	
 	
 });
-/*
+//aqui2
 
 Parse.Cloud.define("publish", function(request, response) {
 	//var Post = Parse.Object.extend("Post");
