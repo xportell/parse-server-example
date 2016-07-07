@@ -51,7 +51,7 @@ function signupAsBasicUser(name, password, email) {
      return user;
  });
 }
-/*
+
 
 Parse.Cloud.afterSave("Like", function(request) {
 	
@@ -76,7 +76,7 @@ Parse.Cloud.afterSave("Like", function(request) {
 	  }
 	});
 });
-
+/*
 Parse.Cloud.afterDelete("Like", function(request) {
 	var like = {
 	        "__type": "Pointer",
