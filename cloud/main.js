@@ -22,7 +22,7 @@ Parse.Cloud.define("isMe", function(request, response) {
 			 else response.error('Realy?');
 		});	
 });
-/*
+
 Parse.Cloud.define("signupAsBasicUser", function(request, response) {
 	var postParams = request.body;
 	signupAsBasicUser(request.params.username, request.params.password, request.params.email).then(function(user) {
@@ -31,7 +31,7 @@ Parse.Cloud.define("signupAsBasicUser", function(request, response) {
      response.error(error);
  });
 });
-
+/*
 //return a promise fulfilled with a signed-up user who is added to the 'Basic User" role
 //
 function signupAsBasicUser(name, password, email) {
