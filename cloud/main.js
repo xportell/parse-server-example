@@ -290,4 +290,4 @@ Parse.Cloud.define("push", function(request, response) {
 	    }
 	 });
 	  
-});*/
+});
