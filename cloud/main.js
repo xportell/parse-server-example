@@ -31,7 +31,7 @@ Parse.Cloud.define("signupAsBasicUser", function(request, response) {
      response.error(error);
  });
 });
-/*
+
 //return a promise fulfilled with a signed-up user who is added to the 'Basic User" role
 //
 function signupAsBasicUser(name, password, email) {
@@ -51,7 +51,7 @@ function signupAsBasicUser(name, password, email) {
      return user;
  });
 }
-
+/*
 
 Parse.Cloud.afterSave("Like", function(request) {
 	
