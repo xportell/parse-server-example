@@ -1,6 +1,6 @@
 
 console.log('Loading cloud.....');
-console.log( __dirname);
+console.log( 'clodu code:' + __dirname);
 
 
 Parse.Cloud.define('hello', function(req, res) {
