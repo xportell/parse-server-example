@@ -76,7 +76,7 @@ Parse.Cloud.afterSave("Like", function(request) {
 	  }
 	});
 });
-/*
+//aqui
 Parse.Cloud.afterDelete("Like", function(request) {
 	var like = {
 	        "__type": "Pointer",
@@ -220,7 +220,7 @@ Parse.Cloud.define("getTimeline", function(request, response) {
 	
 	
 });
-
+/*
 
 Parse.Cloud.define("publish", function(request, response) {
 	//var Post = Parse.Object.extend("Post");
