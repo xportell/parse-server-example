@@ -3,12 +3,12 @@ Parse.Cloud.define('hello', function(req, res) {
   res.success('Hi');
 });
 
-/*
+
 //Use Parse.Cloud.define to define as many cloud functions as you want.
 //For example:
 var _ = require('underscore.js');
 
-
+/*
 Parse.Cloud.define("isMe", function(request, response) {
 		var Profile = Parse.Object.extend("Profile");
 		var query = new Parse.Query(Profile);
