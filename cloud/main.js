@@ -8,7 +8,7 @@ Parse.Cloud.define('hello', function(req, res) {
 //For example:
 var _ = require('./underscore.js')
 
-/*
+
 Parse.Cloud.define("isMe", function(request, response) {
 		var Profile = Parse.Object.extend("Profile");
 		var query = new Parse.Query(Profile);
@@ -22,7 +22,7 @@ Parse.Cloud.define("isMe", function(request, response) {
 			 else response.error('Realy?');
 		});	
 });
-
+/*
 Parse.Cloud.define("signupAsBasicUser", function(request, response) {
 	var postParams = request.body;
 	signupAsBasicUser(request.params.username, request.params.password, request.params.email).then(function(user) {
