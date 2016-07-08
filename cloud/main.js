@@ -43,6 +43,8 @@ Parse.Cloud.define("signupAsBasicUser", function(request, response) {
 function signupAsBasicUser(name, password, email) {
  var user = new Parse.User();
  console.log('name '+ name);
+ console.log('pass: '+password);
+ console.log('email: '+email);
  user.set("username", name);
  console.log('username ' + user.name);
  user.set("password", password);
