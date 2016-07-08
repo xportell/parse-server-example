@@ -44,7 +44,9 @@ function signupAsBasicUser(name, password, email) {
  user.set("username", name);
  console.log('username ' + user.name);
  user.set("password", password);
+ console.log('password '+ user.password);
  user.set("email", email);
+ console.log('email '+ user.email);
  console.log('------Abans del user.signUp------');
  return user.signUp().then(function() {
      var query = new Parse.Query(Parse.Role);
