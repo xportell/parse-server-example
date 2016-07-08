@@ -29,7 +29,7 @@ Parse.Cloud.define("isMe", function(request, response) {
 
 Parse.Cloud.define("signupAsBasicUser", function(request, response) {
 	var postParams = request.body;
-	console.log('Hola estic aqui');
+	console.log(postParams);
 	signupAsBasicUser(request.params.username, request.params.password, request.params.email).then(function(user) {
      response.success(user);
  }, function(error) {
@@ -41,6 +41,7 @@ Parse.Cloud.define("signupAsBasicUser", function(request, response) {
 //
 function signupAsBasicUser(name, password, email) {
  var user = new Parse.User();
+ console.log('name '+ name);
  user.set("username", name);
  console.log('username ' + user.name);
  user.set("password", password);
