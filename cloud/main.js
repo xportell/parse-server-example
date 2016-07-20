@@ -75,6 +75,7 @@ Parse.Cloud.afterSave("Post",function(request) {
 		"likes": request.likes || [],
 		//crec que no em deixo res
 	};
+	console.log('In after save of post -----------')
 	var type = "post";
 	var refid = request.object.id;
 	var Timeline = Timeline.Object.extend("Timeline");
