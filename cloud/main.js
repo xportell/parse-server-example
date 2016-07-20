@@ -83,7 +83,7 @@ Parse.Cloud.afterSave("Post",function(request) {
 	var Timeline = Parse.Object.extend("Timeline");
 	var timeline = new Timeline;
 	console.log('post1');
-	timeline.set('id', request.object.atributes.timelineId.id);
+	timeline.set('id', request.object.attributes.timelineId.id);
 	console.log('post2');
 	Parse.Cloud.useMasterKey();
 	console.log('post');
