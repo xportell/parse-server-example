@@ -79,14 +79,13 @@ Parse.Cloud.afterSave("Post",function(request) {
 	var type = "post";
 	var refid = request.object.id;
 	console.log('post2');
+	console.log(post);
 	var Timeline = Parse.Object.extend("Timeline");
 	var timeline = new Timeline;
 	console.log('post1');
-	console.log(post);
 	timeline.set('id', request.object.atributes.timelineId.id);
 	Parse.Cloud.useMasterKey();
 	console.log('post');
-	console.log(post);
 	timeline.addUnique("metadata",post);
 	timeline.addUnique("Type", type);
 	timeline.addUnique("refId", refid);
