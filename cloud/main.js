@@ -78,8 +78,8 @@ Parse.Cloud.afterSave("Post",function(request) {
 	console.log('In after save of post -----------');
 	var type = "post";
 	var refid = request.object.id;
-	console.log('post2');
-	console.log(post);
+	//console.log('post2');
+	//console.log(post);
 	var Timeline = Parse.Object.extend("Timeline");
 	var timeline = new Timeline;
 	console.log('post1');
