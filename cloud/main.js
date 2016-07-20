@@ -66,6 +66,33 @@ function signupAsBasicUser(name, password, email) {
  });
 }
 
+Parse.Cloud.afterSave("Post",function(request) {
+	var post = {
+		"profile": request.profile,
+		"text": request.text,
+		"comments": request.comments || [],
+		"photo": request.photo,
+		"likes": request.likes || [],
+		//crec que no em deixo res
+	};
+	var type = "post";
+	var refid = request.object.id;
+	var Timeline = Timeline.Object.extend("Timeline");
+	var timeline = new Timeline;
+	timeline.set('id', request.object.atributes.timelineId.id);
+	Parse.Cloud.useMasterKey();
+	timeline.addUnique("metadata",post);
+	timeline.addUnique("Type", type);
+	timeline.addUnique("refId", refid);
+	timeline.save(null,{
+		sucess: function(timeline){
+			//save succeeded
+		},
+		error: function(timeline,error){
+		//	inspect error
+		}
+	});
+}); 
 
 Parse.Cloud.afterSave("Like", function(request) {
 	
