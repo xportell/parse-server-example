@@ -76,6 +76,7 @@ Parse.Cloud.afterSave("Post",function(request) {
 		//crec que no em deixo res
 	};
 	console.log('In after save of post -----------');
+	console.log(post);
 	var type = "post";
 	var refid = request.object.id;
 	//console.log('post2');
