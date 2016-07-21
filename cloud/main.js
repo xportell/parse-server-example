@@ -67,7 +67,7 @@ function signupAsBasicUser(name, password, email) {
 }
 
 Parse.Cloud.afterSave("Post",function(request) {
-	console.log(request);
+	console.log(request.object);
 	var post = {
 		"profile": request.profile,
 		"text": request.text,
