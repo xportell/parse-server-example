@@ -85,7 +85,12 @@ Parse.Cloud.afterSave("Post",function(request) {
 	console.log('post1');
 	timeline.set('id', request.object.attributes.timelineId.id);
 	console.log('post2');
-	Parse.Cloud.useMasterKey();
+	//Parse.Cloud.useMasterKey();
+	var query = new Parse.Query('Messages');
+  		query.count({ useMasterKey: true }) // count() will use the master key to bypass ACLs
+    			.then(function(count) {
+      			response.success(count);
+    		});
 	console.log('post');
 	timeline.addUnique("metadata",post);
 	timeline.addUnique("Type", type);
