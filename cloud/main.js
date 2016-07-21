@@ -67,13 +67,13 @@ function signupAsBasicUser(name, password, email) {
 }
 
 Parse.Cloud.afterSave("Post",function(request) {
-	console.log(request.object);
+	console.log(request);
 	var post = {
 		"profile": request.object.profile,
-		"text": request.object.text,
+		"text": request.object.text ||"",
 		"comments": request.object.comments || [],
-		"photo": request.object.photo || "",
-		"likes": request.object.likes || [],
+		"photo": request.photo || "",
+		"likes": request.likes || [],
 		//crec que no em deixo res
 	};
 	console.log('In after save of post -----------');
