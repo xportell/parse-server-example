@@ -78,7 +78,7 @@ Parse.Cloud.afterSave("Post",function(request) {
 		"comments": request.object.attributes.comments || [],
 		"photo": request.object.attributes.photo || "",
 		"likes": request.object.attributes.likes || [],
-		"objectId" : request.object.id
+		"objectId" : request.object.id,
 		//crec que no em deixo res
 	};
 	console.log('In after save of post -----------');
