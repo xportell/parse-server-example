@@ -71,10 +71,10 @@ Parse.Cloud.afterSave("Post",function(request) {
 	console.log(request.object.attributes);
 	var post = {
 		"profile": request.object.profile,
-		"text": request.object.text ||"",
-		"comments": request.object.comments || [],
-		"photo": request.photo || "",
-		"likes": request.likes || [],
+		"text": request.object.attributes.text ||"",
+		"comments": request.object.attributes.comments || [],
+		"photo": request.object.attributes.photo || "",
+		"likes": request.object.attributes.likes || [],
 		//crec que no em deixo res
 	};
 	console.log('In after save of post -----------');
