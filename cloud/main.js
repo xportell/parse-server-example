@@ -73,22 +73,23 @@ Parse.Cloud.afterSave("Post",function(request) {
 	}
 	console.log('req ob at id '+request.object.attributes.text);
 	var post = {
-		"profile": request.object.profile,
+		"profile": request.object.profile;
 		"text": request.object.attributes.text ||"",
 		"comments": request.object.attributes.comments || [],
 		"photo": request.object.attributes.photo || "",
 		"likes": request.object.attributes.likes || [],
-		"objectId": request.objecct.id,
 		//crec que no em deixo res
 	};
 	console.log('In after save of post -----------');
 	console.log('post profile ' +post.profile);
 	var type = "post";
 	var refid = request.object.id;
+	//console.log('post2');
+	//console.log(post);
 	var Timeline = Parse.Object.extend("Timeline");
 	var timeline = new Timeline;
 	console.log('post '+ post);
-	timeline.set('id', request.object.attributes.timelineId.id);
+	//timeline.set('id', request.object.attributes.timelineId.id);
 	console.log('post2');
 	//Parse.Cloud.useMasterKey();
 	var query = new Parse.Query('Timeline');
