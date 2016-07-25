@@ -66,7 +66,7 @@ function signupAsBasicUser(name, password, email) {
  });
 }
 
-Parse.Cloud.afterSave("Post",function(request) {
+/*Parse.Cloud.afterSave("Post",function(request) {
 	console.log('req ob at '+request.object.attributes);
 	for (var property in request.object.attributes){
 		console.log(property + " : " + request.object.attributes[property]);
@@ -109,7 +109,7 @@ Parse.Cloud.afterSave("Post",function(request) {
 		//	inspect error
 		}
 	});
-}); 
+});  */
 
 Parse.Cloud.afterSave("Like", function(request) {
 	
