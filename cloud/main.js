@@ -66,14 +66,13 @@ function signupAsBasicUser(name, password, email) {
  });
 }
 
-/*Parse.Cloud.afterSave("Post",function(request) {
+Parse.Cloud.afterSave("Post",function(request) {
 	console.log('req ob at '+request.object.attributes);
 	for (var property in request.object.attributes){
 		console.log(property + " : " + request.object.attributes[property]);
 	}
 	console.log('req ob at id '+request.object.attributes.text);
 	var post = {
-		"profile": request.object.profile;
 		"text": request.object.attributes.text ||"",
 		"comments": request.object.attributes.comments || [],
 		"photo": request.object.attributes.photo || "",
@@ -83,6 +82,7 @@ function signupAsBasicUser(name, password, email) {
 	console.log('In after save of post -----------');
 	console.log('post profile ' +post.profile);
 	var type = "post";
+	var dir = request.object.profile;
 	var refid = request.object.id;
 	//console.log('post2');
 	//console.log(post);
@@ -99,8 +99,9 @@ function signupAsBasicUser(name, password, email) {
     		});
 	console.log('post');
 	timeline.addUnique("metadata",post);
-	timeline.addUnique("Type", type);
+	timeline.addUnique("type", type);
 	timeline.addUnique("refId", refid);
+	timeline.addUnique("direction", dir);
 	timeline.save(null,{
 		sucess: function(timeline){
 			//save succeeded
@@ -109,7 +110,7 @@ function signupAsBasicUser(name, password, email) {
 		//	inspect error
 		}
 	});
-});  */
+});  
 
 Parse.Cloud.afterSave("Like", function(request) {
 	
