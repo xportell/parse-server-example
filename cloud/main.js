@@ -98,10 +98,10 @@ Parse.Cloud.afterSave("Post",function(request) {
       			response.success(count);
     		});
 	console.log('post');
-	timeline.addUnique("metadata",post);
-	timeline.addUnique("type", type);
-	timeline.addUnique("refId", refid);
-	timeline.addUnique("direction", dir);
+	timeline.set("metadata",post);
+	timeline.set("type", type);
+	timeline.set("refId", refid);
+	timeline.set("direction", dir);
 	console.log(timeline);
 	timeline.save(null,{
 		sucess: function(timeline){
