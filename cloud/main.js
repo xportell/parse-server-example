@@ -82,7 +82,7 @@ Parse.Cloud.afterSave("Post",function(request) {
 	console.log('In after save of post -----------');
 	console.log('post profile ' +post.profile);
 	var type = "post";
-	var dir = request.object.profile;
+	var dir = request.object.attributes.profile;
 	console.log('direction' + request.object.profile);
 	console.log('direction2' + request.object.attributes.profile);
 	console.log(dir);
