@@ -83,6 +83,8 @@ Parse.Cloud.afterSave("Post",function(request) {
 	console.log('post profile ' +post.profile);
 	var type = "post";
 	var dir = request.object.profile;
+	console.log('direction' + request.object.profile);
+	console.log('direction2' + request.object.attributes.profile);
 	console.log(dir);
 	var refid = request.object.id;
 	//console.log('post2');
