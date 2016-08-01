@@ -102,6 +102,7 @@ Parse.Cloud.afterSave("Post",function(request) {
 	timeline.addUnique("type", type);
 	timeline.addUnique("refId", refid);
 	timeline.addUnique("direction", dir);
+	console.log(timeline);
 	timeline.save(null,{
 		sucess: function(timeline){
 			//save succeeded
