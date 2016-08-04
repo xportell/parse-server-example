@@ -214,16 +214,6 @@ Parse.Cloud.afterSave("Comment", function(request) {
 	  }
 	});
 	console.log('Hola2');
-/*	timeline.set('id', request.objext.attributes.postId.id);
-	timeline.set("metadata", comment);
-	timeline.save(null,{
-	  success: function(post) {
-	    // save succeeded
-	  },
-	  error: function(post, error) {
-	    // inspect error
-	  }
-	}); */
 });
 
 Parse.Cloud.afterDelete("Comment", function(request) {
