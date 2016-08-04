@@ -131,8 +131,9 @@ Parse.Cloud.afterSave("Post",function(request) {
   		success: function(results) {
   			console.log('prova2');
   			console.log(results)
-    			if (results != {}){
+    			if (results != []){
     				timeline.set("objectId", results.attributes.objectId);
+    				console.log('he entrat');
     			}
     			query.count({ useMasterKey: true }) // count() will use the master key to bypass ACL
   				.then(function(count) {
