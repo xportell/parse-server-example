@@ -130,7 +130,7 @@ Parse.Cloud.afterSave("Post",function(request) {
   		success: function(results) {
   			console.log(results)
     			if (results != {}){
-    				timeline.set("objectId": results.attributes.objectId);
+    				timeline.set("objectId", results.attributes.objectId);
     			}
     			query.count({ useMasterKey: true }) // count() will use the master key to bypass ACL
   				.then(function(count) {
