@@ -167,7 +167,7 @@ Parse.Cloud.afterSave("Comment", function(request) {
 	  }
 	});
 	timeline.set('id', request.objext.attributes.postId.id);
-	timeline.addUnique("metadata.comments", comment);
+	timeline.set("metadata", comment);
 	timeline.save(null,{
 	  success: function(post) {
 	    // save succeeded
