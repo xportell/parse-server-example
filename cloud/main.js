@@ -42,7 +42,7 @@ Parse.Cloud.define("signupAsBasicUser2", function(request, response) {
      		var Profile = Parse.Object.extend("Profile");
 		var profile = new Profile;
 		
-		var pUser : {
+		var pUser = {
                             "__type": "Pointer",
                             "className": "_User",
                             "objectId": user.object.idobject
