@@ -129,7 +129,7 @@ Parse.Cloud.afterSave("Post",function(request) {
 	query.find({
   		success: function(results) {
   			console.log(results)
-    			if (results =! {}){
+    			if (results != {}){
     				timeline.set("objectId": results.attributes.objectId);
     			}
     			query.count({ useMasterKey: true }) // count() will use the master key to bypass ACL
@@ -152,7 +152,7 @@ Parse.Cloud.afterSave("Post",function(request) {
   		error: function(error) {
     			 
   		}
-});
+	});
 
 });  
 
