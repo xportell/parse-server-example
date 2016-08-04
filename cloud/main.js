@@ -38,17 +38,11 @@ Parse.Cloud.define("signupAsBasicUser2", function(request, response) {
 	console.log(request.params.password);
 	console.log(request.params.profile);
 	
-	//var profile = request.params.profile;
-	//console.log(profile);
-	/*var user = {
-		profile: profile
-	};*/
-	//signupAsBasicUser(request.params.username, request.params.password, request.params.email).then(function(user) {
-
-     response.success(request);
-/* }, function(error) {
-     response.error(error);
- });*/
+	signupAsBasicUser(request.params.username, request.params.password, request.params.email).then(function(user) {
+     		response.success(user);
+ 	}, function(error) {
+     		response.error(error);
+	 });
 });
 
 //return a promise fulfilled with a signed-up user who is added to the 'Basic User" role
