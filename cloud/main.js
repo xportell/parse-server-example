@@ -166,7 +166,7 @@ Parse.Cloud.afterSave("Comment", function(request) {
 	    // inspect error
 	  }
 	});
-	timeline.set('id', request.objext.attributes.);
+	timeline.set('id', request.objext.attributes.postId.id);
 	timeline.addUnique("metadata.comments", comment);
 	timeline.save(null,{
 	  success: function(post) {
