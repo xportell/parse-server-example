@@ -153,10 +153,10 @@ Parse.Cloud.afterSave("Comment", function(request) {
 
 	var Post = Parse.Object.extend("Post");
 	var post = new Post();
-	var Timeline = Parse.Object.extend("Timeline");
-	var timeline = new Timeline();
+//	var Timeline = Parse.Object.extend("Timeline");
+//	var timeline = new Timeline();
 	console.log('HOLA1');
-	Parse.Cloud.useMasterKey();
+	//Parse.Cloud.useMasterKey();
 	post.set('id', request.object.attributes.postId.id);	 
 	post.addUnique("comments", comment);
 	post.save(null,{
@@ -168,7 +168,7 @@ Parse.Cloud.afterSave("Comment", function(request) {
 	  }
 	});
 	console.log('Hola2');
-	timeline.set('id', request.objext.attributes.postId.id);
+/*	timeline.set('id', request.objext.attributes.postId.id);
 	timeline.set("metadata", comment);
 	timeline.save(null,{
 	  success: function(post) {
@@ -177,7 +177,7 @@ Parse.Cloud.afterSave("Comment", function(request) {
 	  error: function(post, error) {
 	    // inspect error
 	  }
-	});
+	}); */
 });
 
 Parse.Cloud.afterDelete("Comment", function(request) {
