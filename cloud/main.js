@@ -125,9 +125,11 @@ Parse.Cloud.afterSave("Post",function(request) {
 	var Timeline = Parse.Object.extend("Timeline");
 	var timeline = new Timeline;
 	var query = new Parse.Query('Timeline');
+	console.log('prova1');
 	query.equalTo("refId", refid);
 	query.find({
   		success: function(results) {
+  			console.log('prova2');
   			console.log(results)
     			if (results != {}){
     				timeline.set("objectId", results.attributes.objectId);
@@ -136,10 +138,12 @@ Parse.Cloud.afterSave("Post",function(request) {
   				.then(function(count) {
       				response.success(count);
     			});
+    			console.log('prova3');
 			timeline.set("metadata",post);
 			timeline.set("type", type);
 			timeline.set("refId", refid);
 			timeline.set("direction", dir);
+			console.log('prova4');
 			timeline.save(null,{
 				sucess: function(timeline){
 				//save succeeded
