@@ -67,45 +67,26 @@ function signupAsBasicUser(name, password, email) {
 }
 
 Parse.Cloud.afterSave("Post",function(request) {
-	console.log('req ob at '+request.object.attributes);
-	for (var property in request.object.attributes){
-		console.log(property + " : " + request.object.attributes[property]);
-	}
-	console.log('req ob at id '+request.object.attributes.text);
 	var post = {
 		"text": request.object.attributes.text ||"",
 		"comments": request.object.attributes.comments || [],
 		"photo": request.object.attributes.photo || "",
 		"likes": request.object.attributes.likes || [],
-		//crec que no em deixo res
 	};
-	console.log('In after save of post -----------');
-	console.log('post profile ' +post.profile);
 	var type = "post";
 	var dir = request.object.attributes.profile;
-	console.log('direction' + request.object.profile);
-	console.log('direction2' + request.object.attributes.profile);
-	console.log(dir);
 	var refid = request.object.id;
-	//console.log('post2');
-	//console.log(post);
 	var Timeline = Parse.Object.extend("Timeline");
 	var timeline = new Timeline;
-	console.log('post '+ post);
-	//timeline.set('id', request.object.attributes.timelineId.id);
-	console.log('post2');
-	//Parse.Cloud.useMasterKey();
 	var query = new Parse.Query('Timeline');
   		query.count({ useMasterKey: true }) // count() will use the master key to bypass ACLs
     			.then(function(count) {
       			response.success(count);
     		});
-	console.log('post');
 	timeline.set("metadata",post);
 	timeline.set("type", type);
 	timeline.set("refId", refid);
 	timeline.set("direction", dir);
-	console.log(timeline);
 	timeline.save(null,{
 		sucess: function(timeline){
 			//save succeeded
