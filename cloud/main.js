@@ -32,10 +32,12 @@ Parse.Cloud.define("signupAsBasicUser2", function(request, response) {
 	console.log(request);
 	var postParams = request.body;
 	console.log(postParams);
+	
 	var profile = requestParams.profile;
-	var user = {
+	console.log(profile);
+	/*var user = {
 		profile: profile
-	};
+	};*/
 	//signupAsBasicUser(request.params.username, request.params.password, request.params.email).then(function(user) {
 
      response.success(user);
