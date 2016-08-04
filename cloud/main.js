@@ -27,6 +27,46 @@ Parse.Cloud.define("isMe", function(request, response) {
 		});	
 });
 
+
+Parse.Cloud.define("signupAsBasicUser2", function(request, response) {
+	console.log(request);
+	var postParams = request.body;
+	console.log(postParams);
+	signupAsBasicUser(request.params.username, request.params.password, request.params.email).then(function(user) {
+     response.success(user);
+ }, function(error) {
+     response.error(error);
+ });
+});
+
+//return a promise fulfilled with a signed-up user who is added to the 'Basic User" role
+//
+function signupAsBasicUser2(name, password, email) {
+ var user = new Parse.User();
+ console.log('name '+ name);
+ console.log('pass: '+password);
+ console.log('email: '+email);
+ user.set("username", name);
+ user.set("password", password);
+ user.set("email", email);
+ console.log(user);
+ console.log('------Abans del user.signUp------');
+ return user.signUp().then(function() {
+     var query = new Parse.Query(Parse.Role);
+     query.equalTo("name", 'BasicUser');
+     console.log('-----return query.find------');
+     return query.find();
+ }).then(function(roles) {
+     if (roles.length < 1) return Parse.Promise.error("no such role");
+     roles[0].getUsers().add(user);
+     console.log('-----dins el then function 1------');
+     return roles[0].save();
+ }).then(function() {
+ 	console.log('------dins el then function 2, return user------');
+     return user;
+ });
+}
+
 Parse.Cloud.define("signupAsBasicUser", function(request, response) {
 	console.log(request);
 	var postParams = request.body;
