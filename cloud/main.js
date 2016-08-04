@@ -39,7 +39,10 @@ Parse.Cloud.define("signupAsBasicUser2", function(request, response) {
 	console.log(request.params.profile);
 	
 	signupAsBasicUser2(request.params.username, request.params.password, request.params.email).then(function(user) {
-     		var Profile = Parse.Object.extend("Profile");
+		
+		response.success(user);
+		
+     		/*var Profile = Parse.Object.extend("Profile");
 		var profile = new Profile;
 		
 		var pUser = {
@@ -60,7 +63,7 @@ Parse.Cloud.define("signupAsBasicUser2", function(request, response) {
 				error: function(profile, error){
 				//	inspect error
 				}
-			});
+			});*/
      		
      		//response.success(user);
  	}, function(error) {
