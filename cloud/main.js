@@ -74,6 +74,7 @@ Parse.Cloud.afterSave("Post",function(request) {
 		"likes": request.object.attributes.likes || [],
 	};
 	var type = "post";
+	console.log('Actualitzant timeline!')
 	var dir = request.object.attributes.profile;
 	var refid = request.object.id;
 	var Timeline = Parse.Object.extend("Timeline");
