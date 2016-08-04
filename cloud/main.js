@@ -146,17 +146,29 @@ Parse.Cloud.afterDelete("Like", function(request) {
 Parse.Cloud.afterSave("Comment", function(request) {
 	
 	var comment = {
-     "__type": "Pointer",
-     "className": "Comment",
-     "objectId": request.object.id,
- };
+     		"__type": "Pointer",
+     		"className": "Comment",
+     		"objectId": request.object.id,
+ 	};
 
 	var Post = Parse.Object.extend("Post");
 	var post = new Post();
+	var Timeline = Parse.Object.extend("Timeline");
+	var timeline = new Timeline();
 	Parse.Cloud.useMasterKey();
 	post.set('id', request.object.attributes.postId.id);	 
 	post.addUnique("comments", comment);
 	post.save(null,{
+	  success: function(post) {
+	    // save succeeded
+	  },
+	  error: function(post, error) {
+	    // inspect error
+	  }
+	});
+	timeline.set('id', request.objext.attributes.);
+	timeline.addUnique("metadata.comments", comment);
+	timeline.save(null,{
 	  success: function(post) {
 	    // save succeeded
 	  },
