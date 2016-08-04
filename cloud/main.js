@@ -155,6 +155,7 @@ Parse.Cloud.afterSave("Comment", function(request) {
 	var post = new Post();
 	var Timeline = Parse.Object.extend("Timeline");
 	var timeline = new Timeline();
+	console.log('HOLA1');
 	Parse.Cloud.useMasterKey();
 	post.set('id', request.object.attributes.postId.id);	 
 	post.addUnique("comments", comment);
@@ -166,6 +167,7 @@ Parse.Cloud.afterSave("Comment", function(request) {
 	    // inspect error
 	  }
 	});
+	console.log('Hola2');
 	timeline.set('id', request.objext.attributes.postId.id);
 	timeline.set("metadata", comment);
 	timeline.save(null,{
