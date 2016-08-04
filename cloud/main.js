@@ -52,7 +52,7 @@ Parse.Cloud.define("signupAsBasicUser2", function(request, response) {
 		profile.set("organitzation", request.params.profile.organitzation);
 		profile.set("surnames", request.params.profile.surnames);
 		console.log(profile);
-		profile.save(null,{
+		profile.save({ useMasterKey: true },{
 				sucess: function(profile){
 				//save succeeded
 				response.success(user);
