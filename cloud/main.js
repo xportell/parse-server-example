@@ -45,13 +45,13 @@ Parse.Cloud.define("signupAsBasicUser2", function(request, response) {
 		var pUser = {
                             "__type": "Pointer",
                             "className": "_User",
-                            "objectId": user.object.idobject
+                            "objectId": user.object.objectId
 		};
 		
 		profile.set("user", pUser);
 		profile.set("organitzation", request.params.profile.organitzation);
 		profile.set("surnames", request.params.profile.surnames);
-		
+		console.log(profile);
 		profile.save(null,{
 				sucess: function(profile){
 				//save succeeded
