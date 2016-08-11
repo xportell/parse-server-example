@@ -3,7 +3,7 @@ console.log('Loading cloud.....');
 console.log( 'clodu code:' + __dirname);
 
 
-function updateActivity(type){
+function updateActivity(request, type){
 	var item = {
      		"__type": "Pointer",
      		"className": type,
@@ -24,10 +24,11 @@ function updateActivity(type){
 	    // inspect error
 	  }
 	});
+
 }
 
 Parse.Cloud.afterSave("Postv2",function(request) {
-	updateActivity("Postv2");
+	updateActivity(request, "Postv2");
 }); 
 
 Parse.Cloud.define('hello', function(req, res) {
