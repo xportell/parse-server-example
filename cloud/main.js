@@ -10,6 +10,9 @@ function updateActivity(request, type){
      		"objectId": request.object.id,
  	};
 
+ 	console.log(request.object);
+ 	console.log(request.object.createdAt);
+ 	console.log(request.object.udatedAt);
 
 	if(request.object.createdAt == request.object.udatedAt){
 		Activity = Parse.Object.extend("Activity");
