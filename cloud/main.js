@@ -3,6 +3,7 @@ console.log('Loading cloud.....');
 console.log( 'clodu code:' + __dirname);
 
 
+
 function updateActivity(request){
 	var type = request.object.className;
 	var item = {
@@ -11,11 +12,11 @@ function updateActivity(request){
      		"objectId": request.object.id,
  	};
  		
-
+	console.log(request);
  	  query = new Parse.Query(type);
 	  query.get(request.object.id, {
 	    success: function(item) {
-	    	console.log(item);
+	    	
 	      //post.increment("comments");
 	      //post.save();
 	    },
