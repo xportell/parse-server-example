@@ -10,21 +10,25 @@ function updateActivity(request, type){
      		"objectId": request.object.id,
  	};
 
-	Activity = Parse.Object.extend("Activity");
-	var activity = new Activity;
 
-	activity.set("type", type);
-	activity.addUnique("childs", item);
+	if(request.object.createdAt == request.object.udatedAt){
+		Activity = Parse.Object.extend("Activity");
+		var activity = new Activity;
 
-	activity.save(null,{
-	  success: function(activity) {
-	    // save succeeded
-	  },
-	  error: function(activity, error) {
-	    // inspect error
-	  }
-	});
+		activity.set("type", type);
+		activity.addUnique("childs", item);
 
+
+		activity.save(null,{
+		  success: function(activity) {
+		    // save succeeded
+		  },
+		  error: function(activity, error) {
+		    // inspect error
+		  }
+		});
+	}
+	else request.success(request);
 }
 
 Parse.Cloud.afterSave("Postv2",function(request) {
