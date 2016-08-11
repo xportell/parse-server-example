@@ -3,18 +3,27 @@ console.log('Loading cloud.....');
 console.log( 'clodu code:' + __dirname);
 
 
-function updateActivity(request, type){
+function updateActivity(request){
+	var type = request.object.className;
 	var item = {
      		"__type": "Pointer",
      		"className": type,
      		"objectId": request.object.id,
  	};
+ 		
 
- 	console.log(request.object);
- 	console.log(request.object.createdAt);
- 	console.log(request.object.udatedAt);
-
-	if(request.object.createdAt == request.object.udatedAt){
+ 	  query = new Parse.Query(type);
+	  query.get(request.object.id, {
+	    success: function(item) {
+	    	console.log(item);
+	      //post.increment("comments");
+	      //post.save();
+	    },
+	    error: function(error) {
+	      console.error("Got an error " + error.code + " : " + error.message);
+	    }
+	  });
+	/*if(request.object.createdAt == request.object.udatedAt){
 		Activity = Parse.Object.extend("Activity");
 		var activity = new Activity;
 
@@ -31,11 +40,11 @@ function updateActivity(request, type){
 		  }
 		});
 	}
-	else request.success(request);
+	else request.success(request);*/
 }
 
 Parse.Cloud.afterSave("Postv2",function(request) {
-	updateActivity(request, "Postv2");
+	updateActivity(request);
 }); 
 
 Parse.Cloud.define('hello', function(req, res) {
