@@ -3,6 +3,33 @@ console.log('Loading cloud.....');
 console.log( 'clodu code:' + __dirname);
 
 
+function updateActivity(type){
+	var item = {
+     		"__type": "Pointer",
+     		"className": type,
+     		"objectId": request.object.id,
+ 	};
+
+	Activity = Parse.Object.extend("Activity");
+	var activity = new Activity;
+
+	activity.set("type", type);
+	activity.addUnique("childs", item);
+
+	activity.save(null,{
+	  success: function(activity) {
+	    // save succeeded
+	  },
+	  error: function(activity, error) {
+	    // inspect error
+	  }
+	});
+}
+
+Parse.Cloud.afterSave("Postv2",function(request) {
+	updateActivity("Postv2");
+}); 
+
 Parse.Cloud.define('hello', function(req, res) {
   res.success('Hi');
 });
