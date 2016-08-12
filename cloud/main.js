@@ -45,7 +45,8 @@ function updateActivity(request){
 }
 
 Parse.Cloud.afterSave("Postv2",function(request) {
-	updateActivity(request);
+	console.log(request.object);
+	//updateActivity(request);
 }); 
 
 Parse.Cloud.define('hello', function(req, res) {
