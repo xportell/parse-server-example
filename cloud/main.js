@@ -4,7 +4,7 @@ console.log( 'clodu code:' + __dirname);
 
 
 
-function updateActivity(request){
+function updateActivity(request, response){
 	console.log('update-activity');
 	var type = request.object.className;
 	var item = {
@@ -22,10 +22,10 @@ function updateActivity(request){
 
 	activity.save(null,{
 	  success: function(activity) {
-	    // save succeeded
+	    response.success(activity);
 	  },
 	  error: function(activity, error) {
-	    // inspect error
+	     response.error(error);
 	  }
 	});
 
@@ -38,6 +38,7 @@ Parse.Cloud.afterSave("Postv2",function(request, response) {
 	console.log(request.object.attributes.updatedAt);
 	console.log(request.object.attributes.createdAt);
 	if(request.object.attributes.updatedAt == request.object.attributes.createdAt) updateActivity(request);
+	else response.success(request.object);
 }); 
 
 Parse.Cloud.define('hello', function(req, res) {
