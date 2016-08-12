@@ -45,7 +45,10 @@ function updateActivity(request){
 }
 
 Parse.Cloud.afterSave("Postv2",function(request) {
+	console.log(request);
 	console.log(request.object);
+	console.log(request.object.attributes);
+	
 	//updateActivity(request);
 }); 
 
