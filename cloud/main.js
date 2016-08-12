@@ -38,7 +38,10 @@ Parse.Cloud.afterSave("Postv2",function(request, response) {
 	console.log(request.object.attributes.updatedAt);
 	console.log(request.object.attributes.createdAt);
 	if(request.object.attributes.updatedAt != request.object.attributes.createdAt) updateActivity(request);
-	else response.success('update');
+	else{
+		console.log('updating post');
+		response.success('update');	
+	} 
 }); 
 
 Parse.Cloud.define('hello', function(req, res) {
