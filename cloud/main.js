@@ -31,9 +31,10 @@ function updateActivity(request){
 
 }
 
-Parse.Cloud.afterSave("Postv2",function(request) {
+Parse.Cloud.afterSave("Postv2",function(request, response) {
 	//console.log(request);
 	//console.log(request.object);
+	console.log(response);
 	console.log(request.object.attributes.updatedAt);
 	console.log(request.object.attributes.createdAt);
 	if(request.object.attributes.updatedAt == request.object.attributes.createdAt) updateActivity(request);
