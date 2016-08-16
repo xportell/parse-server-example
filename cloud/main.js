@@ -49,14 +49,15 @@ Parse.Cloud.beforeDelete("Postv2", function(request, response) {
   query.find({
     success: function(activities) {
 	var objects = [];
+	var object;
 	for (var i = 0; i < activities.length; i++) {
 	      var activity = activities[i];
 	      console.log(target);
 	      console.log(activity.get("childs"));
 	      
-	      //activity.remove("childs",target);
+	      activity.remove("childs",target);
 	      
-	      //console.log(activity.object.atrributes.childs);
+	      object = activity;
 	      
 	     
 	 }
@@ -69,7 +70,7 @@ Parse.Cloud.beforeDelete("Postv2", function(request, response) {
 		objects.push(object);
 	});*/
       
-        response.error(activities);
+        response.error(object);
       
     },
     error: function(error) {
