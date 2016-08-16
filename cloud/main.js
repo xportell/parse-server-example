@@ -68,7 +68,7 @@ Parse.Cloud.beforeDelete("Postv2", function(request, response) {
 	      }
 	 }
 	 
-      	reponse.error(objects);
+      	response.error(objects);
         /*Parse.Object.destroyAll(objects).then(function(success) {
 	  reponse.success();
 	}, function(error) {
