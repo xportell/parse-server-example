@@ -77,7 +77,7 @@ Parse.Cloud.beforeDelete("Postv2", function(request, response) {
 	 
       	//response.error(objects);
         Parse.Object.destroyAll(objects).then(function(success) {
-	  reponse.success();
+	  response.success();
 	}, function(error) {
 	  response.error("Error " + error.code + " : " + error.message + " when deleting activity.");
 	});
