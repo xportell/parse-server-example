@@ -48,8 +48,8 @@ Parse.Cloud.beforeDelete("Postv2", function(request, response) {
   query.find({
     success: function(activity) {
 	var objects = [];
-	console.log(activity.attributes.childs);
-	_.each(activity.attributes.childs, function(pointer, i) {
+	console.log(activity.object.attributes.childs);
+	_.each(activity.object.attributes.childs, function(pointer, i) {
 		console.log(pointer);
 		var DObject = Parse.Object.extend(pointer.className);
 		var object = new DObject;
