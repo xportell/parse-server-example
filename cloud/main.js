@@ -80,7 +80,7 @@ Parse.Cloud.beforeDelete("Postv2", function(request, response) {
 	      //object = activity;
 	 }
       
-        response.error(activities);
+        response.error(object);
       
     },
     error: function(error) {
