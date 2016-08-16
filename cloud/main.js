@@ -75,16 +75,16 @@ Parse.Cloud.beforeDelete("Postv2", function(request, response) {
 	      objects.push(object);	
 	 }
 	 
-      	response.error(objects);
-        /*Parse.Object.destroyAll(objects).then(function(success) {
+      	//response.error(objects);
+        Parse.Object.destroyAll(objects).then(function(success) {
 	  reponse.success();
 	}, function(error) {
-	  console.error("Oops! Something went wrong: " + error.message + " (" + error.code + ")");
-	});*/
+	  response.error("Error " + error.code + " : " + error.message + " when deleting activity.");
+	});
       
     },
     error: function(error) {
-      response.error("Error " + error.code + " : " + error.message + " when getting photo count.");
+      response.error("Error " + error.code + " : " + error.message + " when deleting activity.");
     }
   });
 });
