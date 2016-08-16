@@ -52,13 +52,7 @@ Parse.Cloud.beforeDelete("Postv2", function(request, response) {
 	for (var i = 0; i < activities.length; i++) {
 	      var activity = activities[i];
 	      console.log(activity);
-	      _.each(activity.object.attributes.childs, function(pointer, i) {
-			console.log(pointer);
-			var DObject = Parse.Object.extend(pointer.className);
-			var object = new DObject;
-			object.set('id', poninter.objectId);
-			objects.push(object);
-		}
+	     
 	 }
 	//console.log(activity.get("childs"));
 	/*_.each(activity.object.attributes.childs, function(pointer, i) {
