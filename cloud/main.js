@@ -68,7 +68,10 @@ Parse.Cloud.beforeDelete("Postv2", function(request, response) {
 			objects.push(object);	
 	      	}
 	      }
-	      object.push();
+	      var Base = Parse.Object.extend(activity.className);
+	      var object = new B;
+	      object.set('id', activity.id);
+	      objects.push(object);	
 	      break;
 	 }
 	 
