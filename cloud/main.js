@@ -48,7 +48,7 @@ Parse.Cloud.afterSave("Postv2",function(request, response) {
 Parse.Cloud.beforeDelete("Postv2", function(request, response) {
 	var target = {"__type":"Pointer","className":"Postv2","objectId":request.object.id};
   query = new Parse.Query("Activity");
-  query.include("childs");
+  //query.include("childs");
   query.equalTo("childs", target);
   query.equalTo("parent",undefined);
   query.find({
