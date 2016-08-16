@@ -45,10 +45,14 @@ Parse.Cloud.beforeDelete("Postv2", function(request, response) {
   query = new Parse.Query("Activity");
   query.equalTo("childs", {"__type":"Pointer","className":"Postv2","objectId":request.object.id});
   query.equalTo("parent",undefined);
-  query.get({
-    success: function(activity) {
+  query.find({
+    success: function(activities) {
 	var objects = [];
-	console.log(activity);
+	console.log(activities);
+	for (var i = 0; i < activities.length; i++) {
+	      var object = activities[i];
+	      console.log(object);
+	 }
 	//console.log(activity.get("childs"));
 	/*_.each(activity.object.attributes.childs, function(pointer, i) {
 		console.log(pointer);
@@ -58,7 +62,7 @@ Parse.Cloud.beforeDelete("Postv2", function(request, response) {
 		objects.push(object);
 	});*/
       
-        response.error(activity);
+        response.error(activities);
       
     },
     error: function(error) {
