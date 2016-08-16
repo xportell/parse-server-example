@@ -57,8 +57,6 @@ Parse.Cloud.beforeDelete("Postv2", function(request, response) {
 	//for (var i = 0; i < activities.length; i++) {
 	for (var i = 0; i < 1; i++) {
 	      var activity = activities[i];
-	      console.log(activity.className);
-	      console.log(activity.id);
 	      var n = activity.get("childs");
 	      console.log(n);
 	      for(var j = 0; j < n.length; j++){
@@ -69,8 +67,10 @@ Parse.Cloud.beforeDelete("Postv2", function(request, response) {
 			objects.push(object);	
 	      	}
 	      }
+	      console.log(activity.className);
+	      console.log(activity.id);
 	      var Base = Parse.Object.extend(activity.className);
-	      var object = new B;
+	      var object = new Base;
 	      object.set('id', activity.id);
 	      objects.push(object);	
 	 }
