@@ -42,8 +42,9 @@ Parse.Cloud.afterSave("Postv2",function(request, response) {
 }); 
 
 Parse.Cloud.beforeDelete("Postv2", function(request, response) {
+	var target = var target = {"__type":"Pointer","className":"Postv2","objectId":request.object.id};
   query = new Parse.Query("Activity");
-  query.equalTo("childs", {"__type":"Pointer","className":"Postv2","objectId":request.object.id});
+  query.equalTo("childs", target);
   query.equalTo("parent",undefined);
   query.find({
     success: function(activities) {
@@ -52,6 +53,7 @@ Parse.Cloud.beforeDelete("Postv2", function(request, response) {
 	for (var i = 0; i < activities.length; i++) {
 	      var activity = activities[i];
 	      console.log(activity);
+	      activity.remove("childs",target);
 	      console.log(activity.get("childs"));
 	      //console.log(activity.object.atrributes.childs);
 	      
