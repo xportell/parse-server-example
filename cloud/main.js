@@ -2,6 +2,10 @@
 console.log('Loading cloud.....');
 console.log( 'clodu code:' + __dirname);
 
+//Use Parse.Cloud.define to define as many cloud functions as you want.
+//For example:
+var _ = require('./underscore.js')
+
 
 
 function updateActivity(request, response){
@@ -53,8 +57,9 @@ Parse.Cloud.beforeDelete("Postv2", function(request, response) {
 	for (var i = 0; i < activities.length; i++) {
 	      var activity = activities[i];
 	      
-	      objects =  activity.get("childs");
+	      //objects =  activity.get("childs");
 	      console.log(activity);
+	      object = activity;
 	      /*for (var j = 0; j < objects.length; j++) {
 	      	console.log(objects[j]);
 	      }*/
@@ -83,11 +88,6 @@ Parse.Cloud.beforeDelete("Postv2", function(request, response) {
 Parse.Cloud.define('hello', function(req, res) {
   res.success('Hi');
 });
-
-
-//Use Parse.Cloud.define to define as many cloud functions as you want.
-//For example:
-var _ = require('./underscore.js')
 
 
 Parse.Cloud.define("isMe", function(request, response) {
