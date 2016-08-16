@@ -41,6 +41,22 @@ Parse.Cloud.afterSave("Postv2",function(request, response) {
 	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
 }); 
 
+Parse.Cloud.beforeDelete("Postv2", function(request, response) {
+  query = new Parse.Query("Activity");
+  query.equalTo("childs", {"__type":"Pointer","className":"Postv2","objectId":request.object.id});
+  query.find({
+    success: function(activity) {
+      
+      
+        response.error(activity);
+      
+    },
+    error: function(error) {
+      response.error("Error " + error.code + " : " + error.message + " when getting photo count.");
+    }
+  });
+});
+
 Parse.Cloud.define('hello', function(req, res) {
   res.success('Hi');
 });
