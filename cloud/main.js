@@ -57,6 +57,7 @@ Parse.Cloud.beforeDelete("Postv2", function(request, response) {
 	for (var i = 0; i < activities.length; i++) {
 	      var activity = activities[i];
 	      var n = activity.get("childs");
+	      console.log(n);
 	      for(var j = 0; j < n.length; j++){
 	      	if(n[j].id != target.objectId){
 		      	var DObject = Parse.Object.extend(n[j].className);
@@ -66,12 +67,13 @@ Parse.Cloud.beforeDelete("Postv2", function(request, response) {
 	      	}
 	      }
 	 }
-      
-        Parse.Object.destroyAll(objects).then(function(success) {
+	 
+      	reponse.error(objects);
+        /*Parse.Object.destroyAll(objects).then(function(success) {
 	  reponse.success();
 	}, function(error) {
 	  console.error("Oops! Something went wrong: " + error.message + " (" + error.code + ")");
-	});
+	});*/
       
     },
     error: function(error) {
