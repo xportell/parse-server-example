@@ -47,9 +47,15 @@ Parse.Cloud.beforeDelete("Postv2", function(request, response) {
   query.equalTo("parent",undefined);
   query.find({
     success: function(activity) {
+	var objects = [];
+	_.each(activity.childs, function(pointer, i) {
+		var DObject = Parse.Object.extend(pointer.className);
+		var object = new DObject;
+		object.set('id', poninter.objectId);
+		objects.push(object);
+	});
       
-      
-        response.error(activity);
+        response.error(objects);
       
     },
     error: function(error) {
