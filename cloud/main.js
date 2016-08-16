@@ -49,11 +49,9 @@ Parse.Cloud.beforeDelete("Postv2", function(request, response) {
   query.find({
     success: function(activities) {
 	var objects = [];
-	console.log(activities);
 	for (var i = 0; i < activities.length; i++) {
 	      var activity = activities[i];
 	      console.log(activity.get("childs"));
-	      console.log(activity);
 	      console.log(target);
 	      //activity.remove("childs",target);
 	      
