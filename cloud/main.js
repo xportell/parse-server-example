@@ -21,7 +21,7 @@ function updateActivity(request, response){
 	var activity = new Activity;
 
 	if(request.object.attributes.parent) activity.set("id",request.object.attributes.parent.id);
-	activity.set("type", type);
+	else activity.set("type", type);
 	activity.addUnique("childs", item);
 
 
