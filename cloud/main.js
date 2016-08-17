@@ -45,6 +45,13 @@ Parse.Cloud.afterSave("Postv2",function(request, response) {
 	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
 }); 
 
+Parse.Cloud.beforeDelete("dtest", function(request, response){
+	console.log(request);
+	console.log(response);
+	response.error(request);
+});
+
+
 Parse.Cloud.beforeDelete("Postv2", function(request, response) {
 	var target = {"__type":"Pointer","className":"Postv2","objectId":request.object.id};
   query = new Parse.Query("Activity");
