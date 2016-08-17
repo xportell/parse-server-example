@@ -48,7 +48,7 @@ Parse.Cloud.afterSave("Postv2",function(request, response) {
 Parse.Cloud.beforeDelete("dtest", function(request, response){
 	console.log(request);
 	console.log(response);
-	response.error(request);
+	response.success(request);
 });
 
 
