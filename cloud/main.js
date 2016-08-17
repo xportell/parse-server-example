@@ -20,7 +20,7 @@ function updateActivity(request, response){
 	Activity = Parse.Object.extend("Activity");
 	var activity = new Activity;
 
-	console.log(request.object.attributes);
+	console.log(request.object.attributes.parent);
 	activity.set("type", type);
 	activity.addUnique("childs", item);
 
