@@ -45,10 +45,10 @@ Parse.Cloud.afterSave("Postv2",function(request, response) {
 	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
 }); 
 
-Parse.Cloud.beforeDelete("dtest", function(request, response){
+Parse.Cloud.afterDelete("dtest", function(request, response){
 	console.log(request);
 	console.log(response);
-	response.success(request);
+	response.error(request);
 });
 
 
