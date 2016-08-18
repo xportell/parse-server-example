@@ -58,6 +58,7 @@ Parse.Cloud.afterDelete("dtest", function(request, response){
 });
 
 Parse.Cloud.afterSave("dtest", function(request, response){
+	console.log(request);
 	response.error('hi joe!');
 });
 
