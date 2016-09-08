@@ -23,7 +23,8 @@ function updateActivity(request, response){
 	if(request.object.attributes.parent) activity.set("id",request.object.attributes.parent.id);
 	else activity.set("type", type);
 	activity.addUnique("childs", item);
-
+	console.log('AQUI GUARDEM ITEM_______________________-');
+	console.log(item);
 
 	activity.save(null,{
 	  success: function(activity) {
