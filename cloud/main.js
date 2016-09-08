@@ -51,6 +51,16 @@ Parse.Cloud.afterSave("Commentv2",function(request, response) {
 	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
 });
 
+Parse.Cloud.afterSave("Like",function(request, response) {
+	if(request.object.attributes.updatedAt == request.object.attributes.createdAt) updateActivity(request);
+	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
+});
+
+Parse.Cloud.afterDelete("Like",function(request, response) {
+	
+});
+
+
 Parse.Cloud.afterDelete("dtest", function(request, response){
 	console.log(request);
 	console.log(response);
