@@ -57,7 +57,23 @@ Parse.Cloud.afterSave("Like",function(request, response) {
 });
 
 Parse.Cloud.afterDelete("Like",function(request, response) {
-	
+	var like = {
+		"__type":"Pointer",
+		"className":"Like",
+		"objectId": request.object.id,
+		};
+	Activity = Parse.Object.extend("Activity");
+	var activity = new Activity;	
+	activity.set('id', request.object.attributes.parent);	 
+		activity.remove("childs", like);
+		activity.save(null,{
+		  success: function(post) {
+		    // save succeeded
+		  },
+		  error: function(post, error) {
+		    // inspect error
+		  }
+		});
 });
 
 
