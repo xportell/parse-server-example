@@ -53,6 +53,7 @@ Parse.Cloud.afterSave("Commentv2",function(request, response) {
 });
 
 Parse.Cloud.afterSave("Like",function(request, response) {
+	console.log('Like');
 	if(request.object.attributes.updatedAt == request.object.attributes.createdAt) updateActivity(request);
 	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
 });
@@ -315,7 +316,7 @@ Parse.Cloud.afterSave("Post",function(request) {
 
 });  
 
-Parse.Cloud.afterSave("Like", function(request) {
+/*Parse.Cloud.afterSave("Like", function(request) {
 	
 	var like = {
      "__type": "Pointer",
@@ -358,7 +359,7 @@ Parse.Cloud.afterDelete("Like", function(request) {
 		    // inspect error
 		  }
 		});
-});
+}); */
 
 
 Parse.Cloud.afterSave("Comment", function(request) {
