@@ -21,7 +21,7 @@ Parse.Cloud.define("UploadImageAndGetURL", function(request, response) {
       response.success({
       	name: photoName,
       	url: photoURL
-      }});
+      });
     }, function(error) {
       // The file either could not be read, or could not be saved to Parse.
       console.log("The file either could not be read, or could not be saved to Parse:" + JSON.stringify(error));
