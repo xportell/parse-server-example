@@ -6,7 +6,25 @@ console.log( 'clodu code:' + __dirname);
 //For example:
 var _ = require('./underscore.js')
 
+Parse.Cloud.define("UploadImageAndGetURL", function(request, response) {
 
+  var fileName = request.params.fileName;
+  var base64 = request.params.base64EncodedImageString;
+
+  var file = new Parse.File(fileName, { base64: base64 });
+
+  file.save(null, {useMasterKey:true}).then(function(fileObject) {
+      // The file has been saved to Parse.
+      var photoURL = fileObject.url();
+      console.log("Photo saved successfully with URL:" + photoURL);
+      response.success(photoURL);
+    }, function(error) {
+      // The file either could not be read, or could not be saved to Parse.
+      console.log("The file either could not be read, or could not be saved to Parse:" + JSON.stringify(error));
+      response.error(error);
+  });
+
+});
 
 function updateActivity(request, response){
 	console.log('update-activity');
