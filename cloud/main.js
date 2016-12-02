@@ -159,6 +159,7 @@ Parse.Cloud.beforeDelete("Postv2", function(request, response) {
 });
 
 Parse.Cloud.define('hello', function(req, res) {
+	console.log('hello', req);
   res.success('Hi');
 });
 
