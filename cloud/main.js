@@ -224,6 +224,7 @@ Parse.Cloud.define("signupAsBasicUser2", function(request, response) {
 //return a promise fulfilled with a signed-up user who is added to the 'Basic User" role
 //
 function signupAsBasicUser2(name, password, email) {
+ console.log('Dins de signup funció local');
  var user = new Parse.User();
  console.log('name '+ name);
  console.log('pass: '+password);
