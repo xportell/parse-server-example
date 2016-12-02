@@ -179,7 +179,7 @@ Parse.Cloud.define("isMe", function(request, response) {
 
 
 Parse.Cloud.define("signupAsBasicUser2", function(request, response) {
-	console.log(request);
+	console.log('signupAsBasicUser2 init',request);
 	var postParams = request.body;
 	console.log(postParams);
 	//console.log(request.params);
