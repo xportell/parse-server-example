@@ -233,7 +233,7 @@ function signupAsBasicUser2(name, password, email) {
  user.set("email", email);
  console.log(user);
  console.log('------Abans del user.signUp------');
- return user.signUp().then(function() {
+ return user.signUp({useMasterKey: true}).then(function() {
      var query = new Parse.Query(Parse.Role);
      query.equalTo("name", 'BasicUser');
      console.log('-----return query.find------');
