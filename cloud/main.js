@@ -11,7 +11,7 @@ Parse.Cloud.define("getTags", function(request,response){
 
 	var query = new Parse.Query(Activity);
 	query.include("childs");
-	query.exists("childs.tags");
+	query.exists("childs.className");
 
 	query.find({
 		  success: function(activities) {
