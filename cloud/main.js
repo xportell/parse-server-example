@@ -5,6 +5,23 @@ console.log( 'clodu code:' + __dirname);
 //For example:
 var _ = require('./underscore.js')
 
+Parse.Cloud.define("getTags", function(request,response){
+	Activity = Parse.Object.extend("Activity");
+	var activity = new Activity;
+
+	var query = new Parse.Query(Activity);
+
+	query.find({
+		  success: function(activities) {
+				response.success(activities);
+		  }, function(error) {
+		      // The file either could not be read, or could not be saved to Parse.
+		      console.log("Error in requesting tags:" + JSON.stringify(error));
+		      response.error(error);
+		  }
+		});
+});
+
 Parse.Cloud.define("UploadImageAndGetURL", function(request, response) {
 
   var fileName = request.params.fileName;
