@@ -15,14 +15,14 @@ Parse.Cloud.define("getTags", function(request,response){
 	Activity = Parse.Object.extend("Activity");
 	var activity = new Activity;
 
-	var forumQuery = new Parse.Query("Forum");
-	forumQuery.equalTo('tags',[2]);
+	var eventQuery = new Parse.Query("Event");
+	eventQuery.equalTo('tags',2);
 	
 	//var query = new Parse.Query(Activity);
 	//query.include("childs");
 	//query.include("childs.author");
 	
-	var query = new Parse.Query.or(forumQuery);
+	var query = new Parse.Query.or(eventQuery);
 
 	query.find({
 		  success: function(activities) {
