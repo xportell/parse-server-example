@@ -14,10 +14,9 @@ Parse.Cloud.define("getTags", function(request,response){
 	];
 	Activity = Parse.Object.extend("Activity");
 	var activity = new Activity;
-	
-	Forum = Parse.Object.extend("Forum");
-	var forumQuery = new Parse.Query(Forum);
-	forumQuery.in('tags',[2]);
+
+	var forumQuery = new Parse.Query("Forum");
+	forumQuery.equalTo('tags',[2]);
 	
 	//var query = new Parse.Query(Activity);
 	//query.include("childs");
