@@ -1,4 +1,3 @@
-
 console.log('Loading cloud.....');
 console.log( 'clodu code:' + __dirname);
 
