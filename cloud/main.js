@@ -10,6 +10,7 @@ Parse.Cloud.define("getTags", function(request,response){
 	var activity = new Activity;
 
 	var query = new Parse.Query(Activity);
+	query.include("childs");
 
 	query.find({
 		  success: function(activities) {
