@@ -6,13 +6,24 @@ console.log( 'clodu code:' + __dirname);
 var _ = require('./underscore.js')
 
 Parse.Cloud.define("getTags", function(request,response){
+	var classNames = [
+		"Forum",
+		"Event",
+		"Postv2",
+		"Surveys"
+	];
 	Activity = Parse.Object.extend("Activity");
 	var activity = new Activity;
-
-	var query = new Parse.Query(Activity);
-	query.include("childs");
-	query.include("childs.author");
-	query.exists("childs.author.DNI");
+	
+	var forumQuery = new Parse.Query("Forum");
+	forumQuery.in('tags',[2]);
+	
+	//var query = new Parse.Query(Activity);
+	//query.include("childs");
+	//query.include("childs.author");
+	
+	var query = new Parse.Query.or(forumQuery);
+	var mainQuery = Parse.Query.or(lotsOfWins, fewWins);
 
 	query.find({
 		  success: function(activities) {
