@@ -13,12 +13,13 @@ Parse.Cloud.define("getTags", function(request,response)){
 
 	query.find({
 		  success: function(activities) {
-		   response.success(activities);
+				response.success(activities);
 		  }, function(error) {
-	      // The file either could not be read, or could not be saved to Parse.
-	      console.log("Error in requesting tags:" + JSON.stringify(error));
-	      response.error(error);
-  });
+		      // The file either could not be read, or could not be saved to Parse.
+		      console.log("Error in requesting tags:" + JSON.stringify(error));
+		      response.error(error);
+		  }
+		});
 }
 
 Parse.Cloud.define("UploadImageAndGetURL", function(request, response) {
