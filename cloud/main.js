@@ -14,20 +14,20 @@ Parse.Cloud.define("getTags", function(request,response){
 	];
 	Activity = Parse.Object.extend("Activity");
 	
-	var args = classNames.map(function(item){
+	var orArgs = classNames.map(function(item){
 		var innQuery = new Parse.Query(item);	
 		innQuery.equalTo('tags',2);
 		
 		var subQuery = new Parse.Query(Activity);
-		subQuery.include("childs");
-		subQuery.include("childs.author");
+		//subQuery.include("childs");
+		//subQuery.include("childs.author");
 		subQuery.matchesQuery("childs", innQuery);
 		
 		return subQuery;
 	});
 
 	
-	var query = Parse.Query.or.apply(this, args);
+	var query = Parse.Query.or.apply(this, orArgs);
 	query.include("childs");
 	query.include("childs.author");
 	
