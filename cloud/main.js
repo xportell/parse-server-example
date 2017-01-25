@@ -13,31 +13,7 @@ Parse.Cloud.define("getTags", function(request,response){
 		"Surveys"
 	];
 	Activity = Parse.Object.extend("Activity");
-	var activity = new Activity;
-
-	var eventQuery = new Parse.Query("Event");	
-	eventQuery.equalTo('tags',2);
 	
-	var forumQuery = new Parse.Query("Forum");
-	forumQuery.equalTo('tags',2);
-	
-	
-	var query = new Parse.Query(Activity);
-	query.include("childs");
-	query.include("childs.author");
-	
-	var query1 = new Parse.Query(Activity);
-	query1.include("childs");
-	query1.include("childs.author");
-	
-	var query2 = new Parse.Query(Activity);
-	query2.include("childs");
-	query2.include("childs.author");
-	
-	
-	query1.matchesQuery("childs", eventQuery);
-	query2.matchesQuery("childs", forumQuery);
-
 	var args = classNames.map(function(item){
 		var innQuery = new Parse.Query(item);	
 		innQuery.equalTo('tags',2);
@@ -51,14 +27,11 @@ Parse.Cloud.define("getTags", function(request,response){
 	});
 
 	
-	var aQuery = Parse.Query.or.apply(this, args);
-	console.log('----------aQuery---------',aQuery);
-
-	var mainQuery = Parse.Query.or(query1.matchesQuery("childs", eventQuery), query2.matchesQuery("childs", forumQuery));
-	aQuery.include("childs");
-	aQuery.include("childs.author");
+	var query = Parse.Query.or.apply(this, args);
+	query.include("childs");
+	query.include("childs.author");
 	
-	aQuery.find({
+	query.find({
 		  success: function(activities) {
 				response.success(activities);
 		  }, function(error) {
