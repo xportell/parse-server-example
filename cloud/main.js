@@ -46,6 +46,8 @@ Parse.Cloud.define("getTags", function(request,response){
 		subQuery.include("childs");
 		subQuery.include("childs.author");
 		subQuery.matchesQuery("childs", innQuery);
+		
+		return subQuery;
 	});
 	console.log('----------args---------',args);
 
