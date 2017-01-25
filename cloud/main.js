@@ -15,7 +15,7 @@ Parse.Cloud.define("getTags", function(request,response){
 	Activity = Parse.Object.extend("Activity");
 	var activity = new Activity;
 
-	var eventQuery = new Parse.Query("Event");
+	var eventQuery = new Parse.Query("Event");	
 	eventQuery.equalTo('tags',2);
 	
 	var forumQuery = new Parse.Query("Forum");
@@ -26,7 +26,9 @@ Parse.Cloud.define("getTags", function(request,response){
 	query.include("childs.author");
 	
 	query.matchesQuery("childs", eventQuery);
+	console.log('query 1------------------',query);
 	query.matchesQuery("childs", forumQuery);
+	console.log('query 2------------------'query);
 	
 	query.or(query.matchesQuery("childs", eventQuery), query.matchesQuery("childs", forumQuery));
 
