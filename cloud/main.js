@@ -55,10 +55,10 @@ Parse.Cloud.define("getTags", function(request,response){
 	console.log('----------aQuery---------',aQuery);
 
 	var mainQuery = Parse.Query.or(query1.matchesQuery("childs", eventQuery), query2.matchesQuery("childs", forumQuery));
-	mainQuery.include("childs");
-	mainQuery.include("childs.author");
+	aQuery.include("childs");
+	aQuery.include("childs.author");
 	
-	mainQuery.find({
+	aQuery.find({
 		  success: function(activities) {
 				response.success(activities);
 		  }, function(error) {
