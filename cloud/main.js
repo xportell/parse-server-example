@@ -21,21 +21,27 @@ Parse.Cloud.define("getTags", function(request,response){
 	var forumQuery = new Parse.Query("Forum");
 	forumQuery.equalTo('tags',2);
 	
+	
 	var query = new Parse.Query(Activity);
 	query.include("childs");
 	query.include("childs.author");
 	
-	var query1 = query;
-	var query2 = query;
+	var query1 = new Parse.Query(Activity);
+	query1.include("childs");
+	query1.include("childs.author");
 	
-	query.matchesQuery("childs", eventQuery);
+	var query2 = new Parse.Query(Activity);
+	query2.include("childs");
+	query2.include("childs.author");
+	
+	
+	query1.matchesQuery("childs", eventQuery);
 	console.log('eventQuery------------------',eventQuery);
 	query2.matchesQuery("childs", forumQuery);
 	console.log('forumQuery------------------',forumQuery);
 	
 	console.log('query1------------------',query1);
 	console.log('query2------------------',query2);
-	console.log('query1 again------------',query1);
 	
 	var mainQuery = Parse.Query.or(query1.matchesQuery("childs", eventQuery), query2.matchesQuery("childs", forumQuery));
 	console.log('mainQuery------------------',mainQuery);
