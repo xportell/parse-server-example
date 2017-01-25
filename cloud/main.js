@@ -35,9 +35,10 @@ Parse.Cloud.define("getTags", function(request,response){
 	
 	console.log('query1------------------',query1);
 	console.log('query2------------------',query2);
+	console.log('query1 again------------',query1);
 	
 	var mainQuery = Parse.Query.or(query1.matchesQuery("childs", eventQuery), query2.matchesQuery("childs", forumQuery));
-
+	console.log('mainQuery------------------',mainQuery);
 	mainQuery.find({
 		  success: function(activities) {
 				response.success(activities);
