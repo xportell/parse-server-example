@@ -26,11 +26,11 @@ Parse.Cloud.define("getTags", function(request,response){
 	query.include("childs.author");
 	
 	query.matchesQuery("childs", eventQuery);
-	console.log('query 1------------------',query);
+	console.log('query 1------------------',eventQuery);
 	query.matchesQuery("childs", forumQuery);
-	console.log('query 2------------------',query);
+	console.log('query 2------------------',forumQuery);
 	
-	query.or(query.matchesQuery("childs", eventQuery), query.matchesQuery("childs", forumQuery));
+	//query.or(query.matchesQuery("childs", eventQuery), query.matchesQuery("childs", forumQuery));
 
 	query.find({
 		  success: function(activities) {
