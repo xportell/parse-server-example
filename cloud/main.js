@@ -36,17 +36,23 @@ Parse.Cloud.define("getTags", function(request,response){
 	
 	
 	query1.matchesQuery("childs", eventQuery);
-	console.log('eventQuery------------------',eventQuery);
 	query2.matchesQuery("childs", forumQuery);
-	console.log('forumQuery------------------',forumQuery);
-	
-	console.log('query1------------------',query1);
-	console.log('query2------------------',query2);
-	
+
+	var args = classNames.map(function(item){
+		var innQuery = new Parse.Query(item);	
+		innQuery.equalTo('tags',2);
+		
+		var subQuery = new Parse.Query(Activity);
+		subQuery.include("childs");
+		subQuery.include("childs.author");
+		subQuery.matchesQuery("childs", innQuery);
+	});
+	console.log('----------args---------',args);
+
 	var mainQuery = Parse.Query.or(query1.matchesQuery("childs", eventQuery), query2.matchesQuery("childs", forumQuery));
 	mainQuery.include("childs");
 	mainQuery.include("childs.author");
-	console.log('mainQuery------------------',mainQuery);
+	
 	mainQuery.find({
 		  success: function(activities) {
 				response.success(activities);
