@@ -16,14 +16,8 @@ Parse.Cloud.define("getTags", function(request,response){
 	
 	var orArgs = classNames.map(function(item){
 		var innQuery = new Parse.Query(item);	
-		innQuery.equalTo('tags',2);
-		
 		var subQuery = new Parse.Query(Activity);
-		//subQuery.include("childs");
-		//subQuery.include("childs.author");
-		subQuery.matchesQuery("childs", innQuery);
-		
-		return subQuery;
+		return subQuery.matchesQuery("childs", innQuery.equalTo('tags',2););
 	});
 
 	
