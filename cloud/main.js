@@ -6,6 +6,9 @@ console.log( 'clodu code:' + __dirname);
 var _ = require('./underscore.js')
 
 Parse.Cloud.define("getTags", function(request,response){
+	var tags = request.params.tags;
+
+	
 	var classNames = [
 		"Forum",
 		"Event",
