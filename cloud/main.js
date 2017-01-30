@@ -7,7 +7,7 @@ var _ = require('./underscore.js')
 
 Parse.Cloud.define("getTags", function(request,response){
 	var tags = request.params.tags;
-
+	console.log('tags',tags);
 	
 	var classNames = [
 		"Forum",
@@ -15,8 +15,7 @@ Parse.Cloud.define("getTags", function(request,response){
 		"Postv2",
 		"Surveys"
 	];
-	
-	console.log('request', request );
+
 	Activity = Parse.Object.extend("Activity");
 	
 	var orArgs = classNames.map(function(item){
