@@ -7,6 +7,7 @@ var _ = require('./underscore.js')
 
 Parse.Cloud.define("getTags", function(request,response){
 	var tags = JSON.parse(request.params.tags ) || [];
+	var tagsu = request.params.tags;
 	console.log('tags',tags);
 	
 	var classNames = [
@@ -21,7 +22,7 @@ Parse.Cloud.define("getTags", function(request,response){
 	var orArgs = classNames.map(function(item){
 		var innQuery = new Parse.Query(item);	
 		var subQuery = new Parse.Query(Activity);
-		return subQuery.matchesQuery("childs", innQuery.equalTo('tags',tags));
+		return subQuery.matchesQuery("childs", innQuery.equalTo('tags',[1,2]));
 	});
 
 	
