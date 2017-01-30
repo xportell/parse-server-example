@@ -12,6 +12,8 @@ Parse.Cloud.define("getTags", function(request,response){
 		"Postv2",
 		"Surveys"
 	];
+	
+	console.log('request', request );
 	Activity = Parse.Object.extend("Activity");
 	
 	var orArgs = classNames.map(function(item){
