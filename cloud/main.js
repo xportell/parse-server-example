@@ -6,7 +6,7 @@ console.log( 'clodu code:' + __dirname);
 var _ = require('./underscore.js')
 
 Parse.Cloud.define("getTags", function(request,response){
-	var tags = request.params.tags;
+	var tags = request.params.tags || [];
 	console.log('tags',tags);
 	
 	var classNames = [
@@ -21,7 +21,7 @@ Parse.Cloud.define("getTags", function(request,response){
 	var orArgs = classNames.map(function(item){
 		var innQuery = new Parse.Query(item);	
 		var subQuery = new Parse.Query(Activity);
-		return subQuery.matchesQuery("childs", innQuery.equalTo('tags',2));
+		return subQuery.matchesQuery("childs", innQuery.equalTo('tags',tags));
 	});
 
 	
