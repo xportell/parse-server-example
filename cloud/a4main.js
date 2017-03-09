@@ -107,7 +107,6 @@ function genACL(item){
 		        acl.setPublicWriteAccess(false);
 		}
 	}
-	console.log('-----acl:', acl);
 	return acl;
 }
 
