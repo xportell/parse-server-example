@@ -65,6 +65,7 @@ Parse.Cloud.define("UploadImageAndGetURL", function(request, response) {
 });
 
 function updateActivity(request, response){
+	console.log('updating activity', request);
 	var type = request.object.className;
 	var item = {
      		"__type": "Pointer",
