@@ -94,7 +94,7 @@ function updateActivity(request, response){
 
 function genACL(acl){
 	console.log('-------------------List properties---------------------');
-	for(var prop in acl) {
+	for(var prop in acl.permissionsById) {
 	   console.log(prop, acl[prop]);
 	}
 }
