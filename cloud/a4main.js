@@ -79,7 +79,7 @@ function updateActivity(request, response){
 	else activity.set("type", type);
 	activity.addUnique("childs", item);
 	
-	if(request.object.attributes.ACL)  request.object.setACL(genACL(request.object.attributes.ACL));
+	if(request.object.attributes.ACL)  activity.setACL(genACL(request.object.attributes.ACL));
 
 
 	activity.save(null,{
@@ -100,7 +100,7 @@ function genACL(item){
 	for(var prop in item.permissionsById) {
 		if(prop!='*'){
 			acl.setReadAccess(prop, item.permissionsById[prop].read);
-			acl.setWriteAccess(prop, item.permissionsById[prop].write);	
+			acl.setWriteAccess(prop, false);	
 		}
 		else if (prop=='*'){
 			acl.setPublicReadAccess(item.permissionsById[prop].read);
