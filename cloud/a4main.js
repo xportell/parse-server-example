@@ -92,7 +92,7 @@ function updateActivity(request, response){
 
 }
 
-funcrion genACL(acl){
+function genACL(acl){
 	console.log('ACL',acl);
 }
 
