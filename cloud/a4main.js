@@ -93,8 +93,9 @@ function updateActivity(request, response){
 }
 
 function genACL(acl){
+	console.log('-------------------List properties---------------------');
 	for(var prop in acl) {
-	   console.log('property', acl[prop]);
+	   console.log(prop, acl[prop]);
 	}
 }
 
