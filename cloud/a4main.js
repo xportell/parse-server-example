@@ -65,7 +65,6 @@ Parse.Cloud.define("UploadImageAndGetURL", function(request, response) {
 });
 
 function updateActivity(request, response){
-	console.log('updating activity', request);
 	var type = request.object.className;
 	var item = {
      		"__type": "Pointer",
@@ -79,6 +78,8 @@ function updateActivity(request, response){
 	if(request.object.attributes.parent) activity.set("id",request.object.attributes.parent.id);
 	else activity.set("type", type);
 	activity.addUnique("childs", item);
+	
+	if(request.object.attributes.ACL) activity.ACL = genACL(request.object.attributes.ACL);
 
 	activity.save(null,{
 	  success: function(activity) {
@@ -91,12 +92,11 @@ function updateActivity(request, response){
 
 }
 
+funcrion genACL(acl){
+	console.log('ACL',acl);
+}
+
 Parse.Cloud.afterSave("Post",function(request, response) {
-	//console.log(request);
-	//console.log(request.object);
-	console.log(response);
-	console.log(request.object.attributes.updatedAt);
-	console.log(request.object.attributes.createdAt);
 	if(request.object.attributes.updatedAt == request.object.attributes.createdAt) updateActivity(request);
 	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
 }); 
@@ -107,13 +107,11 @@ Parse.Cloud.afterSave("Comment",function(request, response) {
 });
 
 Parse.Cloud.afterSave("Like",function(request, response) {
-	console.log('Like');
 	if(request.object.attributes.updatedAt == request.object.attributes.createdAt) updateActivity(request);
 	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
 });
 
 Parse.Cloud.afterSave("Note",function(request, response) {
-	console.log('Note');
 	if(request.object.attributes.updatedAt == request.object.attributes.createdAt) updateActivity(request);
 	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
 });
