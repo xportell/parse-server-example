@@ -93,7 +93,9 @@ function updateActivity(request, response){
 }
 
 function genACL(acl){
-	console.log('ACL',acl);
+	for(var prop in acl) {
+	   console.log('property', acl[prop]);
+	}
 }
 
 Parse.Cloud.afterSave("Post",function(request, response) {
