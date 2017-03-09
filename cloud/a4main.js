@@ -93,17 +93,17 @@ function updateActivity(request, response){
 
 }
 
-function genACL(acl){
+function genACL(item){
 	var acl = new Parse.ACL();
 	acl.setPublicReadAccess(true);
         acl.setPublicWriteAccess(false);
-	for(var prop in acl.permissionsById) {
+	for(var prop in item.permissionsById) {
 		if(prop!='*'){
-			acl.setReadAccess(prop, acl[prop].read);
-			acl.setWriteAccess(prop, acl[prop].write);	
+			acl.setReadAccess(prop, item.permissionsById[prop].read);
+			acl.setWriteAccess(prop, item.permissionsById[prop].write);	
 		}
 		else if (prop=='*'){
-			acl.setPublicReadAccess(acl[prop].read);
+			acl.setPublicReadAccess(item.permissionsById[prop].read);
 		        acl.setPublicWriteAccess(false);
 		}
 	}
