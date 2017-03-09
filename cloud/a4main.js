@@ -79,7 +79,8 @@ function updateActivity(request, response){
 	else activity.set("type", type);
 	activity.addUnique("childs", item);
 	
-	if(request.object.attributes.ACL) activity.ACL = genACL(request.object.attributes.ACL);
+	if(request.object.attributes.ACL)  request.object.setACL(genACL(request.object.attributes.ACL));
+
 
 	activity.save(null,{
 	  success: function(activity) {
@@ -93,10 +94,21 @@ function updateActivity(request, response){
 }
 
 function genACL(acl){
-	console.log('-------------------List properties---------------------');
+	var acl = new Parse.ACL();
+	acl.setPublicReadAccess(true);
+        acl.setPublicWriteAccess(false);
 	for(var prop in acl.permissionsById) {
-	   console.log(prop, acl[prop]);
+		if(prop!='*'){
+			acl.setReadAccess(prop, acl[prop].read);
+			acl.setWriteAccess(prop, acl[prop].write);	
+		}
+		else if (prop=='*'){
+			acl.setPublicReadAccess(acl[prop].read);
+		        acl.setPublicWriteAccess(false);
+		}
 	}
+	
+	return acl;
 }
 
 Parse.Cloud.afterSave("Post",function(request, response) {
