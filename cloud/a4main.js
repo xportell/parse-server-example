@@ -65,7 +65,6 @@ Parse.Cloud.define("UploadImageAndGetURL", function(request, response) {
 });
 
 function updateActivity(request, response){
-	console.log('update-activity');
 	var type = request.object.className;
 	var item = {
      		"__type": "Pointer",
@@ -79,8 +78,6 @@ function updateActivity(request, response){
 	if(request.object.attributes.parent) activity.set("id",request.object.attributes.parent.id);
 	else activity.set("type", type);
 	activity.addUnique("childs", item);
-	console.log('AQUI GUARDEM ITEM_______________________-');
-	console.log(item);
 
 	activity.save(null,{
 	  success: function(activity) {
@@ -93,7 +90,7 @@ function updateActivity(request, response){
 
 }
 
-Parse.Cloud.afterSave("Postv2",function(request, response) {
+Parse.Cloud.afterSave("Post",function(request, response) {
 	//console.log(request);
 	//console.log(request.object);
 	console.log(response);
@@ -103,13 +100,19 @@ Parse.Cloud.afterSave("Postv2",function(request, response) {
 	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
 }); 
 
-Parse.Cloud.afterSave("Commentv2",function(request, response) {
+Parse.Cloud.afterSave("Comment",function(request, response) {
 	if(request.object.attributes.updatedAt == request.object.attributes.createdAt) updateActivity(request);
 	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
 });
 
 Parse.Cloud.afterSave("Like",function(request, response) {
 	console.log('Like');
+	if(request.object.attributes.updatedAt == request.object.attributes.createdAt) updateActivity(request);
+	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
+});
+
+Parse.Cloud.afterSave("Note",function(request, response) {
+	console.log('Note');
 	if(request.object.attributes.updatedAt == request.object.attributes.createdAt) updateActivity(request);
 	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
 });
@@ -147,8 +150,8 @@ Parse.Cloud.afterSave("dtest", function(request, response){
 });
 
 
-Parse.Cloud.beforeDelete("Postv2", function(request, response) {
-	var target = {"__type":"Pointer","className":"Postv2","objectId":request.object.id};
+Parse.Cloud.beforeDelete("Post", function(request, response) {
+	var target = {"__type":"Pointer","className":"Post","objectId":request.object.id};
   query = new Parse.Query("Activity");
   //query.include("childs");
   query.equalTo("childs", target);
@@ -213,7 +216,7 @@ Parse.Cloud.define("isMe", function(request, response) {
 });
 
 
-Parse.Cloud.define("signupAsBasicUser2", function(request, response) {
+Parse.Cloud.define("signupAsBasicUser", function(request, response) {
 	console.log('signupAsBasicUser2 init',request);
 	var postParams = request.body;
 	console.log(postParams);
@@ -223,7 +226,7 @@ Parse.Cloud.define("signupAsBasicUser2", function(request, response) {
 	console.log(request.params.password);
 	console.log(request.params.profile);
 	
-	signupAsBasicUser2(request.params.username, request.params.password, request.params.email).then(function(user) {
+	signupAsBasicUser(request.params.username, request.params.password, request.params.email).then(function(user) {
 		
 		response.success(user);
 		
@@ -258,8 +261,8 @@ Parse.Cloud.define("signupAsBasicUser2", function(request, response) {
 
 //return a promise fulfilled with a signed-up user who is added to the 'Basic User" role
 //
-function signupAsBasicUser2(name, password, email) {
- console.log('Dins de signup funció local');
+function signupAsBasicUser(name, password, email) {
+
  var user = new Parse.User();
  console.log('name '+ name);
  console.log('pass: '+password);
@@ -272,7 +275,7 @@ function signupAsBasicUser2(name, password, email) {
  return user.signUp(null, {useMasterKey: true}).then(function() {
 	  console.log('------Signup fet------');
      var query = new Parse.Query(Parse.Role);
-     query.equalTo("name", 'BasicUser');
+     query.equalTo("name", 'user');
      console.log('-----return query.find------');
      return query.find();
  }).then(function(roles) {
@@ -285,17 +288,6 @@ function signupAsBasicUser2(name, password, email) {
      return user;
  });
 }
-
-Parse.Cloud.define("signupAsBasicUser", function(request, response) {
-	console.log(request);
-	var postParams = request.body;
-	console.log(postParams);
-	signupAsBasicUser(request.params.username, request.params.password, request.params.email).then(function(user) {
-     response.success(user);
- }, function(error) {
-     response.error(error);
- });
-});
 
 //return a promise fulfilled with a signed-up user who is added to the 'Basic User" role
 //
@@ -325,262 +317,11 @@ function signupAsBasicUser(name, password, email) {
  });
 }
 
-Parse.Cloud.afterSave("Post",function(request) {
-	var post = {
-		"text": request.object.attributes.text ||"",
-		"comments": request.object.attributes.comments || [],
-		"photo": request.object.attributes.photo || "",
-		"likes": request.object.attributes.likes || [],
-	};
-	var type = "post";
-	console.log('Actualitzant timeline!')
-	var dir = request.object.attributes.profile;
-	var refid = request.object.id;
-	var Timeline = Parse.Object.extend("Timeline");
-	var timeline = new Timeline;
-	var query = new Parse.Query('Timeline');
-	console.log('prova1');
-	query.equalTo("refId", refid);
-	query.find({
-  		success: function(results) {
-  			console.log('prova2');
-  			console.log(results)
-    			if (results.length > 0){
-    				timeline.set("id", results[0].id);
-    				console.log('he entrat');
-    			}
-    			query.count({ useMasterKey: true }) // count() will use the master key to bypass ACL
-  				.then(function(count) {
-      				response.success(count);
-    			});
-    			console.log('prova3');
-			timeline.set("metadata",post);
-			timeline.set("type", type);
-			timeline.set("refId", refid);
-			timeline.set("direction", dir);
-			console.log('prova4');
-			timeline.save(null,{
-				sucess: function(timeline){
-				//save succeeded
-				},
-				error: function(timeline,error){
-				//	inspect error
-				}
-			});
-  		},
-  		error: function(error) {
-    			 
-  		}
-	});
-
-});  
-
-/*Parse.Cloud.afterSave("Like", function(request) {
-	
-	var like = {
-     "__type": "Pointer",
-     "className": "Like",
-     "objectId": request.object.id,
- };
-	var Post = Parse.Object.extend("Post");
-	var post = new Post();
-	post.set('id', request.object.attributes.postId.id);
-	//console.log(post);
-	Parse.Cloud.useMasterKey();
-	post.addUnique("likes", like);
-	post.save(null,{
-	  success: function(post) {
-	    // save succeeded
-	  },
-	  error: function(post, error) {
-	    // inspect error
-	  }
-	});
-});
-Parse.Cloud.afterDelete("Like", function(request) {
-	var like = {
-	        "__type": "Pointer",
-	        "className": "Like",
-	        "objectId": request.object.id,
-	    };
-		var Post = Parse.Object.extend("Post");
-		var post = new Post();
-		post.set('id', request.object.attributes.postId.id);	 
-		post.remove("likes", like);
-		post.save(null,{
-		  success: function(post) {
-		    // save succeeded
-		  },
-		  error: function(post, error) {
-		    // inspect error
-		  }
-		});
-}); */
 
 
-Parse.Cloud.afterSave("Comment", function(request) {
-	
-	var comment = {
-     		"__type": "Pointer",
-     		"className": "Comment",
-     		"objectId": request.object.id,
- 	};
-
-	var Post = Parse.Object.extend("Post");
-	var post = new Post();
-//	var Timeline = Parse.Object.extend("Timeline");
-//	var timeline = new Timeline();
-	console.log('HOLA1');
-	//Parse.Cloud.useMasterKey();
-	post.set('id', request.object.attributes.postId.id);	 
-	post.addUnique("comments", comment);
-	post.save(null,{
-	  success: function(post) {
-	    // save succeeded
-	  },
-	  error: function(post, error) {
-	    // inspect error
-	  }
-	});
-	console.log('Hola2');
-});
-
-Parse.Cloud.afterDelete("Comment", function(request) {
-	var like = {
-	        "__type": "Pointer",
-	        "className": "Comment",
-	        "objectId": request.object.id,
-	    };
-
-		var Post = Parse.Object.extend("Post");
-		var post = new Post();
-		post.set('id', request.object.attributes.postId.id);	 
-		post.remove("comments", like);
-		post.save(null,{
-		  success: function(post) {
-		    // save succeeded
-		  },
-		  error: function(post, error) {
-		    // inspect error
-		  }
-		});
-});
-
-
-
-Parse.Cloud.define("getTimeline", function(request, response) {
-	var Timeline = Parse.Object.extend("Post");
-	var query = new Parse.Query(Timeline);
-
-	query.include("profile");
-	return query.find(function(results) {
-			var posts = [];
-			var aLikes = [];
-			
-		  	//Fetch all postsIDs to search
-		  	var postLikesIDs = [];
-		  	var postCommentsIDs = [];
-		  	var postIDsIndex = [];
-		  	
-		  	_.each(results, function(result, i) {	
-		  		postLikesIDs.push({	"__type": "Pointer", "className": "Post", "objectId": result.id });
-		  		postCommentsIDs.push({	"__type": "Pointer", "className": "Post", "objectId": result.id });
-		  		postIDsIndex[result.id] = i;
-		  	});
-
-		  	var Likes = Parse.Object.extend("Like");
-		  	var Comments = Parse.Object.extend("Comment");
-		  	var queryLikes = new Parse.Query(Likes);
-		  	var queryComments = new Parse.Query(Comments);	
-		  	queryLikes.containedIn("postId", postLikesIDs);
-		  	queryLikes.include('profileId');
-		  	queryComments.containedIn("postId", postCommentsIDs);
-		  	queryComments.include('profileId');
-		  	
-		  	var promiseLikes = queryLikes.find().then(function(likeResults) {
-		  		_.each(likeResults, function(likes, i) {	
-		  			var tmp = []; 
-		  			
-		  			if(typeof results[postIDsIndex[likes.attributes.postId.id]].attributes.likes === "undefined"){
-		  				//console.log('like undefined');
-		  					tmp.push(likes);
-		  			}
-		  			else{
-		  				tmp = results[postIDsIndex[likes.attributes.postId.id]].attributes.likes;
-		  				tmp.push(likes);
-		  			}
-
-		  			results[postIDsIndex[likes.attributes.postId.id]].attributes.likes = tmp;
-			  	});
-		  		return results;
-
-			});
-		  	
-		  	var promiseComments = queryComments.find().then(function(commentResults) {
-		  		//console.log(commentResults);
-		  		_.each(commentResults, function(comments, i) {	
-		  			var tmp = []; 
-			  		//console.log(results);
-		  			//console.log(results[postIDsIndex[comments.attributes.postId.id]].attributes.comments);
-	  				//console.log(typeof results[postIDsIndex[comments.attributes.postId.id]].attributes.comments);
-		  			
-	  				tmp.push(comments);
-
-		  			results[postIDsIndex[comments.attributes.postId.id]].attributes.comments = tmp;
-		  			
-			  	});
-		  		return results;
-			});
-		  	
-		  	Parse.Promise.when([promiseLikes,promiseComments]).then(function(wait){
-		  		response.success(results);
-		  	});
-
-		},
-		function(error){
-			response.error("ERROR in getTimeline");
-		});	
-	
-	
-});
-//aqui2
-
-Parse.Cloud.define("publish", function(request, response) {
-	//var Post = Parse.Object.extend("Post");
-	//var post = new Post();
-	var post = new Parse.Object("Post",request.params);
-
-	
-	
-	post.save(null,{
-	  success: function(requestpush) {
-		  var query = new Parse.Query(Parse.Installation);
-		  //query.notEqualTo("installationId", request.params.installationID);
-		  query.equalTo('channels', 'NewPosts2');
-
-			  
-		  Parse.Push.send({
-			  where: query, // Set our Installation query
-			  data: {
-			    alert: request.params.text
-			  }
-			}, {
-			  success: function(post) {
-			    // Push was successful
-				
-			  },
-			  error: function(error) {
-
-			  }
-			});
-		  response.success(post);
-	  },
-	  error: function(post, error) {
-		  response.error("ERROR saving post");
-	  }
-	});
-});
-
+/**
+* NOTIFICATIONS FUNCTIONS (ON TEST)
+*/
 Parse.Cloud.define("push", function(request, response) {
 	var query = new Parse.Query("Post");
 	
