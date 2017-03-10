@@ -75,9 +75,14 @@ function updateActivity(request, response){
 	Activity = Parse.Object.extend("Activity");
 	var activity = new Activity;
 
-	if(request.object.attributes.parent) activity.set("id",request.object.attributes.parent.id);
-	else activity.set("type", type);
-	activity.addUnique("childs", item);
+	if(request.object.attributes.parent){
+		activity.set("id",request.object.attributes.parent.id);
+		activity.addUnique("childs", item);
+	}
+	else{
+		activity.set("type", type);
+		activity.addUnique("base", item);
+	}
 	
 	if(request.object.attributes.ACL)  activity.setACL(genACL(request.object.attributes.ACL));
 
