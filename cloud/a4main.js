@@ -100,7 +100,7 @@ function updateActivity(request, response){
 
 function genACL(item){
 	var acl = new Parse.ACL();
-	acl.setPublicReadAccess(true);
+	//acl.setPublicReadAccess(true);
         acl.setPublicWriteAccess(false);
 	for(var prop in item.permissionsById) {
 		if(prop!='*'){
