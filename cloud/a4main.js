@@ -109,17 +109,17 @@ function activityACL(item){
 	//acl.setPublicReadAccess(true);
         acl.setPublicWriteAccess(false);
 	for(var prop in item.permissionsById) {
-		if(prop!='*'){
-			acl.setReadAccess(prop, item.permissionsById[prop].read);
-			acl.setWriteAccess(prop, false);	
+		if (prop==moderatorRole){
+			acl.setReadAccess(prop, true);
+			acl.setWriteAccess(prop, true);
 		}
 		else if (prop=='*'){
 			acl.setPublicReadAccess(item.permissionsById[prop].read);
 		        acl.setPublicWriteAccess(false);
 		}
-		else if (prop==moderatorRole){
-			acl.setReadAccess(prop, true);
-			acl.setWriteAccess(prop, true);
+		else if(prop!='*'){
+			acl.setReadAccess(prop, item.permissionsById[prop].read);
+			acl.setWriteAccess(prop, false);	
 		}
 	}
 	return acl;
