@@ -115,6 +115,22 @@ function genACL(item){
 	return acl;
 }
 
+/**
+* BeforeSave SubActivity
+*/
+Parse.Cloud.beforeSave("Note", function(request, response) {
+  var acl = request.object.get("ACL");
+	console.log('--------ACL',acl);
+  /*if (comment.length > 140) {
+    // Truncate and add a ...
+    request.object.set("comment", comment.substring(0, 137) + "...");
+  }*/
+  response.success();
+});
+
+/**
+* AfterSave SubActivity
+*/
 Parse.Cloud.afterSave("Post",function(request, response) {
 	if(request.object.attributes.updatedAt == request.object.attributes.createdAt) updateActivity(request);
 	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
