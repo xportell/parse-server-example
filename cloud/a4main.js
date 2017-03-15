@@ -5,6 +5,12 @@ console.log( 'clodu code:' + __dirname);
 //For example:
 var _ = require('./underscore.js')
 
+/**
+* Vars
+*/
+//Moderator role name
+var moderatorRole = 'role:moderator';
+
 Parse.Cloud.define("getTags", function(request,response){
 	var tags =request.params.tags;
 	console.log('tags',tags);
@@ -84,7 +90,7 @@ function updateActivity(request, response){
 		activity.addUnique("base", item);
 	}
 	
-	if(request.object.attributes.ACL)  activity.setACL(genACL(request.object.attributes.ACL));
+	if(request.object.attributes.ACL)  activity.setACL(activityACL(request.object.attributes.ACL));
 
 
 	activity.save(null,{
@@ -98,7 +104,7 @@ function updateActivity(request, response){
 
 }
 
-function genACL(item){
+function activityACL(item){
 	var acl = new Parse.ACL();
 	//acl.setPublicReadAccess(true);
         acl.setPublicWriteAccess(false);
@@ -115,18 +121,24 @@ function genACL(item){
 	return acl;
 }
 
+
 /**
 * BeforeSave SubActivity
+*
+* 	1. Adds moderator role to the subactivity
 */
+
 Parse.Cloud.beforeSave("Note", function(request, response) {
-  var acl = request.object.get("ACL");
-	console.log('--------ACL',acl);
-  /*if (comment.length > 140) {
-    // Truncate and add a ...
-    request.object.set("comment", comment.substring(0, 137) + "...");
-  }*/
-  response.success();
+	request.object.set("ACL",addModerator(request));
+	response.success();
 });
+
+function addModerator(request){
+	var acl = request.object.get("ACL");
+	acl.setReadAccess(moderatorRole, true);
+	acl.setWriteAccess(moderatorRole, true);	
+	return acl;
+}
 
 /**
 * AfterSave SubActivity
