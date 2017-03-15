@@ -117,6 +117,10 @@ function activityACL(item){
 			acl.setPublicReadAccess(item.permissionsById[prop].read);
 		        acl.setPublicWriteAccess(false);
 		}
+		else if (prop==moderatorRole){
+			acl.setReadAccess(prop, true);
+			acl.setWriteAccess(prop, true);
+		}
 	}
 	return acl;
 }
