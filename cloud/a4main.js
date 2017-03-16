@@ -137,6 +137,11 @@ Parse.Cloud.beforeSave("Note", function(request, response) {
 	response.success();
 });
 
+Parse.Cloud.beforeSave("Forum", function(request, response) {
+	request.object.set("ACL",addModerator(request));
+	response.success();
+});
+
 function addModerator(request){
 	var acl = request.object.get("ACL");
 	acl.setReadAccess(moderatorRole, true);
@@ -163,6 +168,11 @@ Parse.Cloud.afterSave("Like",function(request, response) {
 });
 
 Parse.Cloud.afterSave("Note",function(request, response) {
+	if(request.object.attributes.updatedAt == request.object.attributes.createdAt) updateActivity(request);
+	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
+});
+
+Parse.Cloud.afterSave("Forum",function(request, response) {
 	if(request.object.attributes.updatedAt == request.object.attributes.createdAt) updateActivity(request);
 	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
 });
