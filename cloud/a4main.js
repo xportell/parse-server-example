@@ -102,7 +102,7 @@ function updateActivity(request, response){
 	  }
 	});
 	
-	//addTag(request, response);
+	addTag(request, response);
 
 }
 
@@ -165,28 +165,6 @@ function addTag(request, response){
 
 	
 }
-
-/**
-* BeforeSave Tag
-*/
-Parse.Cloud.beforeSave("Tag", function(request, response) {
-	var name = request.object.get("name");
-	
-	var Tag = Parse.Object.extend("Tag");
-	var query = new Parse.Query(Tag);
-	
-	query.equalTo("name", name);
-	query.first({
-	  success: function(object) {
-	    console.log("****Tag find":, object);
-	  },
-	  error: function(error) {
-	    console.log("****Error: " + error.code + " " + error.message);
-	  }
-	});
-
-  	response.success();
-});
 
 /**
 * BeforeSave SubActivity
