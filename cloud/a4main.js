@@ -125,6 +125,33 @@ function activityACL(item){
 	return acl;
 }
 
+function addTag(request, response){
+	console.log('---------------------');
+	console.log(reques.object);
+	var tags = request.object.tags;
+
+	var Tag = Parse.Object.extend("Tag");
+	var query = new Parse.Query(Tag);
+	query.containedIn("name", tags);
+	
+	query.find({
+		success: function(results) {
+		    console.log("Successfully retrieved " + results.length + " scores.");
+		    // Do something with the returned Parse.Object values
+		    for (var i = 0; i < results.length; i++) {
+		      var object = results[i];
+		      console.log(object.id + ' - ' + object.get('name'));
+		    }
+		  },
+		error: function(error) {
+			console.log("Error: " + error.code + " " + error.message);
+		}
+	});
+
+
+	
+}
+
 
 /**
 * BeforeSave SubActivity
