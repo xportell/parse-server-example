@@ -129,7 +129,7 @@ function activityACL(item){
 
 function addTag(request, response){
 	console.log('---------------------');
-	console.log(reques.object);
+	console.log(request.object);
 	var tags = request.object.tags;
 
 	var Tag = Parse.Object.extend("Tag");
