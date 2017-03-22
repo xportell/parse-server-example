@@ -102,7 +102,7 @@ function updateActivity(request, response){
 	  }
 	});
 	
-	addTag(request, response);
+	//addTag(request, response);
 
 }
 
@@ -140,19 +140,22 @@ function addTag(request, response){
 		success: function(results) {
 			console.log("Successfully retrieved " + results.length + " tags.");
 			// Do something with the returned Parse.Object values
-			
-			results.forEach(function(item){
-				if(tags.indexOf(item.get("name")<0)) console.log("*********create tag"); 
-				else console.log("********** incrementing tag");
-									     
+			var toInc = [];
+			var toAdd = tags;
+			results.forEach(function(object){
+				var index = tags.indexOf(object.get("name"));
+				toAdd.splice(index,1);
+				toInc.push(object);
 			});
-/*		    
-for (var i = 0; i < results.length; i++) {
-		      var object = results[i];
+			console.log("*********TOINC", toInc); 
+			console.log("*********TOADD", toAdd);
+		    /*
+			for (var i = 0; i < results.length; i++) {
+				var object = results[i];
 		      console.log(object.id + ' - ' + object.get('name'));
 		      
 		    }
- */
+*/
 		  },
 		error: function(error) {
 			console.log("Error: " + error.code + " " + error.message);
@@ -163,6 +166,27 @@ for (var i = 0; i < results.length; i++) {
 	
 }
 
+/**
+* BeforeSave Tag
+*/
+Parse.Cloud.beforeSave("Tag", function(request, response) {
+	var name = request.object.get("name");
+	
+	var Tag = Parse.Object.extend("Tag");
+	var query = new Parse.Query(Tag);
+	
+	query.equalTo("name", name);
+	query.first({
+	  success: function(object) {
+	    console.log("****Tag find":, object);
+	  },
+	  error: function(error) {
+	    console.log("****Error: " + error.code + " " + error.message);
+	  }
+	});
+
+  	response.success();
+});
 
 /**
 * BeforeSave SubActivity
