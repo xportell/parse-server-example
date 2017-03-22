@@ -142,7 +142,7 @@ function addTag(request, response){
 			// Do something with the returned Parse.Object values
 			
 			results.forEach(function(item){
-				tags.indexOf(item.get("name")<0) console.log("*********create tag"); 
+				if(tags.indexOf(item.get("name")<0)) console.log("*********create tag"); 
 				else console.log("********** incrementing tag");
 									     
 			});
