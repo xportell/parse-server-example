@@ -138,12 +138,21 @@ function addTag(request, response){
 	
 	query.find({
 		success: function(results) {
-		    console.log("Successfully retrieved " + results.length + " tags.");
-		    // Do something with the returned Parse.Object values
-		    for (var i = 0; i < results.length; i++) {
+			console.log("Successfully retrieved " + results.length + " tags.");
+			// Do something with the returned Parse.Object values
+			
+			results.forEach(function(item){
+				tags.indexOf(item.get("name")<0) console.log("*********create tag"); 
+				else console.log("********** incrementing tag");
+									     
+			});
+/*		    
+for (var i = 0; i < results.length; i++) {
 		      var object = results[i];
 		      console.log(object.id + ' - ' + object.get('name'));
+		      
 		    }
+ */
 		  },
 		error: function(error) {
 			console.log("Error: " + error.code + " " + error.message);
