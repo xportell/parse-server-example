@@ -129,7 +129,7 @@ function activityACL(item){
 
 function addTag(request, response){
 	console.log('---------------------');
-	console.log(request.object);
+	console.log(request.object.tags);
 	var tags = request.object.tags;
 
 	var Tag = Parse.Object.extend("Tag");
@@ -138,7 +138,7 @@ function addTag(request, response){
 	
 	query.find({
 		success: function(results) {
-		    console.log("Successfully retrieved " + results.length + " scores.");
+		    console.log("Successfully retrieved " + results.length + " tags.");
 		    // Do something with the returned Parse.Object values
 		    for (var i = 0; i < results.length; i++) {
 		      var object = results[i];
