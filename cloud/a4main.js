@@ -146,16 +146,19 @@ function addTag(request, response){
 				var index = tags.indexOf(object.get("name"));
 				toAdd.splice(index,1);
 				toInc.push(object);
+				object.increment("count");
+				object.save();
+
+			});
+			
+			toAdd.forEach(function(tagName){
+				var tag = new Tag;
+				tag.set("name",tagName);
+				tag.set("count", 1);
+				tag.save();
 			});
 			console.log("*********TOINC", toInc); 
 			console.log("*********TOADD", toAdd);
-		    /*
-			for (var i = 0; i < results.length; i++) {
-				var object = results[i];
-		      console.log(object.id + ' - ' + object.get('name'));
-		      
-		    }
-*/
 		  },
 		error: function(error) {
 			console.log("Error: " + error.code + " " + error.message);
