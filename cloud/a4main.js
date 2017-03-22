@@ -143,7 +143,7 @@ function addTag(request, response){
 			var toInc = [];
 			var toAdd = tags;
 			results.forEach(function(object){
-				var index = tags.indexOf(object.get("name"));
+				var index = tags.indexOf(object.get("label"));
 				toAdd.splice(index,1);
 				toInc.push(object);
 				object.increment("count");
@@ -153,7 +153,7 @@ function addTag(request, response){
 			
 			toAdd.forEach(function(tagName){
 				var tag = new Tag;
-				tag.set("name",tagName);
+				tag.set("label",tagName);
 				tag.set("count", 1);
 				tag.save();
 			});
