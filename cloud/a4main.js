@@ -101,6 +101,8 @@ function updateActivity(request, response){
 	     response.error(error);
 	  }
 	});
+	
+	addTag(request, response);
 
 }
 
