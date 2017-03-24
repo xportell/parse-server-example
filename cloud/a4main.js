@@ -51,7 +51,7 @@ Parse.Cloud.define("createWorkgroup", function(request,response){
 	 response.success({
 		request: request
 	 });
-}
+});
 
 Parse.Cloud.define("UploadImageAndGetURL", function(request, response) {
 
