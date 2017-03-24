@@ -46,6 +46,13 @@ Parse.Cloud.define("getTags", function(request,response){
 		});
 });
 
+Parse.Cloud.define("createWorkgroup", function(request,response){
+	console.log(request);
+	 response.success({
+		request: request
+	 });
+}
+
 Parse.Cloud.define("UploadImageAndGetURL", function(request, response) {
 
   var fileName = request.params.fileName;
