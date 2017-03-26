@@ -67,12 +67,14 @@ Parse.Cloud.define("createWorkgroup", function(request,response){
 	//var role = new Parse.Role(roleName, roleACL);
 	//role.save();	 
 	
-	userHasRole(request.user,'user').then(function(hasRole){
-		console.log('---------Role');
-		console.log(hasRole);
-		request.hasRole = hasRole;
-		response.success({
-			request: request
+	userHasRole(request.user,'user').then(
+		function(hasRole){
+			console.log('---------Role');
+			console.log(hasRole);
+			request.hasRole = hasRole;
+			response.success({
+				request: request
+			});
 		},
 		function(error){
 		        response.error('nopermission');
