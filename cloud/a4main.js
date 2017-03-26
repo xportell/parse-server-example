@@ -55,22 +55,18 @@ Parse.Cloud.define("createWorkgroup", function(request,response){
 	//console.log(request);
 	var name = request.params.name || '';
 	var members = request.params.workgroup || [];
-	
-	console.log(Parse.User.current());
-	
-	
+
 	if(name == '') response.error('noname');
 	if(members == 0) response.error('nomembers');
 	
 	var roleName = name.replace(/\W/g, '');
-	
-	//var roleACL = new Parse.ACL();
-	//roleACL.setPublicReadAccess(true);
-	//var role = new Parse.Role(roleName, roleACL);
-	//role.save();	 
-	
+
 	userHasRole(request.user, canCreateGroup).then(
 		function(hasRole){
+			var roleACL = new Parse.ACL();
+			roleACL.setPublicReadAccess(true);
+			var role = new Parse.Role(roleName, roleACL);
+			role.save({useMasterKey: true});	 
 			response.success({
 				request: request
 			});
