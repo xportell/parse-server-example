@@ -66,7 +66,7 @@ Parse.Cloud.define("createWorkgroup", function(request,response){
 			var roleACL = new Parse.ACL();
 			roleACL.setPublicReadAccess(true);
 			var role = new Parse.Role(roleName, roleACL);
-			role.save({useMasterKey: true});	 
+			role.save(null,{useMasterKey: true});	 
 			response.success({
 				request: request
 			});
