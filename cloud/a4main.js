@@ -14,7 +14,7 @@ var moderatorRole = 'role:moderator';
 //Workgroup role name
 var workgroupRole = 'role:workgroup';
 //Can create workgroups
-var canCreateGroup =['user'];
+var canCreateGroup = ['user'];
 
 var workgroupObject = getWorkgroupRole();
 
@@ -522,7 +522,7 @@ var getWorkgroupRole = function(){
 	
 	return roleQuery.first({useMasterKey: true}).then(function(role) {
   		if (!role) {
-   		 throw new Error('nopermission');
+   		 throw new Error('nosuchrole');
   		}
 		return role;
 	});
