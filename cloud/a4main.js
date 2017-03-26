@@ -19,7 +19,7 @@ var canCreateGroup = ['user'];
 
 var getWorkgroupRole = function(){
 	var roleQuery = new Parse.Query(Parse.Role);
-	roleQuery.equal('name', 'workgroup');
+	roleQuery.equalTo('name', 'workgroup');
 	
 	return roleQuery.first({useMasterKey: true}).then(function(role) {
   		if (!role) {
