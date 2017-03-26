@@ -16,6 +16,8 @@ var workgroupRole = 'role:workgroup';
 //Can create workgroups
 var canCreateGroup =['user'];
 
+var workgroupObject = getWorkgroupRole();
+
 Parse.Cloud.define("getTags", function(request,response){
 	var tags =request.params.tags;
 	console.log('tags',tags);
@@ -72,7 +74,7 @@ Parse.Cloud.define("createWorkgroup", function(request,response){
 	})
 	.then(function(role){
 		//Set parent role
-		role.getRoles().add(workgroupRole);
+		role.getRoles().add(workgroupObject);
 		return role.save(null,{useMasterKey: true});
 		//Set userts to role
 		//role.getUsers().add(usersToAddToRole);
@@ -506,6 +508,18 @@ var userHasRole = function(user, rolenames) {
 	roleQuery.containedIn('name', rolenames);
 	roleQuery.equalTo('users', user);
 
+	return roleQuery.first({useMasterKey: true}).then(function(role) {
+  		if (!role) {
+   		 throw new Error('nopermission');
+  		}
+		return role;
+	});
+}
+
+var getWorkgroupRole = function(){
+	var roleQuery = new Parse.Query(Parse.Role);
+	roleQuery.equal('name', 'workgroup');
+	
 	return roleQuery.first({useMasterKey: true}).then(function(role) {
   		if (!role) {
    		 throw new Error('nopermission');
