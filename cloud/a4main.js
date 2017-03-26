@@ -489,5 +489,6 @@ var userHasRole = function(user, rolename) {
   		if (!role) {
    		 throw new Error('Not has the role');
   		}
+		return role;
 	});
 }
