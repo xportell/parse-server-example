@@ -8,8 +8,11 @@ var _ = require('./underscore.js')
 /**
 * Vars
 */
+//ROLES:
 //Moderator role name
 var moderatorRole = 'role:moderator';
+//Workgroup role name
+var workgroupRole: 'role:workgroup';
 
 Parse.Cloud.define("getTags", function(request,response){
 	var tags =request.params.tags;
@@ -47,7 +50,8 @@ Parse.Cloud.define("getTags", function(request,response){
 });
 
 Parse.Cloud.define("createWorkgroup", function(request,response){
-	console.log(request);
+	//console.log(request);
+	if(request.params.name == 'prova') response.error('01');
 	 response.success({
 		request: request
 	 });
