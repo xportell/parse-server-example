@@ -72,13 +72,12 @@ Parse.Cloud.define("createWorkgroup", function(request,response){
 		console.log(hasRole);
 		request.hasRole = hasRole;
 		response.success({
-		request: request
-	 });
-	});
-	/*response.success({
-		request: request,
-		user: Parse.User.current()
-	 });*/
+			request: request
+		},
+		function(error){
+		        response.error('nopermission');
+      		}
+	);
 });
 
 Parse.Cloud.define("UploadImageAndGetURL", function(request, response) {
