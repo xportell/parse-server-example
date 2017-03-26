@@ -51,8 +51,19 @@ Parse.Cloud.define("getTags", function(request,response){
 
 Parse.Cloud.define("createWorkgroup", function(request,response){
 	//console.log(request);
-	if(request.params.name == 'prova') response.error('01');
-	 response.success({
+	var name = request.params.name || '';
+	var members = request.params.workgroup || [];
+	
+	if(name == '') response.error('noname');
+	if(request.params.workgorup.length == 0) response.error('nomembers');
+	
+	var roleName = name.replace(/\W/g, '');
+	
+	var roleACL = new Parse.ACL();
+	roleACL.setPublicReadAccess(true);
+	var role = new Parse.Role(roleName, roleACL);
+	role.save();	 
+	response.success({
 		request: request
 	 });
 });
