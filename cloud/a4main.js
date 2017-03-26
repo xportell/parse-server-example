@@ -62,9 +62,9 @@ Parse.Cloud.define("createWorkgroup", function(request,response){
 	
 	var roleName = name.replace(/\W/g, '');
 	
-	var roleACL = new Parse.ACL();
-	roleACL.setPublicReadAccess(true);
-	var role = new Parse.Role(roleName, roleACL);
+	//var roleACL = new Parse.ACL();
+	//roleACL.setPublicReadAccess(true);
+	//var role = new Parse.Role(roleName, roleACL);
 	//role.save();	 
 	
 	userHasRole(request.user,'user').then(function(hasRole){
@@ -479,6 +479,7 @@ Parse.Cloud.define("push", function(request, response) {
 * Check if user has role
 */
 var userHasRole = function(user, rolename) {
+	console.log('-----------------------Role called');
   	var roleQuery = new Parse.Query(Parse.Role,{useMasterKey: true});
 	roleQuery.equalTo('name', rolename);
 	roleQuery.equalTo('users', user);
