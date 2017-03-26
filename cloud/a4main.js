@@ -14,7 +14,7 @@ var moderatorRole = 'role:moderator';
 //Workgroup role name
 var workgroupRole = 'role:workgroup';
 //Can create workgroups
-var workGroupCreator = 'user';
+var canCreateGroup =['user'];
 
 Parse.Cloud.define("getTags", function(request,response){
 	var tags =request.params.tags;
@@ -69,7 +69,7 @@ Parse.Cloud.define("createWorkgroup", function(request,response){
 	//var role = new Parse.Role(roleName, roleACL);
 	//role.save();	 
 	
-	userHasRole(request.user, workGroupCreator).then(
+	userHasRole(request.user, canCreateGroup).then(
 		function(hasRole){
 			response.success({
 				request: request
@@ -480,9 +480,9 @@ Parse.Cloud.define("push", function(request, response) {
 /**
 * Check if user has role
 */
-var userHasRole = function(user, rolename) {
+var userHasRole = function(user, rolenames) {
   	var roleQuery = new Parse.Query(Parse.Role);
-	roleQuery.equalTo('name', rolename);
+	roleQuery.containedIn('name', rolenames);
 	roleQuery.equalTo('users', user);
 
 	return roleQuery.first({useMasterKey: true}).then(function(role) {
