@@ -64,18 +64,30 @@ Parse.Cloud.define("createWorkgroup", function(request,response){
 	userHasRole(request.user, canCreateGroup)
 	.then(function(hasRole){
 		var roleACL = new Parse.ACL();
+		//Set correct permissions
 		roleACL.setPublicReadAccess(true);
+		//Set userts to role
+		//Set parent role
 		var role = new Parse.Role(roleName, roleACL);
 		return role.save(null,{useMasterKey: true});
 	})
 	.then(function(role){
-		response.success({
-			role: role,
-			request: request
-		});
+		var Profile = Parse.Object.extend("Profile");
+		var profile = new Profile;
+		
+		profile.set("name",name);
+		profile.set("role",role.objectId);
+		var profileACL = new Parse.ACL();
+		profileACL.setPublicReadAccess(true);
+		profile.setACL(profileACL);
+		return profile.save(null,{useMasterKey: true});
+		 //throw new Error('nopermission');
+	})
+	.then(function(profile){
+		response.success(profile);
 	})
 	.catch(function(err){
-		response.error('nopermission');
+		response.error(err);
 	});
 });
 
@@ -485,7 +497,7 @@ var userHasRole = function(user, rolenames) {
 
 	return roleQuery.first({useMasterKey: true}).then(function(role) {
   		if (!role) {
-   		 throw new Error('Not has the role');
+   		 throw new Error('nopermission');
   		}
 		return role;
 	});
