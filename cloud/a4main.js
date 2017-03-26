@@ -13,6 +13,8 @@ var _ = require('./underscore.js')
 var moderatorRole = 'role:moderator';
 //Workgroup role name
 var workgroupRole = 'role:workgroup';
+//Can create workgroups
+var workGroupCreator = 'user';
 
 Parse.Cloud.define("getTags", function(request,response){
 	var tags =request.params.tags;
@@ -67,11 +69,8 @@ Parse.Cloud.define("createWorkgroup", function(request,response){
 	//var role = new Parse.Role(roleName, roleACL);
 	//role.save();	 
 	
-	userHasRole(request.user,'user2').then(
+	userHasRole(request.user, workGroupCreator).then(
 		function(hasRole){
-			console.log('---------Role');
-			console.log(hasRole);
-			request.hasRole = hasRole;
 			response.success({
 				request: request
 			});
