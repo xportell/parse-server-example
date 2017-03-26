@@ -55,7 +55,7 @@ Parse.Cloud.define("createWorkgroup", function(request,response){
 	var members = request.params.workgroup || [];
 	
 	if(name == '') response.error('noname');
-	if(request.params.workgorup.length == 0) response.error('nomembers');
+	if(members == 0) response.error('nomembers');
 	
 	var roleName = name.replace(/\W/g, '');
 	
