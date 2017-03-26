@@ -88,7 +88,7 @@ Parse.Cloud.define("createWorkgroup", function(request,response){
 		//Set parent role
 		
 		console.log('save praent role----------');
-		console.log(role);
+		console.log(role.getRoles());
 		role.getRoles().add(workgroupObject);
 		return role.save(null,{useMasterKey: true});
 		//Set userts to role
