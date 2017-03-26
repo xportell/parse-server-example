@@ -68,9 +68,11 @@ Parse.Cloud.define("createWorkgroup", function(request,response){
 	//role.save();	 
 	
 	userHasRole(request.user,'user').then(function(hasRole){
+		console.log('---------Role');
+		console.log(role);
+		request.hasRole = hasRole;
 		response.success({
-		request: request,
-		hasRole: hasRole
+		request: request
 	 });
 	});
 	/*response.success({
@@ -484,8 +486,6 @@ var userHasRole = function(user, rolename) {
 	roleQuery.equalTo('users', user);
 
 	return roleQuery.first({useMasterKey: true}).then(function(role) {
-		console.log('---------Role');
-		console.log(role);
   		if (!role) {
    		 throw new Error('Not has the role');
   		}
