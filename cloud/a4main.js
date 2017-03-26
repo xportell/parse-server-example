@@ -88,6 +88,7 @@ Parse.Cloud.define("createWorkgroup", function(request,response){
 			console.log(role);
 			workgroupObject.getRoles().add(role);
 			workgroupObject.save(null,{useMasterKey: true});
+			return role;
 		});
 	})
 	.then(function(role){
