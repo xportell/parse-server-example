@@ -66,10 +66,17 @@ Parse.Cloud.define("createWorkgroup", function(request,response){
 	roleACL.setPublicReadAccess(true);
 	var role = new Parse.Role(roleName, roleACL);
 	//role.save();	 
-	response.success({
+	
+	userHasRole(request.user,'user').then(function(hasRole){
+		response.success({
+		request: request,
+		hasRole: hasRole
+	 });
+	});
+	/*response.success({
 		request: request,
 		user: Parse.User.current()
-	 });
+	 });*/
 });
 
 Parse.Cloud.define("UploadImageAndGetURL", function(request, response) {
@@ -466,3 +473,19 @@ Parse.Cloud.define("push", function(request, response) {
 	 });
 	  
 });
+
+
+/**
+* Check if user has role
+*/
+var userHasRole = function(user, rolename) {
+  	var roleQuery = new Parse.Query(Parse.Role);
+	roleQuery.equalTo('name', rolename);
+	roleQuery.equalTo('users', user);
+
+	return roleQuery.first().then(function(role) {
+  		if (!role) {
+   		 throw new Error('Not has the role');
+  		}
+	});
+}
