@@ -61,20 +61,22 @@ Parse.Cloud.define("createWorkgroup", function(request,response){
 	
 	var roleName = name.replace(/\W/g, '');
 
-	userHasRole(request.user, canCreateGroup).then(
-		function(hasRole){
-			var roleACL = new Parse.ACL();
-			roleACL.setPublicReadAccess(true);
-			var role = new Parse.Role(roleName, roleACL);
-			role.save(null,{useMasterKey: true});	 
-			response.success({
-				request: request
-			});
-		},
-		function(error){
-		        response.error('nopermission');
-      		}
-	);
+	userHasRole(request.user, canCreateGroup)
+	.then(function(hasRole){
+		var roleACL = new Parse.ACL();
+		roleACL.setPublicReadAccess(true);
+		var role = new Parse.Role(roleName, roleACL);
+		return role.save(null,{useMasterKey: true});
+	})
+	.then(function(role){
+		response.success({
+			role: role,
+			request: request
+		});
+	})
+	.catch(function(err){
+		response.error('nopermission');
+	});
 });
 
 Parse.Cloud.define("UploadImageAndGetURL", function(request, response) {
