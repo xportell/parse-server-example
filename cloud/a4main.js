@@ -480,11 +480,11 @@ Parse.Cloud.define("push", function(request, response) {
 */
 var userHasRole = function(user, rolename) {
 	console.log('-----------------------Role called');
-  	var roleQuery = new Parse.Query(Parse.Role,{useMasterKey: true});
+  	var roleQuery = new Parse.Query(Parse.Role);
 	roleQuery.equalTo('name', rolename);
 	roleQuery.equalTo('users', user);
 
-	return roleQuery.first().then(function(role) {
+	return roleQuery.first({useMasterKey: true}).then(function(role) {
   		if (!role) {
    		 throw new Error('Not has the role');
   		}
