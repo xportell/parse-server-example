@@ -16,6 +16,18 @@ var workgroupRole = 'role:workgroup';
 //Can create workgroups
 var canCreateGroup = ['user'];
 
+
+var getWorkgroupRole = function(){
+	var roleQuery = new Parse.Query(Parse.Role);
+	roleQuery.equal('name', 'workgroup');
+	
+	return roleQuery.first({useMasterKey: true}).then(function(role) {
+  		if (!role) {
+   		 throw new Error('nosuchrole');
+  		}
+		return role;
+	});
+}
 var workgroupObject = getWorkgroupRole();
 
 Parse.Cloud.define("getTags", function(request,response){
