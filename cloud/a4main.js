@@ -69,7 +69,7 @@ Parse.Cloud.define("createWorkgroup", function(request,response){
 	
 	userHasRole(request.user,'user').then(function(hasRole){
 		console.log('---------Role');
-		console.log(role);
+		console.log(hasRole);
 		request.hasRole = hasRole;
 		response.success({
 		request: request
