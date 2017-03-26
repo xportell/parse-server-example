@@ -76,12 +76,11 @@ Parse.Cloud.define("createWorkgroup", function(request,response){
 		var profile = new Profile;
 		
 		profile.set("name",name);
-		profile.set("role",role.id);
-		/*{
+		profile.set("role",{
 			"__type": "Pointer",
 			"className": role.className,
 			"objectId": role.id
-		});*/
+		});
 		var profileACL = new Parse.ACL();
 		profileACL.setPublicReadAccess(true);
 		profile.setACL(profileACL);
