@@ -12,7 +12,7 @@ var _ = require('./underscore.js')
 //Moderator role name
 var moderatorRole = 'role:moderator';
 //Workgroup role name
-var workgroupRole: 'role:workgroup';
+var workgroupRole = 'role:workgroup';
 
 Parse.Cloud.define("getTags", function(request,response){
 	var tags =request.params.tags;
