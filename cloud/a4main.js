@@ -69,7 +69,10 @@ Parse.Cloud.define("createWorkgroup", function(request,response){
 		var role = new Parse.Role(roleName, roleACL);
 		
 		//Set parent role
-		role.getRoles().add('workgroup');
+		var parentRole = new Parse.Object("_Role");
+		parentRole.name = workgroupRole;
+		role.getRoles().add(parentRole);
+		
 		//Set userts to role
 		//role.getUsers().add(usersToAddToRole);
 
