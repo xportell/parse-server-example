@@ -84,7 +84,7 @@ Parse.Cloud.define("createWorkgroup", function(request,response){
 		var role = new Parse.Role(roleName, roleACL);
 		
 		members.forEach(function(member){
-			var user = new ParseUser();
+			var user = new Parse.User();
 			user.set('id', member.user.id);
 			role.getUsers().add(user);
 		})
