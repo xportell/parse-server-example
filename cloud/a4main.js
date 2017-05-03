@@ -481,7 +481,52 @@ function signupAsBasicUser(name, password, email) {
 /**
 * NOTIFICATIONS FUNCTIONS (ON TEST)
 */
-Parse.Cloud.define("push", function(request, response) {
+function pushNotification(channel, data){
+	var channels = getChannels(channel);
+
+	var queryPush = new Parse.Query(Parse.Installation);
+	queryPush.equalTo('channels', 'NewPosts2');
+	
+	
+	Parse.Push.send({
+	  where: query,
+	   data: data,
+	}, { useMasterKey: true })
+	.then(function() {
+		return('Send done');
+	}, function(error) {
+		return('Error sending: ' + error);
+	});
+}
+
+function getChannels(channel){
+	var aChannel = chennel.split('-');
+	var action = '*';
+	var type = '*';
+	var target = '*';
+	var all = '*';
+	
+	if(typeof aChannel[0] != 'undefined') action = aChannel[0];
+	if(typeof aChannel[1] != 'undefined') type = aChannel[1];
+	if(typeof aChannel[2] != 'undefined') target = aChannel[2];
+
+	var channels = [];
+	
+	//Generate permutations
+	channels.push([action,	all,	all].join('-'));
+	channels.push([action,	all,	target].join('-'));
+	channels.push([action,	type,	all].join('-'));
+	channels.push([action,	type,	target].join('-'));
+	channels.push([all,	all,	all].join('-'));
+	channels.push([all,	all,	target].join('-'));
+	channels.push([all,	type,	all].join('-'));
+	channels.push([all,	type,	target].join('-'));
+
+	return channels;
+	
+}
+
+Parse.Cloud.define("pushOld", function(request, response) {
 	var query = new Parse.Query("Post");
 	
 	 query.get(request.params.objectId, {
