@@ -482,33 +482,51 @@ function signupAsBasicUser(name, password, email) {
 /**
 * NOTIFICATIONS FUNCTIONS (ON TEST)
 */
-function pushNotification(channel, data){
-	var channels = getChannels(channel);
+function pushNotification(channels, data){
 
 	var queryPush = new Parse.Query(Parse.Installation);
-	queryPush.equalTo('channels', 'NewPosts2');
+	queryPush.containedIn('channels', channels);
 	
+	query.find().then(function(result){
+		console.log('-------query push result------');
+		console.log(result);
+	}).
+	catch(function(error){
+		console.log('-------query push error: ' + error);
+	});
 	
-	Parse.Push.send({
+	/*Parse.Push.send({
 	  where: query,
 	   data: data,
 	}, { useMasterKey: true })
 	.then(function() {
+		console.log('-----------PUSH SENDED-------------');
 		return('Send done');
 	}, function(error) {
+		console.log('---------ERROR SENDING PUSH-----------');
 		return('Error sending: ' + error);
-	});
+	});*/
 }
 
 function sendActivityPush(activity, subactivity){
+	var type = subactivity.object.className;
 	var author = subactivity.object.attributes.author.id;
 	var text = subactivity.object.attributes.text;
+	var tags = subactivity.object.attributes.tags;
+	
+	var activityType = activity.className;
 	var activityId = activity.id;
 	
-	console.log('--------SubActivity--------');	
-	console.log(author);
-	console.log(text);
-	console.log(activityId);
+	var all = '*';
+	
+	var channels = [];
+	channel.push(['create',	all,		all].join('-')); //General create action
+	channel.push(['create',	activityType,	all].join('-')); //General activity channel
+	channel.push(['create',	type,		all].join('-')); //Subactivity activity channel
+
+	console.log('-------target channels-------', channels);
+	
+	pushNotifications();
 }
 
 function getChannels(channel){
