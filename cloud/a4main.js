@@ -502,7 +502,7 @@ function pushNotification(channel, data){
 
 function sendActivityPush(activity, subactivity){
 	console.log('----------Activity---------',activity);
-	console.log('--------SubActivity--------',activity);
+	console.log('--------SubActivity--------',subactivity);
 }
 
 function getChannels(channel){
