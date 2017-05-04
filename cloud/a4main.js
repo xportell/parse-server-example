@@ -483,10 +483,10 @@ function signupAsBasicUser(name, password, email) {
 * NOTIFICATIONS FUNCTIONS (ON TEST)
 */
 function pushNotification(channels, data){
-
+	console.log('-------pushNotification1-------');
 	var queryPush = new Parse.Query(Parse.Installation);
 	queryPush.containedIn('channels', channels);
-	
+		console.log('-------pushNotification2-------');
 	queryPush.find().then(function(result){
 		console.log('-------query push result------');
 		console.log(result);
@@ -509,12 +509,11 @@ function pushNotification(channels, data){
 }
 
 function sendActivityPush(activity, subactivity){
-console.log('-------target channels1-------');
 	var type = subactivity.object.className;
 	var author = subactivity.object.attributes.author.id;
 	var text = subactivity.object.attributes.text;
 	var tags = subactivity.object.attributes.tags;
-console.log('-------target channels2-------');
+
 	var activityType = activity.className;
 	var activityId = activity.id;
 	
@@ -525,7 +524,7 @@ console.log('-------target channels2-------');
 	channels.push(['create',	activityType,	all].join('-')); //General activity channel
 	channels.push(['create',	type,		all].join('-')); //Subactivity activity channel
 
-console.log('-------target channels3-------', channels);
+console.log('-------target channels-------', channels);
 	
 	var data = {
 		alert: 'Push test'
