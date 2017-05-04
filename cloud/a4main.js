@@ -509,21 +509,21 @@ function pushNotification(channels, data){
 }
 
 function sendActivityPush(activity, subactivity){
-console.log('-------target channels1-------', channels);
+console.log('-------target channels1-------');
 	var type = subactivity.object.className;
 	var author = subactivity.object.attributes.author.id;
 	var text = subactivity.object.attributes.text;
 	var tags = subactivity.object.attributes.tags;
-console.log('-------target channels2-------', channels);
+console.log('-------target channels2-------');
 	var activityType = activity.className;
 	var activityId = activity.id;
 	
 	var all = '*';
 	
 	var channels = [];
-	channel.push(['create',	all,		all].join('-')); //General create action
-	channel.push(['create',	activityType,	all].join('-')); //General activity channel
-	channel.push(['create',	type,		all].join('-')); //Subactivity activity channel
+	channels.push(['create',	all,		all].join('-')); //General create action
+	channels.push(['create',	activityType,	all].join('-')); //General activity channel
+	channels.push(['create',	type,		all].join('-')); //Subactivity activity channel
 
 console.log('-------target channels3-------', channels);
 	
