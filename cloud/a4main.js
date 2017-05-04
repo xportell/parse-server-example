@@ -169,6 +169,7 @@ function updateActivity(request, response){
 
 	activity.save(null,{
 	  success: function(activity) {
+	    sendActivityPush(activity, request);
 	    response.success(activity);
 	  },
 	  error: function(activity, error) {
@@ -497,6 +498,11 @@ function pushNotification(channel, data){
 	}, function(error) {
 		return('Error sending: ' + error);
 	});
+}
+
+function sendActivityPush(activity, subactivity){
+	console.log('----------Activity---------',activity);
+	console.log('--------SubActivity--------',activity);
 }
 
 function getChannels(channel){
