@@ -529,7 +529,7 @@ console.log('-------target channels-------', channels);
 	var data = {
 		alert: 'Push test'
 	};
-	pushNotifications(channels, data);
+	pushNotification(channels, data);
 }
 
 function getChannels(channel){
