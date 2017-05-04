@@ -501,8 +501,9 @@ function pushNotification(channel, data){
 }
 
 function sendActivityPush(activity, subactivity){
-	console.log('----------Activity---------',activity.object.attributes);
+	
 	console.log('--------SubActivity--------',subactivity.object.attributes);
+	console.log('----------Activity---------',activity.object.attributes);
 }
 
 function getChannels(channel){
