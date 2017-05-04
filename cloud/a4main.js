@@ -501,9 +501,14 @@ function pushNotification(channel, data){
 }
 
 function sendActivityPush(activity, subactivity){
+	var author = subactivity.object.attributes.author.id;
+	var text = subactivity.object.attributes.text;
+	var activityId = activity.id;
 	
-	console.log('--------SubActivity--------',subactivity.object.attributes);
-	console.log('----------Activity---------',activity);
+	console.log('--------SubActivity--------');	
+	console.log(author);
+	console.log(text);
+	console.log(activityId);
 }
 
 function getChannels(channel){
