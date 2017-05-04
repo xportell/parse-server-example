@@ -509,11 +509,12 @@ function pushNotification(channels, data){
 }
 
 function sendActivityPush(activity, subactivity){
+console.log('-------target channels1-------', channels);
 	var type = subactivity.object.className;
 	var author = subactivity.object.attributes.author.id;
 	var text = subactivity.object.attributes.text;
 	var tags = subactivity.object.attributes.tags;
-	
+console.log('-------target channels2-------', channels);
 	var activityType = activity.className;
 	var activityId = activity.id;
 	
@@ -524,9 +525,12 @@ function sendActivityPush(activity, subactivity){
 	channel.push(['create',	activityType,	all].join('-')); //General activity channel
 	channel.push(['create',	type,		all].join('-')); //Subactivity activity channel
 
-	console.log('-------target channels-------', channels);
+console.log('-------target channels3-------', channels);
 	
-	pushNotifications();
+	var data = {
+		alert: 'Push test'
+	};
+	pushNotifications(channels, data);
 }
 
 function getChannels(channel){
