@@ -487,7 +487,7 @@ function pushNotification(channels, data){
 	var queryPush = new Parse.Query(Parse.Installation);
 	queryPush.containedIn('channels', channels);
 	
-	query.find().then(function(result){
+	queryPush.find().then(function(result){
 		console.log('-------query push result------');
 		console.log(result);
 	}).
