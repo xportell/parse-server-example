@@ -487,16 +487,10 @@ function pushNotification(channels, data){
 	var queryPush = new Parse.Query(Parse.Installation);
 	queryPush.containedIn('channels', channels);
 		console.log('-------pushNotification2-------');
-	queryPush.find({useMasterKey: true}).then(function(result){
-		console.log('-------query push result------');
-		console.log(result);
-	}).
-	catch(function(error){
-		console.log('-------query push error: ' + error);
-	});
 	
-	/*Parse.Push.send({
-	  where: query,
+	
+	Parse.Push.send({
+	  where: queryPush,
 	   data: data,
 	}, { useMasterKey: true })
 	.then(function() {
@@ -505,7 +499,7 @@ function pushNotification(channels, data){
 	}, function(error) {
 		console.log('---------ERROR SENDING PUSH-----------');
 		return('Error sending: ' + error);
-	});*/
+	});
 }
 
 function sendActivityPush(activity, subactivity){
@@ -527,7 +521,7 @@ function sendActivityPush(activity, subactivity){
 console.log('-------target channels-------', channels);
 	
 	var data = {
-		alert: 'Push test'
+		alert: 'New publish on Apps4Corporate'
 	};
 	pushNotification(channels, data);
 }
