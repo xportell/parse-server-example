@@ -56,6 +56,7 @@ Parse.Cloud.define("getTags", function(request,response){
 	console.log(query);
 	
 	query.find({
+		useMasterKey: true,
 		  success: function(activities) {
 				response.success(activities);
 		  }, function(error) {
@@ -63,7 +64,7 @@ Parse.Cloud.define("getTags", function(request,response){
 		      console.log("Error in requesting tags:" + JSON.stringify(error));
 		      response.error(error);
 		  }
-		},{ useMasterKey: true });
+		});
 });
 
 Parse.Cloud.define("createWorkgroup", function(request,response){
