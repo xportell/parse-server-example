@@ -55,16 +55,14 @@ Parse.Cloud.define("getTags", function(request,response){
 	
 	console.log(query);
 	
-	query.find({
-		useMasterKey: true,
-		  success: function(activities) {
+	query.find({useMasterKey: true}).then(
+		  function(activities) {
 				response.success(activities);
 		  }, function(error) {
 		      // The file either could not be read, or could not be saved to Parse.
 		      console.log("Error in requesting tags:" + JSON.stringify(error));
 		      response.error(error);
-		  }
-		});
+		  });
 });
 
 Parse.Cloud.define("createWorkgroup", function(request,response){
