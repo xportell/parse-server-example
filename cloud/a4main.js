@@ -31,6 +31,31 @@ var getWorkgroupRole = function(){
 }
 getWorkgroupRole();
 
+Parse.Cloud.define("getNoteTags", function(request,response){
+	var tags =request.params.tags;
+	console.log('tags',tags);
+	
+	var className = "Note";
+
+	Activity = Parse.Object.extend("Activity");
+	var innQuery = new Parse.Query(className);		
+	var query = new Parse.Query(Activity);
+	query.matchesQuery("childs", innQuery.containsAll('tags',tags));
+	query.include("childs");
+	query.include("childs.author");
+	
+	console.log(query);
+	
+	query.find({useMasterKey: true}).then(
+		  function(activities) {
+				response.success(activities);
+		  }, function(error) {
+		      // The file either could not be read, or could not be saved to Parse.
+		      console.log("Error in requesting tags:" + JSON.stringify(error));
+		      response.error(error);
+		  });
+});
+
 Parse.Cloud.define("getTags", function(request,response){
 	var tags =request.params.tags;
 	console.log('tags',tags);
