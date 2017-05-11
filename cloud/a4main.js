@@ -37,9 +37,6 @@ Parse.Cloud.define("getTags", function(request,response){
 	
 	var classNames = [
 		"Forum",
-		"Event",
-		"Postv2",
-		"Surveys",
 		"Note"
 	];
 
@@ -55,6 +52,8 @@ Parse.Cloud.define("getTags", function(request,response){
 	var query = Parse.Query.or.apply(this, orArgs);
 	query.include("childs");
 	query.include("childs.author");
+	
+	console.log(query);
 	
 	query.find({
 		  success: function(activities) {
