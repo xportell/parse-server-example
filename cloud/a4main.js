@@ -39,7 +39,8 @@ Parse.Cloud.define("getTags", function(request,response){
 		"Forum",
 		"Event",
 		"Postv2",
-		"Surveys"
+		"Surveys",
+		"Note"
 	];
 
 	Activity = Parse.Object.extend("Activity");
