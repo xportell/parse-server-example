@@ -45,7 +45,7 @@ Parse.Cloud.define("getTags", function(request,response){
 	var orArgs = classNames.map(function(item){
 		var innQuery = new Parse.Query(item);	
 		var subQuery = new Parse.Query(Activity);
-		return subQuery.matchesQuery("childs", innQuery.containsAll('tags',tags));
+		return subQuery.matchesQuery("childs", innQuery.containedIn('tags',tags));
 	});
 
 	
