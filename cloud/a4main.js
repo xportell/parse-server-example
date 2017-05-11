@@ -44,6 +44,7 @@ Parse.Cloud.define("getNoteTags", function(request,response){
 	query.include("childs");
 	query.include("childs.author");
 	
+	
 	console.log(query);
 	
 	query.find({useMasterKey: true}).then(
@@ -70,13 +71,15 @@ Parse.Cloud.define("getTags", function(request,response){
 	var orArgs = classNames.map(function(item){
 		var innQuery = new Parse.Query(item);	
 		var subQuery = new Parse.Query(Activity);
-		return subQuery.matchesQuery("childs", innQuery.containsAll('tags',tags));
+		return subQuery.matchesQuery("base", innQuery.containsAll('tags',tags));
 	});
 
 	
 	var query = Parse.Query.or.apply(this, orArgs);
 	query.include("childs");
 	query.include("childs.author");
+	query.include("base");
+	query.include("base.author");
 	
 	console.log(query);
 	
