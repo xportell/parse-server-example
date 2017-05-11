@@ -45,7 +45,7 @@ Parse.Cloud.define("getTags", function(request,response){
 	var orArgs = classNames.map(function(item){
 		var innQuery = new Parse.Query(item);	
 		var subQuery = new Parse.Query(Activity);
-		return subQuery.matchesQuery("childs", innQuery.containedIn('tags',tags));
+		return subQuery.matchesQuery("childs", innQuery.containsAll('tags',tags));
 	});
 
 	
@@ -63,7 +63,7 @@ Parse.Cloud.define("getTags", function(request,response){
 		      console.log("Error in requesting tags:" + JSON.stringify(error));
 		      response.error(error);
 		  }
-		});
+		},{ useMasterKey: true });
 });
 
 Parse.Cloud.define("createWorkgroup", function(request,response){
