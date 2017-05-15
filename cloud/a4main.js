@@ -37,7 +37,9 @@ Parse.Cloud.define("getTags", function(request,response){
 	
 	var classNames = [
 		"Forum",
-		"Note"
+		"Note",
+		"Event",
+		"Hashtag"
 	];
 
 	Activity = Parse.Object.extend("Activity");
@@ -167,6 +169,9 @@ function updateActivity(request, response){
 	
 	if(request.object.attributes.ACL)  activity.setACL(activityACL(request.object.attributes.ACL));
 
+	if(request.object.attributes.attributes) activity.set("attributes",request.object.attributes.attributes);
+	else activity.set("attributes",[]);
+
 
 	activity.save(null,{
 	  success: function(activity) {
@@ -252,17 +257,17 @@ function addTag(request, response){
 */
 
 Parse.Cloud.beforeSave("Note", function(request, response) {
-	request.object.set("ACL",addModerator(request));
+	//request.object.set("ACL",addModerator(request));
 	response.success();
 });
 
 Parse.Cloud.beforeSave("Forum", function(request, response) {
-	request.object.set("ACL",addModerator(request));
+	//request.object.set("ACL",addModerator(request));
 	response.success();
 });
 
 Parse.Cloud.beforeSave("Hashtag", function(request, response) {
-	request.object.set("ACL",addModerator(request));
+	//request.object.set("ACL",addModerator(request));
 	response.success();
 });
 
@@ -276,6 +281,11 @@ function addModerator(request){
 /**
 * AfterSave SubActivity
 */
+Parse.Cloud.afterSave("Event",function(request, response) {
+	if(request.object.attributes.updatedAt == request.object.attributes.createdAt) updateActivity(request);
+	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
+}); 
+
 Parse.Cloud.afterSave("Post",function(request, response) {
 	if(request.object.attributes.updatedAt == request.object.attributes.createdAt) updateActivity(request);
 	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
