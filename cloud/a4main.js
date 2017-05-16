@@ -39,7 +39,8 @@ Parse.Cloud.define("getTags", function(request,response){
 		"Forum",
 		"Note",
 		"Event",
-		"Hashtag"
+		"Hashtag",
+		"Todo"
 	];
 
 	Activity = Parse.Object.extend("Activity");
@@ -312,6 +313,11 @@ Parse.Cloud.afterSave("Forum",function(request, response) {
 });
 
 Parse.Cloud.afterSave("Hashtag",function(request, response) {
+	if(request.object.attributes.updatedAt == request.object.attributes.createdAt) updateActivity(request);
+	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
+});
+
+Parse.Cloud.afterSave("Todo",function(request, response) {
 	if(request.object.attributes.updatedAt == request.object.attributes.createdAt) updateActivity(request);
 	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
 });
