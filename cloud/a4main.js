@@ -511,6 +511,7 @@ Parse.Cloud.define("changePercent", function(request, response) {
 	query.include("assigned");
 	query.get(item, {
 		  success: function(todo) {
+			  getUserRoles(userId);
 			  var assigned = todo.get('assigned');
 			  var ids = assigned.map(function(oUser){
 				var user = oUser.get('user');
@@ -650,6 +651,21 @@ Parse.Cloud.define("pushOld", function(request, response) {
 	  
 });
 
+/*
+*
+*/
+var getUserRoles = function(userId){
+	
+	var user = new Parse.User();
+	user.id = userId;
+	
+	var relation = Parse.Role.relation("users");
+	var query = relation.query();
+	query.equalTo("users", user);
+	query.find({useMasterKey:true}).then(users){
+		cosole.log('+++++users',users);
+	};
+}
 
 /**
 * Check if user has role
