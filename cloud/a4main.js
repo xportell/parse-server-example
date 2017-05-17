@@ -513,7 +513,9 @@ Parse.Cloud.define("changePercent", function(request, response) {
 	query.get(item, {
 		  success: function(todo) {
 			  var assigned = todo.get("assigned");
+			  console.log('+++++++assigned', assigned);
 			  getUserRoles(userId).then(function(roles){
+				  			  console.log('+++++++assigned2', assigned);
 				//Retrive all roles of the user
 				var aIds = roles.map(function(role){ return role.id});
 				//Add user id to ids
