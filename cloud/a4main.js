@@ -503,7 +503,8 @@ Parse.Cloud.define("changePercent", function(request, response) {
 
 	var item = request.params.item;
 	var value = request.params.value;
-	var user = request.user;
+	var userId = request.user;
+	var useMasterKey = false;
 	
 	var Todo = Parse.Object.extend("Todo");
 	var query = new Parse.Query(Todo);
@@ -518,14 +519,25 @@ Parse.Cloud.define("changePercent", function(request, response) {
 				else if(typeof role != 'undefined') return role.id;
 				return '';
 			 });
-			 console.log(ids);
-			  
-			 
-		    	response.success(ids);
+			
+			  if(ids.indexOf(userId)>-1) useMasterKey = true;
+			  todo.save({
+				  useMasterKey:useMasterKey
+				  complete: value
+				},{
+				success: function(saved) {
+				   response.success(saved);
+				},
+				error: function(saved, error) {
+				    // The save failed.
+				      console.log("Error saving complete:" + JSON.stringify(error));
+				}
+			  })
+
 		  },
 		  error: function(object, error) {
 		     // The file either could not be read, or could not be saved to Parse.
-		      console.log("Error in requesting tags:" + JSON.stringify(error));
+		      console.log("Error completing todo:" + JSON.stringify(error));
 		      response.error(object);
 		  }
 	});
