@@ -512,10 +512,8 @@ Parse.Cloud.define("changePercent", function(request, response) {
 		  success: function(todo) {
 			  var assigned = todo.get('assigned');
 			  var ids = assigned.map(function(oUser){
-				  var user = oUser.get('user');
-				  var role = oUser.get('role');
-				
-				  return 'ontest';
+				var user = oUser.get('user');
+				var role = oUser.get('role');
 				if(typeof user != 'undefined') return user.id;
 				else if(typeof role != 'undefined') return role.id;
 				return '';
