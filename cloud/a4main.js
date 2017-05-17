@@ -522,7 +522,7 @@ Parse.Cloud.define("changePercent", function(request, response) {
 			
 			  if(ids.indexOf(userId)>-1) useMasterKey = true;
 			  todo.save({
-				  useMasterKey:useMasterKey
+				  useMasterKey:useMasterKey,
 				  complete: value
 				},{
 				success: function(saved) {
