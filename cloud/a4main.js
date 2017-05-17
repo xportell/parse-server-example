@@ -513,7 +513,7 @@ Parse.Cloud.define("changePercent", function(request, response) {
 		  success: function(todo) {
 			  getUserRoles(userId).then(function(users){
 				  response.success(users);
-			  },fucntion(error){
+			  },function(error){
 				response.error(users);
 			});
 			 /* var assigned = todo.get('assigned');
