@@ -156,7 +156,7 @@ function updateActivity(request, response){
      		"objectId": request.object.id,
  	};
  		
-	Activity = Parse.Object.extend("Activity");
+	Todo = Parse.Object.extend("Activity");
 	var activity = new Activity;
 
 	if(request.object.attributes.parent){
@@ -494,6 +494,22 @@ function signupAsBasicUser(name, password, email) {
  });
 }
 
+
+/**
+* Callable functions
+*/
+
+Parse.Cloud.define("changePercent", function(request, response) {
+
+	var item = request.params.id;
+	var value = request.params.value;
+
+	console.log(item);
+	console.log(value);
+	console.log(request);
+	
+	response.success(request);
+});
 
 
 /**
