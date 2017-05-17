@@ -659,19 +659,20 @@ Parse.Cloud.define("pushOld", function(request, response) {
 *
 */
 var getUserRoles = function(userId){
-	
+
 	var user = new Parse.User();
 	user.id = userId;
 	
 	var relation = Parse.Role.relation("users");
 	var query = relation.query();
 	query.equalTo("users", user);
+		console.log('++++++query users');
 	return query.find({useMasterKey:true}).then(function(users){
-		cosole.log('+++++users',users);
+		console.log('+++++users',users);
 		return users;
 	},
 	function(error){
-				cosole.log('+++++users error',users);
+				console.log('+++++users error',users);
 		return error;
 	});
 }
