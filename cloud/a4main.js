@@ -666,7 +666,7 @@ var getUserRoles = function(user){
 	console.log('++++++query users3');
 	roleQuery.equalTo('users', user);
 	console.log('++++++query users4',roleQuery);
-	return query.find({useMasterKey:true}).then(function(users){
+	return roleQuery.find({useMasterKey:true}).then(function(users){
 		console.log('+++++users',users);
 		return users;
 	},
