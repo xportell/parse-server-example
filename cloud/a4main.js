@@ -513,31 +513,28 @@ Parse.Cloud.define("changePercent", function(request, response) {
 	query.get(item, {
 		  success: function(todo) {
 			  getUserRoles(userId).then(function(roles){
-				  var ids = roles.map(function(role){ return role.id});
-				  ids.push(userId.id);
-				  response.success(ids);
-			  },function(error){
-				response.error(error);
-			})
-			 /* var assigned = todo.get('assigned');
-			  var ids = assigned.map(function(oUser){
-				var user = oUser.get('user');
-				var role = oUser.get('role');
-				if(typeof user != 'undefined') return user.id;
-				else if(typeof role != 'undefined'){
-					var users = role.getUsers().query();
-					console.log('*****get users',users);
-					return role.id;
+				//Retrive all roles of the user
+				var aIds = roles.map(function(role){ return role.id});
+				//Add user id to ids
+				aIds.push(userId.id);
+				  
+				//Check if user id and his roles id are in assigned field
+				var ids = assigned.forEach(function(oUser){
+					var id = '';
+					var user = oUser.get('user');
+					var role = oUser.get('role');
+					if(typeof user != 'undefined') id = user.id;
+					else if(typeof role != 'undefined') id = role.id;
+					
+					if(aIds.indexOf(id) > -1) useMasterKey = true;
 				}
-				return '';
+				//Save ToDo			   
+				todo.save({complete:value}, { useMasterKey: useMasterKey }).then(function(saved) {
+					response.success(saved);
+				}, function(error) {
+					response.error(error);
+				});
 			 });
-			
-			  if(ids.indexOf(userId)>-1) useMasterKey = true;
-			  todo.save({complete:value}, { useMasterKey: true }).then(function(saved) {
-			    response.success(saved);
-			  }, function(error) {
-			    response.error(error);
-			  });*/
 		  },
 		  error: function(object, error) {
 		     // The file either could not be read, or could not be saved to Parse.
