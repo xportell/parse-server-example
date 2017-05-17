@@ -538,7 +538,7 @@ Parse.Cloud.define("changePercent", function(request, response) {
 				console.log(todo.attributes.ACL.toJSON());
 				
 				todo.set("complete",value);
-				todo.save(null,request).then(function(saved) {
+				todo.save(null,userId).then(function(saved) {
 					response.success(saved);
 				}, function(error) {
 					response.error(error);
