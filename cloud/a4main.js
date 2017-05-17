@@ -511,8 +511,12 @@ Parse.Cloud.define("changePercent", function(request, response) {
 	query.include("assigned");
 	query.get(item, {
 		  success: function(todo) {
-			  getUserRoles(userId);
-			  var assigned = todo.get('assigned');
+			  getUserRoles(userId).then(function(users){
+				  response.success(users);
+			  },fucntion(error){
+				response.error(users);
+			});
+			 /* var assigned = todo.get('assigned');
 			  var ids = assigned.map(function(oUser){
 				var user = oUser.get('user');
 				var role = oUser.get('role');
@@ -530,7 +534,7 @@ Parse.Cloud.define("changePercent", function(request, response) {
 			    response.success(saved);
 			  }, function(error) {
 			    response.error(error);
-			  });
+			  });*/
 		  },
 		  error: function(object, error) {
 		     // The file either could not be read, or could not be saved to Parse.
@@ -662,8 +666,13 @@ var getUserRoles = function(userId){
 	var relation = Parse.Role.relation("users");
 	var query = relation.query();
 	query.equalTo("users", user);
-	query.find({useMasterKey:true}).then(function(users){
+	return query.find({useMasterKey:true}).then(function(users){
 		cosole.log('+++++users',users);
+		return users;
+	},
+	function(error){
+				cosole.log('+++++users error',users);
+		return error;
 	});
 }
 
