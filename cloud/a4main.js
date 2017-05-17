@@ -528,7 +528,10 @@ Parse.Cloud.define("changePercent", function(request, response) {
 					
 					if(aIds.indexOf(id) > -1) useMasterKey = true;
 				});
-				//Save ToDo			   
+				//Save ToDo
+				  console.log('userMasterKey',userMasterKey);
+				  console.log('todo',todo);
+
 				todo.save({complete:value}, { useMasterKey: useMasterKey }).then(function(saved) {
 					response.success(saved);
 				}, function(error) {
@@ -661,15 +664,10 @@ Parse.Cloud.define("pushOld", function(request, response) {
 /*
 *
 */
-var getUserRoles = function(user){
-	console.log('++++++query users1');
-	console.log('++++++query users2');		
+var getUserRoles = function(user){		
 	var roleQuery = new Parse.Query(Parse.Role);
-	console.log('++++++query users3');
 	roleQuery.equalTo('users', user);
-	console.log('++++++query users4',roleQuery);
 	return roleQuery.find({useMasterKey:true}).then(function(users){
-		console.log('+++++users',users);
 		return users;
 	},
 	function(error){
