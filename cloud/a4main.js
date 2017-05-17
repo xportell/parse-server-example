@@ -659,16 +659,12 @@ Parse.Cloud.define("pushOld", function(request, response) {
 *
 */
 var getUserRoles = function(userId){
-console.log('++++++query users1');
+	console.log('++++++query users1');
 	var user = new Parse.User();
 	user.id = userId;
-console.log('++++++query users2');	
-	var relation = Parse.Role.relation("users");
-console.log('++++++query users3');	
-	var query = relation.query();
-console.log('++++++query users4');
-	query.equalTo("users", user);
-		console.log('++++++query users5');
+	console.log('++++++query users2');		
+	var roleQuery = new Parse.Query(Parse.Role);
+	roleQuery.equalTo('users', user);
 	return query.find({useMasterKey:true}).then(function(users){
 		console.log('+++++users',users);
 		return users;
