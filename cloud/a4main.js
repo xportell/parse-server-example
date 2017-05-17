@@ -527,13 +527,16 @@ Parse.Cloud.define("changePercent", function(request, response) {
 					else if(typeof role != 'undefined') id = role.id;
 					
 					if(aIds.indexOf(id) > -1) useMasterKey = true;
-				}
+				});
 				//Save ToDo			   
 				todo.save({complete:value}, { useMasterKey: useMasterKey }).then(function(saved) {
 					response.success(saved);
 				}, function(error) {
 					response.error(error);
 				});
+			 },funciton(error){
+				console.log("Error retrieving roles:" + JSON.stringify(error));
+				response.error(object);
 			 });
 		  },
 		  error: function(object, error) {
