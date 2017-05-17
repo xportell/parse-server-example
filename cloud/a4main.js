@@ -521,19 +521,11 @@ Parse.Cloud.define("changePercent", function(request, response) {
 			 });
 			
 			  if(ids.indexOf(userId)>-1) useMasterKey = true;
-			  todo.save({
-				  useMasterKey:useMasterKey,
-				  complete: value
-				},{
-				success: function(saved) {
-				   response.success(saved);
-				},
-				error: function(saved, error) {
-				    // The save failed.
-				      console.log("Error saving complete:" + JSON.stringify(error));
-				}
-			  })
-
+			  todo.save({complete:value}, { useMasterKey: true }).then(function(saved) {
+			    response.success(saved);
+			  }, function(error) {
+			    response.error(error);
+			  });
 		  },
 		  error: function(object, error) {
 		     // The file either could not be read, or could not be saved to Parse.
