@@ -530,6 +530,7 @@ Parse.Cloud.define("changePercent", function(request, response) {
 					console.log(user, role);
 					if(typeof user != 'undefined') id = user.id;
 					else if(typeof role != 'undefined') id = role.id;
+					console.log('indexOf',aIds.indexOf(id));
 					if(aIds.indexOf(id) > -1) useMasterKey = true;
 					 console.log('useMasterKey',useMasterKey);
 				});
