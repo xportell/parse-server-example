@@ -520,9 +520,10 @@ Parse.Cloud.define("changePercent", function(request, response) {
 				var aIds = roles.map(function(role){ return role.id});
 				//Add user id to ids
 				aIds.push(userId.id);
-				  
+				   console.log('+++++++assigned3', assigned);
 				//Check if user id and his roles id are in assigned field
 				var ids = assigned.forEach(function(oUser){
+					console.log('+++++++assignedN', oUser);
 					var id = '';
 					var user = oUser.get('user');
 					var role = oUser.get('role');
