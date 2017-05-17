@@ -504,6 +504,7 @@ Parse.Cloud.define("changePercent", function(request, response) {
 	var item = request.params.item;
 	var value = request.params.value;
 	var userId = request.user;
+	console.log('userId',userId);
 	var useMasterKey = false;
 	
 	var Todo = Parse.Object.extend("Todo");
