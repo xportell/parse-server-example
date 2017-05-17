@@ -156,7 +156,7 @@ function updateActivity(request, response){
      		"objectId": request.object.id,
  	};
  		
-	Todo = Parse.Object.extend("Activity");
+	Activity = Parse.Object.extend("Activity");
 	var activity = new Activity;
 
 	if(request.object.attributes.parent){
