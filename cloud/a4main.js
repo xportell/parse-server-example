@@ -503,10 +503,13 @@ Parse.Cloud.define("changePercent", function(request, response) {
 
 	var item = request.params.id;
 	var value = request.params.value;
+	var user = request.user;
 
 	console.log(item);
 	console.log(value);
-	console.log(request);
+	console.log(user.id);
+//	console.log(request);
+	
 	
 	response.success(request);
 });
