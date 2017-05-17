@@ -522,7 +522,7 @@ Parse.Cloud.define("changePercent", function(request, response) {
 				aIds.push(userId.id);
 				   console.log('+++++++assigned3', aIds);
 				//Check if user id and his roles id are in assigned field
-				/*assigned.forEach(function(oUser){
+				assigned.forEach(function(oUser){
 					
 					var id = '';
 					var user = oUser.get('user');
@@ -533,7 +533,7 @@ Parse.Cloud.define("changePercent", function(request, response) {
 					console.log('indexOf:' + id ,aIds.indexOf(id));
 					if(aIds.indexOf(id) > -1) useMasterKey = true;
 					 console.log('useMasterKey',useMasterKey);
-				});*/
+				});
 				//Save ToDo
 				  console.log('userMasterKey',useMasterKey);
 				  console.log('todo',todo);
