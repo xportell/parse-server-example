@@ -512,11 +512,13 @@ Parse.Cloud.define("changePercent", function(request, response) {
 	query.include("assigned");
 	query.get(item, {
 		  success: function(todo) {
-			  getUserRoles(userId).then(function(users){
-				  response.success(users);
+			  getUserRoles(userId).then(function(roles){
+				  var ids = roles.map(function(role){ return role.id});
+				  ids.push(userId.id);
+				  response.success(ids);
 			  },function(error){
-				response.error(users);
-			});
+				response.error(error);
+			})
 			 /* var assigned = todo.get('assigned');
 			  var ids = assigned.map(function(oUser){
 				var user = oUser.get('user');
