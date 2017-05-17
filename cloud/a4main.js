@@ -510,19 +510,18 @@ Parse.Cloud.define("changePercent", function(request, response) {
 	console.log(user.id);
 //	console.log(request);
 	
-	var query = new Parse.Query("Todo");
-	query.equalTo('objectId', id);
-	
-	query.find().then(
-		function(item){
-			response.success(item);
-		},
-		function(error) {
-		      // The file either could not be read, or could not be saved to Parse.
+	var Todo = Parse.Object.extend("Todo");
+	var query = new Parse.Query(Todo);
+	query.get("xWMyZ4YEGZ", {
+		  success: function(item) {
+		    response.success(item);
+		  },
+		  error: function(object, error) {
+		     // The file either could not be read, or could not be saved to Parse.
 		      console.log("Error in requesting tags:" + JSON.stringify(error));
 		      response.error(error);
-		}
-	);
+		  }
+	});
 });
 
 
