@@ -535,7 +535,7 @@ Parse.Cloud.define("changePercent", function(request, response) {
 					 console.log('useMasterKey',useMasterKey);
 				});
 				//Save ToDo
-				  var params = {};
+				  var params = null;
 				  if(useMasterKey) params = { useMasterKey: true};
 
 				todo.save({complete:value}, params).then(function(saved) {
