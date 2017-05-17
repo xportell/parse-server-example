@@ -536,9 +536,10 @@ Parse.Cloud.define("changePercent", function(request, response) {
 				});
 				//Save ToDo
 				console.log('sessionToken',userId.getSessionToken());
-				
+				var key = {sessionToken: userId.getSessionToken()};
+				  
 				todo.set("complete",value);
-				todo.save(null,userId).then(function(saved) {
+				todo.save(null,key).then(function(saved) {
 					response.success(saved);
 				}, function(error) {
 					response.error(error);
