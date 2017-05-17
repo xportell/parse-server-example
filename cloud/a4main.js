@@ -512,6 +512,7 @@ Parse.Cloud.define("changePercent", function(request, response) {
 	
 	var Todo = Parse.Object.extend("Todo");
 	var query = new Parse.Query(Todo);
+	console.log(query);
 	query.get(id, {
 		  success: function(item) {
 		    response.success(item);
