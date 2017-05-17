@@ -662,9 +662,9 @@ var getUserRoles = function(userId){
 	var relation = Parse.Role.relation("users");
 	var query = relation.query();
 	query.equalTo("users", user);
-	query.find({useMasterKey:true}).then(users){
+	query.find({useMasterKey:true}).then(function(users){
 		cosole.log('+++++users',users);
-	};
+	});
 }
 
 /**
