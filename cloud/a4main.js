@@ -519,9 +519,11 @@ Parse.Cloud.define("changePercent", function(request, response) {
 		  error: function(object, error) {
 		     // The file either could not be read, or could not be saved to Parse.
 		      console.log("Error in requesting tags:" + JSON.stringify(error));
-		      response.error(error);
+		      response.error(object);
 		  }
 	});
+	
+	
 });
 
 
