@@ -536,8 +536,8 @@ Parse.Cloud.define("changePercent", function(request, response) {
 				});
 				//Save ToDo
 				
-
-				todo.save({complete:value}).then(function(saved) {
+				todo.set("complete",value);
+				todo.save().then(function(saved) {
 					response.success(saved);
 				}, function(error) {
 					response.error(error);
