@@ -517,7 +517,8 @@ Parse.Cloud.define("changePercent", function(request, response) {
 				var role = oUser.get('role');
 				if(typeof user != 'undefined') return user.id;
 				else if(typeof role != 'undefined'){
-					console.log('*******get users', role.getUsers());
+					var users = role.getUsers().query();
+					console.log('*****get users',users);
 					return role.id;
 				}
 				return '';
