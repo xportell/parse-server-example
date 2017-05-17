@@ -534,7 +534,7 @@ Parse.Cloud.define("changePercent", function(request, response) {
 				}, function(error) {
 					response.error(error);
 				});
-			 },funciton(error){
+			 },function(error){
 				console.log("Error retrieving roles:" + JSON.stringify(error));
 				response.error(object);
 			 });
