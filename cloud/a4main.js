@@ -511,15 +511,15 @@ Parse.Cloud.define("changePercent", function(request, response) {
 	query.get(item, {
 		  success: function(todo) {
 			  var assigned = todo.get('assigned');
-			/* var ids = todo.assigned.map(function(assign){
-				if(typeof assign.user != 'undefined') return assign.user.objectId;
-				else if(typeof assign.role != 'undefined') return assign.role.objectId;
+			  var ids = assigned.map(function(user){
+				if(typeof user.user != 'undefined') return user.user.objectId;
+				else if(typeof user.role != 'undefined') return user.role.objectId;
 				return '';
 			 });
-			 console.log(ids);*/
+			 console.log(ids);
 			  
 			 
-		    	response.success(assigned);
+		    	response.success(ids);
 		  },
 		  error: function(object, error) {
 		     // The file either could not be read, or could not be saved to Parse.
