@@ -518,7 +518,7 @@ Parse.Cloud.define("changePercent", function(request, response) {
 		  success: function(item) {
 			 var ids = item.assigned.map(function(assign){
 				if(typeof assign.user != 'undefined') return assign.user.objectId;
-				elseif(typeof assign.role != 'undefined') return assign.role.objectId;
+				else if(typeof assign.role != 'undefined') return assign.role.objectId;
 				return '';
 			 });
 			 console.log(ids);
