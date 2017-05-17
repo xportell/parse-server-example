@@ -501,11 +501,11 @@ function signupAsBasicUser(name, password, email) {
 
 Parse.Cloud.define("changePercent", function(request, response) {
 
-	var id = request.params.id;
+	var item = request.params.item;
 	var value = request.params.value;
 	var user = request.user;
 
-	console.log(id);
+	console.log(item);
 	console.log(value);
 	console.log(user.id);
 //	console.log(request);
@@ -513,7 +513,7 @@ Parse.Cloud.define("changePercent", function(request, response) {
 	var Todo = Parse.Object.extend("Todo");
 	var query = new Parse.Query(Todo);
 	console.log(query);
-	query.get(id, {
+	query.get(item, {
 		  success: function(item) {
 		    response.success(item);
 		  },
