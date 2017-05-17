@@ -501,17 +501,28 @@ function signupAsBasicUser(name, password, email) {
 
 Parse.Cloud.define("changePercent", function(request, response) {
 
-	var item = request.params.id;
+	var id = request.params.id;
 	var value = request.params.value;
 	var user = request.user;
 
-	console.log(item);
+	console.log(id);
 	console.log(value);
 	console.log(user.id);
 //	console.log(request);
 	
+	var query = new Parse.Query("Todo");
+	query.equalTo('objectId', id);
 	
-	response.success(request);
+	query.find().then(
+		function(item){
+			response.success(item);
+		},
+		function(error) {
+		      // The file either could not be read, or could not be saved to Parse.
+		      console.log("Error in requesting tags:" + JSON.stringify(error));
+		      response.error(error);
+		}
+	);
 });
 
 
