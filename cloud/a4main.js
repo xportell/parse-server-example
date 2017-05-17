@@ -659,10 +659,8 @@ Parse.Cloud.define("pushOld", function(request, response) {
 /*
 *
 */
-var getUserRoles = function(userId){
+var getUserRoles = function(user){
 	console.log('++++++query users1');
-	var user = new Parse.User();
-	user.id = userId;
 	console.log('++++++query users2');		
 	var roleQuery = new Parse.Query(Parse.Role);
 	console.log('++++++query users3');
