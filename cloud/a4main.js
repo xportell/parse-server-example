@@ -535,7 +535,7 @@ Parse.Cloud.define("changePercent", function(request, response) {
 					 console.log('useMasterKey',useMasterKey);
 				});
 				//Save ToDo
-				console.log(todo.attributes.ACL.toJSON());
+				console.log('sessionToken',userId.getSessionToken());
 				
 				todo.set("complete",value);
 				todo.save(null,userId).then(function(saved) {
