@@ -175,6 +175,7 @@ function updateActivity(request, response){
 
 
 	activity.save(null,{
+	  useMasterKey:true,
 	  success: function(activity) {
 	    sendActivityPush(activity, request);
 	    response.success(activity);
