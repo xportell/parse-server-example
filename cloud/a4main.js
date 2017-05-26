@@ -530,9 +530,9 @@ Parse.Cloud.define("doLike", function(request, response) {
 				likes.foreEach(function(item){
 					if(item.className == 'Profile' && item.objectId == profile.id) exist = true;
 				});
-				if(exist) item.addUnique('childs', profilePointer);
-				else item.remove('childs', profilePointer);
-				item.save(null, {useMasterKey:true}).then(function(saved) {
+				if(exist) activity.addUnique('childs', profilePointer);
+				else activity.remove('childs', profilePointer);
+				activity.save(null, {useMasterKey:true}).then(function(saved) {
 					response.success(saved);
 				}, function(error) {
 					response.error(error);
