@@ -532,6 +532,51 @@ function signupAsBasicUser(name, password, email) {
 /**
 * Callable functions
 */
+Parse.Cloud.define("doLike", function(request, response) {
+
+	var item = request.params.item;
+	var userId = request.user;
+	console.log('userId',userId);
+	var useMasterKey = false;
+	
+	var Activity = Parse.Object.extend("Activity");
+	var query = new Parse.Query(Activity);
+	query.get(item, {
+		  success: function(activity) {
+			var target = {"__type":"Pointer","className":"User","objectId":userId};
+			var Profile = Parse.Object.extend("Activity");
+			var queryProfile = new Parse.Query(Profile);
+			queryProfile.equalTo("user", target);
+			query.first().then(profile){
+				var profilePointer = {"__type":"Pointer","className":"Profile","objectId":userId};
+				var likes = item.get('childs');
+				var action == 'add';
+				var exist = likes.some(function(item){
+					if(item.className == 'Profile' && item.objectId == profile.id) 
+				});
+				if(exist) item.addUnique('childs', profilePointer);
+				else item.remove('childs', profilePointer);
+				item.save(null, {useMasterKey}).then(function(saved) {
+					response.success(saved);
+				}, function(error) {
+					response.error(error);
+				});
+				
+			}.catch(error){
+				response.error(object);
+			}
+			
+		  },
+		  error: function(object, error) {
+		     // The file either could not be read, or could not be saved to Parse.
+		      console.log("Error like permissions:" + JSON.stringify(error));
+		      response.error(object);
+		  }
+	});
+	
+	
+});
+
 
 Parse.Cloud.define("changePercent", function(request, response) {
 
