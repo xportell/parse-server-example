@@ -272,7 +272,7 @@ Parse.Cloud.beforeSave("Activity", function(request, response) {
 			success: function(row) {
 			    //if (row.get('choice') !== null) 
 				//response.error('Not allowed to change your choice once submitted');
-				console.log(row);
+				console.log('row',row);
 			    response.success(); // Only after we check for error do we call success
 				
 			},
