@@ -517,6 +517,7 @@ Parse.Cloud.define("doLike", function(request, response) {
 	var Activity = Parse.Object.extend("Activity");
 	var query = new Parse.Query(Activity);
 	query.get(item, {
+		  sessionToken: userId.getSessionToken(),
 		  success: function(activity) {
 			  console.log('+++++++ACTICITY++++++++++',activity);
 			var target = {"__type":"Pointer","className":"User","objectId":userId};
