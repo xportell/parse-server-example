@@ -510,7 +510,7 @@ function signupAsBasicUser(name, password, email) {
 Parse.Cloud.define("doLike", function(request, response) {
 
 	var item = request.params.item;
-	var userId = request.user;
+	var user = request.user;
 	console.log('userId',userId);
 	var useMasterKey = false;
 	
@@ -520,13 +520,13 @@ Parse.Cloud.define("doLike", function(request, response) {
 		  sessionToken: userId.getSessionToken(),
 		  success: function(activity) {
 			  console.log('+++++++ACTICITY++++++++++',activity);
-			var target = {"__type":"Pointer","className":"User","objectId":userId};
+			var target = {"__type":"Pointer","className":"User","objectId":user.id};
 			var Profile = Parse.Object.extend("Activity");
 			var queryProfile = new Parse.Query(Profile);
 			queryProfile.equalTo("user", target);
 			query.first().then(function(profile){
 							  console.log('+++++++PROFILE++++++++++',profile);
-				var profilePointer = {"__type":"Pointer","className":"Profile","objectId":userId};
+				var profilePointer = {"__type":"Pointer","className":"Profile","objectId":user.id};
 				var likes = item.get('childs');
 
 				var exist = false;
