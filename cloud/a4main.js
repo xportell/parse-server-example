@@ -531,7 +531,7 @@ Parse.Cloud.define("doLike", function(request, response) {
 				console.log(likes);
 				var exist = false;
 
-				likes.foreEach(function(item){
+				likes.forEach(function(item){
 					console.log(item);
 					if(item.className == 'Profile' && item.objectId == profile.id) exist = true;
 				});
