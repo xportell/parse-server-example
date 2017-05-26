@@ -538,7 +538,6 @@ Parse.Cloud.define("doLike", function(request, response) {
 				});
 				console.log('1');
 				if(exist) activity.addUnique('childs', profilePointer);
-				console.log('2');
 				else activity.remove('childs', profilePointer);
 				console.log('save');
 				activity.save(null, {useMasterKey:true}).then(function(saved) {
