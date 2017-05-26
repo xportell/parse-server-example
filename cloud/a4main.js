@@ -525,7 +525,7 @@ Parse.Cloud.define("doLike", function(request, response) {
 			query.first().then(function(profile){
 				var profilePointer = {"__type":"Pointer","className":"Profile","objectId":userId};
 				var likes = item.get('childs');
-				var action == 'add';
+
 				var exist = likes.some(function(item){
 					if(item.className == 'Profile' && item.objectId == profile.id) 
 				});
