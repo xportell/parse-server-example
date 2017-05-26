@@ -511,7 +511,6 @@ Parse.Cloud.define("doLike", function(request, response) {
 
 	var item = request.params.item;
 	var user = request.user;
-	console.log('userId',userId);
 	var useMasterKey = false;
 	
 	var Activity = Parse.Object.extend("Activity");
