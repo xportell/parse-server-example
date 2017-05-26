@@ -253,6 +253,17 @@ function addTag(request, response){
 }
 
 /**
+* Before save Activity (for likes)
+*
+*/
+Parse.Cloud.beforeSave("Activity", function(request, response) {
+	console.log('*****************************BRFORE SAVE ACTIVTIY***************************');
+	console.log(request);
+	//request.object.set("ACL",addModerator(request));
+	response.success();
+});
+
+/**
 * BeforeSave SubActivity
 *
 * 	1. Adds moderator role to the subactivity
