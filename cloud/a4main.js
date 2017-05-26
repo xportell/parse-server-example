@@ -523,7 +523,7 @@ Parse.Cloud.define("doLike", function(request, response) {
 			var Profile = Parse.Object.extend("Activity");
 			var queryProfile = new Parse.Query(Profile);
 			queryProfile.equalTo("user", target);
-			query.first().then(function(profile){
+			queryProfile.first().then(function(profile){
 							  console.log('+++++++PROFILE++++++++++',profile);
 				var profilePointer = {"__type":"Pointer","className":"Profile","objectId":user.id};
 				var likes = item.get('childs');
