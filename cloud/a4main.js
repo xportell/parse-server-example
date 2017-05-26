@@ -60,7 +60,7 @@ Parse.Cloud.define("getTags", function(request,response){
 	
 	console.log(query);
 	
-	query.find().then(
+	query.find({sessionToken: request.user.getSessionToken()}).then(
 		  function(activities) {
 				response.success(activities);
 		  }, function(error) {
