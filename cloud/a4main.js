@@ -526,8 +526,9 @@ Parse.Cloud.define("doLike", function(request, response) {
 				var profilePointer = {"__type":"Pointer","className":"Profile","objectId":userId};
 				var likes = item.get('childs');
 
-				var exist = likes.some(function(item){
-					if(item.className == 'Profile' && item.objectId == profile.id) 
+				var exist = false;
+				likes.foreEach(function(item){
+					if(item.className == 'Profile' && item.objectId == profile.id) exist = true;
 				});
 				if(exist) item.addUnique('childs', profilePointer);
 				else item.remove('childs', profilePointer);
