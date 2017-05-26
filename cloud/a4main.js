@@ -269,21 +269,19 @@ Parse.Cloud.beforeSave("Activity", function(request, response) {
 	if (!request.object.isNew()) {
 	    var query = new Parse.Query("Activity");
 	    query.get(request.object.id, { // Gets row you're trying to update
-		success: function(row) {
-		    //if (row.get('choice') !== null) 
-			//response.error('Not allowed to change your choice once submitted');
-			console.log(row);
-		    response.success(); // Only after we check for error do we call success
-			
-		},
-		error: function(row, error) {
-		    response.error(error.message);
-		}
-	});
-	else response.success();	
-
-	//request.object.set("ACL",addModerator(request));
-	//response.success();
+			success: function(row) {
+			    //if (row.get('choice') !== null) 
+				//response.error('Not allowed to change your choice once submitted');
+				console.log(row);
+			    response.success(); // Only after we check for error do we call success
+				
+			},
+			error: function(row, error) {
+			    response.error(error.message);
+			}
+		});	
+	}	
+	else response.success();
 });
 
 /**
