@@ -273,11 +273,11 @@ Parse.Cloud.beforeSave("Activity", function(request, response) {
 			    //if (row.get('choice') !== null) 
 				//response.error('Not allowed to change your choice once submitted');
 				console.log('row',row);
-			    response.success(); // Only after we check for error do we call success
+			    response.success({useMasterKey:true}); // Only after we check for error do we call success
 				
 			},
 			error: function(row, error) {
-				console.log('Errror');
+	 		//If user can't view activity not has permissions
 			    response.error(error.message);
 			}
 		});	
