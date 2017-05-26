@@ -258,7 +258,9 @@ function addTag(request, response){
 */
 Parse.Cloud.beforeSave("Activity", function(request, response) {
 	console.log('*****************************BRFORE SAVE ACTIVTIY***************************');
-	console.log(request);
+	onsole.log(request);
+	console.log('*****************************BRFORE SAVE ACTIVTIY OBJECT***************************');
+	console.log(request.object);
 	//request.object.set("ACL",addModerator(request));
 	response.success();
 });
