@@ -253,36 +253,11 @@ function addTag(request, response){
 }
 
 /**
-* Before save Activity (for likes)
+* Before save Activity (for likes) - NOT WORKS
 *
 */
 Parse.Cloud.beforeSave("Activity", function(request, response) {
-	console.log('*****************************BRFORE SAVE ACTIVTIY***************************');
-	console.log(request);
-	console.log('*****************************BRFORE SAVE ACTIVTIY OBJECT***************************');
-	console.log(request.object);
-	console.log('*****************************BRFORE SAVE ACTIVTIY OP***************************');
-	console.log(request.object.op('childs'));
-	console.log('*****************************BRFORE SAVE ACTIVTIY DIRTY KEYS***************************');
-	console.log(request.object.dirtyKeys());
-	
-	if (!request.object.isNew()) {
-	    var query = new Parse.Query("Activity");
-	    query.get(request.object.id, { // Gets row you're trying to update
-			success: function(row) {
-			    //if (row.get('choice') !== null) 
-				//response.error('Not allowed to change your choice once submitted');
-				console.log('row',row);
-			    response.success({useMasterKey:true}); // Only after we check for error do we call success
-				
-			},
-			error: function(row, error) {
-	 		//If user can't view activity not has permissions
-			    response.error(error.message);
-			}
-		});	
-	}	
-	else response.success();
+	response.success();
 });
 
 /**
@@ -547,7 +522,7 @@ Parse.Cloud.define("doLike", function(request, response) {
 			var Profile = Parse.Object.extend("Activity");
 			var queryProfile = new Parse.Query(Profile);
 			queryProfile.equalTo("user", target);
-			query.first().then(profile){
+			query.first().then(function(profile){
 				var profilePointer = {"__type":"Pointer","className":"Profile","objectId":userId};
 				var likes = item.get('childs');
 				var action == 'add';
@@ -562,9 +537,9 @@ Parse.Cloud.define("doLike", function(request, response) {
 					response.error(error);
 				});
 				
-			}.catch(error){
+			}).catch(function(error){
 				response.error(object);
-			}
+			});
 			
 		  },
 		  error: function(object, error) {
