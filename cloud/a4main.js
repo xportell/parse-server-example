@@ -520,7 +520,7 @@ Parse.Cloud.define("doLike", function(request, response) {
 		  success: function(activity) {
 			  console.log('+++++++ACTICITY++++++++++',activity);
 			var target = {"__type":"Pointer","className":"User","objectId":user.id};
-			var Profile = Parse.Object.extend("Activity");
+			var Profile = Parse.Object.extend("Profile");
 			var queryProfile = new Parse.Query(Profile);
 			queryProfile.equalTo("user", target);
 			queryProfile.first().then(function(profile){
