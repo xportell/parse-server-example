@@ -526,7 +526,7 @@ Parse.Cloud.define("doLike", function(request, response) {
 			queryProfile.first().then(function(profile){
 							  console.log('+++++++PROFILE++++++++++',profile);
 				var profilePointer = {"__type":"Pointer","className":"Profile","objectId":user.id};
-				console.log(profilePonter);
+				console.log('Profile pointer', profilePointer);
 				var likes = activity.get('childs');
 				console.log(likes);
 				var exist = false;
