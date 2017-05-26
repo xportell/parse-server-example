@@ -277,6 +277,7 @@ Parse.Cloud.beforeSave("Activity", function(request, response) {
 				
 			},
 			error: function(row, error) {
+				console.log('Errror');
 			    response.error(error.message);
 			}
 		});	
