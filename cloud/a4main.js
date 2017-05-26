@@ -261,6 +261,8 @@ Parse.Cloud.beforeSave("Activity", function(request, response) {
 	console.log(request);
 	console.log('*****************************BRFORE SAVE ACTIVTIY OBJECT***************************');
 	console.log(request.object);
+	console.log('*****************************BRFORE SAVE ACTIVTIY OP***************************');
+	console.log(request.object.op('childs'));
 	//request.object.set("ACL",addModerator(request));
 	response.success();
 });
