@@ -528,6 +528,7 @@ Parse.Cloud.define("doLike", function(request, response) {
 				var profilePointer = {"__type":"Pointer","className":"Profile","objectId":user.id};
 				console.log('Profile pointer', profilePointer);
 				var likes = activity.get('childs');
+				if(typeof likes == 'undefined') likes = [];
 				console.log(likes);
 				var exist = false;
 
