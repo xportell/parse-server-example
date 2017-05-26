@@ -527,8 +527,7 @@ Parse.Cloud.define("doLike", function(request, response) {
 							  console.log('+++++++PROFILE++++++++++',profile);
 				var profilePointer = {"__type":"Pointer","className":"Profile","objectId":profile.id};
 				console.log('Profile pointer', profilePointer);
-				var likes = activity.get('childs');
-				if(typeof likes == 'undefined') likes = [];
+				var likes = activity.get('childs') || [];
 				console.log(likes);
 				var exist = false;
 
@@ -537,7 +536,8 @@ Parse.Cloud.define("doLike", function(request, response) {
 					if(item.className == 'Profile' && item.objectId == profile.id) exist = true;
 				});
 				console.log('1');
-				if(exist) activity.addUnique('childs', profilePointer);
+				if(exist && likes.length == 0) activity.set('childs', [profilePointer]);
+				else if(exist) activity.addUnique('childs', profilePointer);
 				else activity.remove('childs', profilePointer);
 				console.log('save');
 				activity.save(null, {useMasterKey:true}).then(function(saved) {
