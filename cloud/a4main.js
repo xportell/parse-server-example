@@ -535,8 +535,7 @@ Parse.Cloud.define("doLike", function(request, response) {
 					if(item.className == 'Profile' && item.objectId == profile.id) exist = true;
 				});
 
-				if(likes.length == 0) activity.set('childs', []);
-				if(exist) activity.addUnique('childs', profilePointer);
+				if(!exist) activity.addUnique('childs', profilePointer);
 				else activity.remove('childs', profilePointer);
 				console.log('save');
 				activity.save(null, {useMasterKey:true}).then(function(saved) {
