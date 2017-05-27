@@ -508,44 +508,42 @@ function signupAsBasicUser(name, password, email) {
 * Callable functions
 */
 Parse.Cloud.define("doLike", function(request, response) {
-
+	//Prepare vars
 	var item = request.params.item;
 	var user = request.user;
 	var useMasterKey = false;
 	
+	//Get target activity
 	var Activity = Parse.Object.extend("Activity");
 	var query = new Parse.Query(Activity);
 	query.get(item, {
 		  sessionToken: user.getSessionToken(),
 		  success: function(activity) {
+			//Get requesting profile from user
 			var target = {"__type":"Pointer","className":"_User","objectId":user.id};
 			var Profile = Parse.Object.extend("Profile");
 			var queryProfile = new Parse.Query(Profile);
 			queryProfile.equalTo("user", target);
 			queryProfile.first().then(function(profile){
-							  console.log('+++++++PROFILE++++++++++',profile);
+				//Update like
 				var profilePointer = {"__type":"Pointer","className":"Profile","objectId":profile.id};
-				console.log('Profile pointer', profilePointer);
 				var likes = activity.get('childs') || [];
-				console.log(likes);
 				var exist = false;
 
 				likes.forEach(function(item){
-					console.log('className',item.className);
-					console.log(item.objectId,profile.id);
 					if(item.className == 'Profile' && item.id == profile.id) exist = true;
 				});
 
 				if(!exist) activity.addUnique('childs', profilePointer);
 				else activity.remove('childs', profilePointer);
-				console.log('save');
 				activity.save(null, {useMasterKey:true}).then(function(saved) {
-					console.log('++++++++OK!+++++++++');
+					//Sucess
 					response.success({
 						op: exist?'remove':'add',
 						childs: saved.get('childs').filter(function(item){return item.className=='Profile'})
 					});
 				}, function(error) {
+					//Error saving like
 					response.error({
 						op: 'error',
 						childs: []
@@ -553,6 +551,7 @@ Parse.Cloud.define("doLike", function(request, response) {
 				});
 				
 			}).catch(function(error){
+				//No profile found
 				response.error({
 					op: 'error',
 					childs: []
@@ -561,7 +560,7 @@ Parse.Cloud.define("doLike", function(request, response) {
 			
 		  },
 		  error: function(object, error) {
-		     // The file either could not be read, or could not be saved to Parse.
+		     // Activity not find (no permissions)
 			console.log("Error like permissions:" + JSON.stringify(error));
 			response.error({
 				op: 'error',
