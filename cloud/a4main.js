@@ -540,9 +540,10 @@ Parse.Cloud.define("doLike", function(request, response) {
 				else activity.remove('childs', profilePointer);
 				console.log('save');
 				activity.save(null, {useMasterKey:true}).then(function(saved) {
+					console.log('++++++++OK!+++++++++');
 					response.success({
 						op: exist?'remove':'add',
-						childs: save.get('childs').filter(function(item){return item.className=='Profile'})
+						childs: saved.get('childs').filter(function(item){return item.className=='Profile'})
 					});
 				}, function(error) {
 					response.error({
