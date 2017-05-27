@@ -540,20 +540,32 @@ Parse.Cloud.define("doLike", function(request, response) {
 				else activity.remove('childs', profilePointer);
 				console.log('save');
 				activity.save(null, {useMasterKey:true}).then(function(saved) {
-					response.success(saved);
+					response.success({
+						op: exist?'remove':'add',
+						childs: save.get('childs').filter(function(item)=>return item.className=='Profile')
+					});
 				}, function(error) {
-					response.error(error);
+					response.error({
+						op: 'error',
+						childs: []
+					});
 				});
 				
 			}).catch(function(error){
-				response.error(object);
+				response.error({
+					op: 'error',
+					childs: []
+				});
 			});
 			
 		  },
 		  error: function(object, error) {
 		     // The file either could not be read, or could not be saved to Parse.
-		      console.log("Error like permissions:" + JSON.stringify(error));
-		      response.error(object);
+			console.log("Error like permissions:" + JSON.stringify(error));
+			response.error({
+				op: 'error',
+				childs: []
+			});
 		  }
 	});
 	
