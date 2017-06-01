@@ -281,6 +281,12 @@ Parse.Cloud.beforeSave("Hashtag", function(request, response) {
 	response.success();
 });
 
+Parse.Cloud.beforeSave("Idea", function(request, response) {
+	//request.object.set("ACL",addModerator(request));
+	response.success();
+});
+
+
 function addModerator(request){
 	var acl = request.object.get("ACL");
 	acl.setReadAccess(moderatorRole, true);
@@ -327,6 +333,11 @@ Parse.Cloud.afterSave("Hashtag",function(request, response) {
 });
 
 Parse.Cloud.afterSave("Todo",function(request, response) {
+	if(request.object.attributes.updatedAt == request.object.attributes.createdAt) updateActivity(request);
+	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
+});
+
+Parse.Cloud.afterSave("Idea",function(request, response) {
 	if(request.object.attributes.updatedAt == request.object.attributes.createdAt) updateActivity(request);
 	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
 });
