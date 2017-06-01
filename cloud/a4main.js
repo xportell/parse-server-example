@@ -287,6 +287,23 @@ Parse.Cloud.beforeSave("Idea", function(request, response) {
 });
 
 
+Parse.Cloud.beforeSave("Post", function(request, response) {
+	//request.object.set("ACL",addModerator(request));
+	response.success();
+});
+
+
+Parse.Cloud.beforeSave("Event", function(request, response) {
+	//request.object.set("ACL",addModerator(request));
+	response.success();
+});
+
+
+Parse.Cloud.beforeSave("Todo", function(request, response) {
+	//request.object.set("ACL",addModerator(request));
+	response.success();
+});
+
 function addModerator(request){
 	var acl = request.object.get("ACL");
 	acl.setReadAccess(moderatorRole, true);
@@ -338,6 +355,11 @@ Parse.Cloud.afterSave("Todo",function(request, response) {
 });
 
 Parse.Cloud.afterSave("Idea",function(request, response) {
+	if(request.object.attributes.updatedAt == request.object.attributes.createdAt) updateActivity(request);
+	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
+});
+
+Parse.Cloud.afterSave("Post",function(request, response) {
 	if(request.object.attributes.updatedAt == request.object.attributes.createdAt) updateActivity(request);
 	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
 });
