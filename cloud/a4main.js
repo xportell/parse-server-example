@@ -40,7 +40,9 @@ Parse.Cloud.define("getTags", function(request,response){
 		"Note",
 		"Event",
 		"Hashtag",
-		"Todo"
+		"Todo",
+		"Post",
+		"Idea"
 	];
 
 	Activity = Parse.Object.extend("Activity");
