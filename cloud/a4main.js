@@ -42,7 +42,8 @@ Parse.Cloud.define("getTags", function(request,response){
 		"Hashtag",
 		"Todo",
 		"Post",
-		"Idea"
+		"Idea",
+		"Poll"
 	];
 
 	Activity = Parse.Object.extend("Activity");
@@ -306,6 +307,11 @@ Parse.Cloud.beforeSave("Todo", function(request, response) {
 	response.success();
 });
 
+Parse.Cloud.beforeSave("Poll", function(request, response) {
+	//request.object.set("ACL",addModerator(request));
+	response.success();
+});
+
 function addModerator(request){
 	var acl = request.object.get("ACL");
 	acl.setReadAccess(moderatorRole, true);
@@ -362,6 +368,11 @@ Parse.Cloud.afterSave("Idea",function(request, response) {
 });
 
 Parse.Cloud.afterSave("Post",function(request, response) {
+	if(request.object.attributes.updatedAt == request.object.attributes.createdAt) updateActivity(request);
+	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
+});
+
+Parse.Cloud.afterSave("Poll",function(request, response) {
 	if(request.object.attributes.updatedAt == request.object.attributes.createdAt) updateActivity(request);
 	else response.success(request.object); //Not works... the return value is {objectId, createdAt}
 });
