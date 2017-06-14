@@ -586,7 +586,7 @@ Parse.Cloud.define("vote", function(request, response) {
 				if(exist) response.error({op: 'error',msg: "alredy voted"});
 				//If no vote continue adding profile
 				activity.addUnique('childs', profilePointer);
-				 console.log('Before save activity', activity.get('options'));
+				 console.log('Before save activity', activity.get('base'));
 				activity.save(null, {useMasterKey:true}).then(function(saved) {
 					//On sucess modify poll
 					console.log('After save activity', activity);
