@@ -592,11 +592,14 @@ Parse.Cloud.define("vote", function(request, response) {
 					console.log('After save activity', activity);
 					var poll = new Parse.Object("Poll");
 					var base = activity.get('base');
+										console.log('base', base);
 					var options = base[0].get('options');
+					console.log('options2', options);
 					options.foreach(function(option, i){
 						if(option.index == index) options[i].votes++;
 					});
-					poll.id = base[0].objectId;
+					console.log('options3', options);
+					poll.id = base[0].id;
 					poll.set('options',options);
 					poll.save(null,{useMasterKey:true}).then(function(saved) {
 						response.success({op: 'add',msg: 'vote added'});
