@@ -602,7 +602,7 @@ Parse.Cloud.define("vote", function(request, response) {
 							op: 'add',
 							msg: 'vote added'
 						});
-					}.catch(error){
+					}.catch(function(error){
 						response.error({
 							op: 'error',
 							msg: 'vote not added'
