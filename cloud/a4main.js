@@ -598,40 +598,24 @@ Parse.Cloud.define("vote", function(request, response) {
 					poll.id = base[0].objectId;
 					poll.set('options',options);
 					poll.save(null,{useMasterKey:true}).then(function(saved) {
-						response.success({
-							op: 'add',
-							msg: 'vote added'
-						});
-					}.catch(function(error){
-						response.error({
-							op: 'error',
-							msg: 'vote not added'
-						});
+						response.success({op: 'add',msg: 'vote added'});
+					}).catch(function(error){
+						response.error({op: 'error',msg: 'vote not added'});
 					});
 				}).catch(function(error) {
 					//Error saving like
-					response.error({
-						op: 'error',
-						msg: 'vote not saved'
-					});
+					response.error({op: 'error',msg: 'vote not saved'});
 				});
 				
 			}).catch(function(error){
 				//No profile found
-				response.error({
-					op: 'error',
-					msg: 'no profile found'
-				});
+				response.error({op: 'error', msg: 'no profile found'});
 			});
 			
 		  },
 		  error: function(object, error) {
 		     // Activity not find (no permissions)
-			console.log("Error like permissions:" + JSON.stringify(error));
-			response.error({
-				op: 'error',
-				msg: 'forbbiden action'
-			});
+			response.error({op: 'error',msg: 'forbbiden action'});
 		  }
 	});	
 });
