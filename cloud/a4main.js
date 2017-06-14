@@ -591,8 +591,8 @@ Parse.Cloud.define("vote", function(request, response) {
 					//On sucess modify poll
 					console.log('After save activity', activity);
 					var poll = new Parse.Object("Poll");
-					var options = activity.get('options');
 					var base = activity.get('base');
+					var options = base[0].get('options');
 					options.foreach(function(option, i){
 						if(option.index == index) options[i].votes++;
 					});
