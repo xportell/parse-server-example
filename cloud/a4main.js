@@ -553,6 +553,89 @@ function signupAsBasicUser(name, password, email) {
 /**
 * Callable functions
 */
+
+Parse.Cloud.define("vote", function(request, response) {
+	//Prepare vars
+	var item = request.params.item;
+	var index = request.params.option;
+	var user = request.user;
+	var useMasterKey = false;
+	
+	//Get target activity
+	var Activity = Parse.Object.extend("Activity");
+	var query = new Parse.Query(Activity);
+	query.include('base');
+	query.get(item, {
+		  sessionToken: user.getSessionToken(),
+		  success: function(activity) {
+			//Get requesting profile from user
+			var target = {"__type":"Pointer","className":"_User","objectId":user.id};
+			var Profile = Parse.Object.extend("Profile");
+			var queryProfile = new Parse.Query(Profile);
+			queryProfile.equalTo("user", target);
+			queryProfile.first().then(function(profile){
+				//Update like
+				var profilePointer = {"__type":"Pointer","className":"Profile","objectId":profile.id};
+				var votes = activity.get('childs') || [];
+				var exist = false;
+
+				votes.forEach(function(item){
+					if(item.className == 'Profile' && item.id == profile.id) exist = true;
+				});
+
+				if(exist) response.error({op: 'error',msg: "alredy voted"});
+				//If no vote continue adding profile
+				activity.addUnique('childs', profilePointer);
+				 
+				activity.save(null, {useMasterKey:true}).then(function(saved) {
+					//On sucess modify poll
+					var poll = new Parse.Object("Poll");
+					var options = activity.get('options');
+					var base = activity.get('base');
+					options.foreach(function(option, i){
+						if(option.index == index) options[i].votes++;
+					});
+					poll.id = base[0].objectId;
+					poll.set('options',options);
+					poll.save(null,{useMasterKey:true}).then(function(saved) {
+						response.success({
+							op: 'add',
+							msg: 'vote added'
+						});
+					}.catch(error){
+						response.error({
+							op: 'error',
+							msg: 'vote not added'
+						});
+					});
+				}).catch(function(error) {
+					//Error saving like
+					response.error({
+						op: 'error',
+						msg: 'vote not saved'
+					});
+				});
+				
+			}).catch(function(error){
+				//No profile found
+				response.error({
+					op: 'error',
+					msg: 'no profile found'
+				});
+			});
+			
+		  },
+		  error: function(object, error) {
+		     // Activity not find (no permissions)
+			console.log("Error like permissions:" + JSON.stringify(error));
+			response.error({
+				op: 'error',
+				msg: 'forbbiden action'
+			});
+		  }
+	});	
+});
+
 Parse.Cloud.define("doLike", function(request, response) {
 	//Prepare vars
 	var item = request.params.item;
