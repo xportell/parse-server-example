@@ -595,7 +595,7 @@ Parse.Cloud.define("vote", function(request, response) {
 										console.log('base', base);
 					var options = base[0].get('options');
 					console.log('options2', options);
-					options.foreach(function(option, i){
+					options.forEach(function(option, i){
 						if(option.index == index) options[i].votes++;
 					});
 					console.log('options3', options);
