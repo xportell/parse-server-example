@@ -29,14 +29,13 @@ var getGroupRole = function(name){
   		}
 		if(name=='workgroup') workgroupObject = role;
 		groupsObject[name] = role;
+		console.log('More groups', groupsObject);
 		return role;
 	});
 }
 
 getGroupRole('workgroup');
-getGroupRole('guestgroup').then(function(item){
-	console.log('Groups Object', groupsObject);
-});
+getGroupRole('guestgroup');
 
 Parse.Cloud.define("getTags", function(request,response){
 	var tags =request.params.tags;
