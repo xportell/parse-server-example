@@ -83,7 +83,7 @@ Parse.Cloud.define("createGroup", function(request,response){
 	//console.log(request);
 	var name = request.params.name || '';
 	var type = request.params.type || '';
-	var members = request.params.workgroup || [];
+	var members = request.params.group || [];
 
 	if(name == '') response.error('noname');
 	if(['workgroup','guestgroup'].indexOf(type)<0) response.error('no valid group');
