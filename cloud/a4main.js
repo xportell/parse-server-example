@@ -28,7 +28,7 @@ var getGroupRole = function(name){
    		 throw new Error('nosuchrole');
   		}
 		if(name=='workgroup') workgroupObject = role;
-		groupsObject['name'] = role;
+		groupsObject[name] = role;
 		return role;
 	});
 }
