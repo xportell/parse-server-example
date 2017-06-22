@@ -17,19 +17,26 @@ var workgroupRole = 'role:workgroup';
 var canCreateGroup = ['user'];
 
 var workgroupObject;
-var getWorkgroupRole = function(){
+var guestGroupObject;
+var groupsObject = {};
+var getGroupRole = function(name){
 	var roleQuery = new Parse.Query(Parse.Role);
-	roleQuery.equalTo('name', 'workgroup');
+	roleQuery.equalTo('name', name || 'workgroup');
 	
 	return roleQuery.first({useMasterKey: true}).then(function(role) {
   		if (!role) {
    		 throw new Error('nosuchrole');
   		}
-		workgroupObject = role;
+		if(name=='workgroup') workgroupObject = role;
+		groupsObject['name'] = role;
 		return role;
 	});
 }
-getWorkgroupRole();
+
+getGroupRole('workgroup');
+getGroupRole('guestgroup').then(function(item){
+	console.log('Groups Object', groupsObject);
+});
 
 Parse.Cloud.define("getTags", function(request,response){
 	var tags =request.params.tags;
