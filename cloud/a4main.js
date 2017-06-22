@@ -79,6 +79,62 @@ Parse.Cloud.define("getTags", function(request,response){
 		  });
 });
 
+Parse.Cloud.define("createGroup", function(request,response){
+	//console.log(request);
+	var name = request.params.name || '';
+	var type = request.params.type || '';
+	var members = request.params.workgroup || [];
+
+	if(name == '') response.error('noname');
+	if(['workgroup','guestgroup'].indexOf(type)<0) response.error('no valid group');
+	if(members == 0) response.error('nomembers');
+	
+	var roleName = name.replace(/\W/g, '');
+
+	userHasRole(request.user, canCreateGroup)
+	.then(function(hasRole){
+		var roleACL = new Parse.ACL();
+		//Set correct permissions
+		roleACL.setPublicReadAccess(true);
+		var role = new Parse.Role(roleName, roleACL);
+		
+		members.forEach(function(member){
+			var user = new Parse.User();
+			user.set('id', member.user.id);
+			role.getUsers().add(user);
+		})
+
+		return role.save(null,{useMasterKey: true}).then(function(role){
+			//Add role to workgroup role realtion
+			groupObject[type].getRoles().add(role);
+			groupObject[type].save(null,{useMasterKey: true});
+			return role;
+		});
+	})
+	.then(function(role){
+		var Profile = Parse.Object.extend("Profile");
+		var profile = new Profile;
+		
+		profile.set("name",name);
+		profile.set("role",{
+			"__type": "Pointer",
+			"className": role.className,
+			"objectId": role.id
+		});
+		var profileACL = new Parse.ACL();
+		profileACL.setPublicReadAccess(true);
+		profile.setACL(profileACL);
+		return profile.save(null,{useMasterKey: true});
+		 //throw new Error('nopermission');
+	})
+	.then(function(profile){
+		response.success({result: profile});
+	})
+	.catch(function(err){
+		response.error(err);
+	});
+});
+
 Parse.Cloud.define("createWorkgroup", function(request,response){
 	//console.log(request);
 	var name = request.params.name || '';
