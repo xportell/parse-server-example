@@ -599,12 +599,12 @@ function signupAsBasicUser(name, password, email) {
      var query = new Parse.Query(Parse.Role);
      query.equalTo("name", 'user');
      console.log('-----return query.find------');
-     return query.find();
+     return query.find({useMasterKey: true});
  }).then(function(roles) {
      if (roles.length < 1) return Parse.Promise.error("no such role");
      roles[0].getUsers().add(user);
      console.log('-----dins el then function 1------');
-     return roles[0].save();
+     return roles[0].save(null,{useMasterKey: true});
  }).then(function() {
  	console.log('------dins el then function 2, return user------');
      return user;
