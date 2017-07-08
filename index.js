@@ -22,6 +22,7 @@ if(process.env.VERIFY_MAILS){
             fromAddress: process.env.MAIGUN_FROM || '',
             domain: process.env.MAIGUN_DOMAIN || '',
             apiKey: process.env.MAIGUN_KEY || ''
+        }
     }
 }
 
