@@ -34,7 +34,7 @@ console.log(process.env.CLOUD_CODE_MAIN);
 var api = new ParseServer({
   appName: process.env.APP_NAME || 'Parse App',
   databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
-  publicServerURL: process.env.SERVER_URL || https://example.com/parse',
+  publicServerURL: process.env.SERVER_URL || 'https://example.com/parse',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || 'myAppId',
   masterKey: process.env.MASTER_KEY || '', //Add your master key here. Keep it secret!
