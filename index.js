@@ -14,6 +14,17 @@ if (process.env.GCM_SENDER_ID && process.env.GCM_API_KEY) {
                               apiKey: process.env.GCM_API_KEY || ''};
 }
 
+var emailAdapter = {};
+if(process.env.VERIFY_MAILS){
+   emailAdapter = {
+        module: 'parse-server-simple-mailgun-adapter',
+        options: {
+            fromAddress: process.env.MAIGUN_FROM || '',
+            domain: process.env.MAIGUN_DOMAIN || '',
+            apiKey: process.env.MAIGUN_KEY || ''
+    }
+}
+
 if (!databaseUri) {
   console.log('DATABASE_URI not specified, falling back to localhost.');
 }
@@ -26,6 +37,8 @@ var api = new ParseServer({
   masterKey: process.env.MASTER_KEY || '', //Add your master key here. Keep it secret!
   serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
   push: pushConfig,
+  verifyUserEmails: process.env.VERIFY_MAILS || false,
+  emailAdapter: emailAdapter,
   liveQuery: {
     classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
   }
