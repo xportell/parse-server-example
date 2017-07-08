@@ -32,6 +32,7 @@ if (!databaseUri) {
 console.log( __dirname);
 console.log(process.env.CLOUD_CODE_MAIN);
 var api = new ParseServer({
+  appName: process.env.APP_NAME || 'Parse App',
   databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || 'myAppId',
