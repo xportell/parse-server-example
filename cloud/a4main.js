@@ -295,7 +295,7 @@ function addTag(request, response){
 				toAdd.splice(index,1);
 				toInc.push(object);
 				object.increment("count");
-				object.save();
+				object.save(null,{useMasterKey:true});
 
 			});
 			
@@ -303,7 +303,7 @@ function addTag(request, response){
 				var tag = new Tag;
 				tag.set("label",tagName);
 				tag.set("count", 1);
-				tag.save();
+				tag.save(null,{useMasterKey:true});
 			});
 			console.log("*********TOINC", toInc); 
 			console.log("*********TOADD", toAdd);
