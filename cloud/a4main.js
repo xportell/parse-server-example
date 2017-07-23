@@ -282,7 +282,7 @@ function addTag(request, response){
 
 	var Tag = Parse.Object.extend("Tag");
 	var query = new Parse.Query(Tag);
-	query.containedIn("name", tags);
+	query.containedIn("label", tags);
 	
 	query.find({
 		success: function(results) {
