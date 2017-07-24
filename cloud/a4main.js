@@ -231,10 +231,12 @@ function updateActivity(request, response){
 	else{
 		activity.set("type", type);
 		activity.addUnique("base", item);
+		
+		//If new activity save ACL
+		if(request.object.attributes.ACL)  activity.setACL(activityACL(request.object.attributes.ACL));
 	}
 	
-	if(request.object.attributes.ACL)  activity.setACL(activityACL(request.object.attributes.ACL));
-
+	//Set attributes if exist
 	if(request.object.attributes.attributes) activity.set("attributes",request.object.attributes.attributes);
 	else activity.set("attributes",[]);
 
