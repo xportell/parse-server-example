@@ -986,9 +986,14 @@ var getWorkgroupRole = function(){
 var isAuthor = function(request){
 	var Profile = Parse.Object.extend("Profile");
 	var query = new Parse.Query(Profile);
-	console.log('UserId',request.user.id);
-	query.equalTo("objectId", request.user.id);
+	var pointer = {
+			"__type": "Pointer",
+			"className": "_User",
+			"objectId": request.user.id
+		}
+	query.equalTo("user", pointer);
 	var result = query.first().then(function(object){
+		console.log('Object',object);
 		if(object.attributes.user.id == request.user.id) result.resolve('Wellcome');
 		else result.resolve('Really?');
 	});
