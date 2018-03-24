@@ -1014,5 +1014,5 @@ var getMsgProfiles = function(profiles){
 		error: function(error){
 			console.log('PROFILE ERROR',error);
 		}
-  	}
+  	});
 }
