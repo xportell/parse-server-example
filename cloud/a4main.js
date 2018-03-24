@@ -387,7 +387,9 @@ Parse.Cloud.beforeSave("Message", function(request, response) {
 				return item.get('user').id;
 			});
 			console.log('Users',users);
-			request.object.set("ACL",addUsersACL(request,users));
+			console.log('Users',users);
+			var acl = new Parse.ACL();
+			request.object.set("ACL",addUsersACL(acl,users));
 			console.log('ACL',request.object.get("ACL"));
 			response.success();
 		},
@@ -398,10 +400,8 @@ Parse.Cloud.beforeSave("Message", function(request, response) {
 
 });
 
-function addUsersACL(request, users){
-	var acl = request.object.get("ACL");
+function addUsersACL(acl, users){
 	users.forEach(function(user){
-		console.log(user);
 		try{
 			acl.setReadAccess(user, true);
 			acl.setWriteAccess(user, true);	
