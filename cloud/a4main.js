@@ -1005,7 +1005,7 @@ var getMsgProfiles = function(profiles){
 	var Profile = Parse.Object.extend("Profile");
 	var query = new Parse.Query(Profile);
 	query.containedIn('objectId',profiles);
-	userQuery.find({
+	query.find({
 		success: function(results) {
 		    console.log('PROFILE RESULTS',results);
 	  	},
