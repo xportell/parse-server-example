@@ -384,7 +384,8 @@ Parse.Cloud.beforeSave("Message", function(request, response) {
 		function(res){
 			console.log('isAuthor',res);
 			res.forEach(function(item){
-				console.log(item);
+				console.log('item', res.get('user'));
+				console.log('item', res.get('user').objectId);
 			});
 			response.error(res);
 		},
