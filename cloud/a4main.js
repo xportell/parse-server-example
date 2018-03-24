@@ -977,5 +977,6 @@ var getWorkgroupRole = function(){
 
 var isUserProfile = function(request){
 	console.log('isUserProfile',request);
+	console.log('USER',request.user);
 	return false;
 }
