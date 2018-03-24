@@ -381,7 +381,7 @@ Parse.Cloud.beforeSave("Poll", function(request, response) {
 Parse.Cloud.beforeSave("Message", function(request, response) {
 	//request.object.set("ACL",addModerator(request));
 	console.log('REQUEST',request);
-	getMsgProfiles(request.object.attributes.profiles).then(
+	getMsgProfiles(request.object.get("profiles")).then(
 		function(res){
 			console.log('isAuthor',res);
 			response.error(res);
@@ -1001,9 +1001,7 @@ var isAuthor = function(request){
 	return result;
 }
 
-var getMsgProfiles = function(profiles){
-	if(!profiles.lenght) return false;
-	
+var getMsgProfiles = function(profiles){	
 	var Profile = Parse.Object.extend("Profile");
 	var query = new Parse.Query(Profile);
 	query.containedIn('objectId',profiles);
