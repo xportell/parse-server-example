@@ -383,11 +383,11 @@ Parse.Cloud.beforeSave("Message", function(request, response) {
 	console.log('User id', request.object.get("author").id);
 	getMsgProfiles(request.object.get("profiles")).then(
 		function(res){
-			console.log('isAuthor',res);
 			var users = res.map(function(item){
 				return item.get('user').id;
 			});
-			//request.object.set("ACL",addUsersACL(request,users));
+			console.log('Users',users);
+			request.object.set("ACL",addUsersACL(request,users));
 			response.success();
 		},
 		function(error){
