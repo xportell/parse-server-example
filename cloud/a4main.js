@@ -383,14 +383,14 @@ Parse.Cloud.beforeSave("Message", function(request, response) {
 	console.log('User id', request.object.get("author").id);
 	getMsgProfiles(request.object.get("profiles")).then(
 		function(res){
+			var authorized = false;
 			var users = res.map(function(item){
+				if(item.get('user').id == request.user.id) authorized = true;
 				return item.get('user').id;
 			});
-			console.log('Users',users);
-			console.log('Users',users);
 			var acl = new Parse.ACL();
 			request.object.set("ACL",addUsersACL(acl,users));
-			console.log('ACL',request.object.get("ACL"));
+			if(!authorized) response.error('No permissions');
 			response.success();
 		},
 		function(error){
