@@ -380,8 +380,16 @@ Parse.Cloud.beforeSave("Poll", function(request, response) {
 
 Parse.Cloud.beforeSave("Message", function(request, response) {
 	//request.object.set("ACL",addModerator(request));
-	isUserProfile(request);
-	response.error();
+	isAuthor(request).then(
+		function(res){
+			console.log('isAuthor',res);
+			response.success(res);
+		},
+		function(error){
+			response.error(error);
+		}
+	);
+
 });
 
 function addModerator(request){
@@ -975,8 +983,15 @@ var getWorkgroupRole = function(){
 	});
 }
 
-var isUserProfile = function(request){
-	console.log('isUserProfile',request);
-	console.log('USER',request.user);
-	return false;
+var isAuthor = function(request){
+	var Profile = Parse.Object.extend("Profile");
+	var query = new Parse.Query(Profile);
+	console.log('UserId',request.user.id);
+	query.equalTo("objectId", request.user.id);
+	var result = new Promise();
+	query.first().then(function(object){
+		if(object.attributes.user.id == request.user.id) result.resolve('Wellcome');
+		else result.resolve('Really?');
+	});
+	return result;
 }
