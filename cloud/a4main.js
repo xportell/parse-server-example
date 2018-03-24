@@ -387,7 +387,7 @@ Parse.Cloud.beforeSave("Message", function(request, response) {
 			var users = res.map(function(item){
 				return item.get('user').id;
 			});
-			request.object.set("ACL",addUsersACL(request,users));
+			//request.object.set("ACL",addUsersACL(request,users));
 			response.success();
 		},
 		function(error){
