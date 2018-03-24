@@ -402,8 +402,12 @@ function addUsersACL(request, users){
 	var acl = request.object.get("ACL");
 	users.forEach(function(user){
 		console.log(user);
-		acl.setReadAccess(user, true);
-		acl.setWriteAccess(user, true);	
+		try{
+			acl.setReadAccess(user, true);
+			acl.setWriteAccess(user, true);	
+		}catch(e){
+			console.log('exception',e);
+		}
 	});
 	return acl;
 }
