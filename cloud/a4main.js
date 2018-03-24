@@ -988,7 +988,7 @@ var isAuthor = function(request){
 	var query = new Parse.Query(Profile);
 	console.log('UserId',request.user.id);
 	query.equalTo("objectId", request.user.id);
-	var result = new Promise();
+	var result = new Promise(function(resolve,reject){});
 	query.first().then(function(object){
 		if(object.attributes.user.id == request.user.id) result.resolve('Wellcome');
 		else result.resolve('Really?');
