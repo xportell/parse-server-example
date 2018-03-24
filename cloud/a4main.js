@@ -975,7 +975,7 @@ var getWorkgroupRole = function(){
 	});
 }
 
-var isUserProfile = function(author,profiles,){
+var isUserProfile = function(request){
 	console.log('isUserProfile',request);
 	return false;
 }
