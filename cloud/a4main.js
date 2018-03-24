@@ -380,10 +380,12 @@ Parse.Cloud.beforeSave("Poll", function(request, response) {
 
 Parse.Cloud.beforeSave("Message", function(request, response) {
 	//request.object.set("ACL",addModerator(request));
-	console.log('REQUEST',request);
 	getMsgProfiles(request.object.get("profiles")).then(
 		function(res){
 			console.log('isAuthor',res);
+			res.forEach(function(item){
+				console.log(item);
+			});
 			response.error(res);
 		},
 		function(error){
@@ -1005,12 +1007,13 @@ var getMsgProfiles = function(profiles){
 	var Profile = Parse.Object.extend("Profile");
 	var query = new Parse.Query(Profile);
 	query.containedIn('objectId',profiles);
-	query.find({
+	var result = query.find({
 		success: function(results) {
-		    console.log('PROFILE RESULTS',results);
+		    result.resolve(results);
 	  	},
 		error: function(error){
-			console.log('PROFILE ERROR',error);
+			result.resolve(reject);
 		}
   	});
+	return result;
 }
