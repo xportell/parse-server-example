@@ -384,11 +384,11 @@ Parse.Cloud.beforeSave("Message", function(request, response) {
 	getMsgProfiles(request.object.get("profiles")).then(
 		function(res){
 			console.log('isAuthor',res);
-			res.forEach(function(item){
-				console.log('item', item.get('user'));
-				console.log('item', item.get('user').id);
+			var users = res.map(function(item){
+				return item.get('user').id;
 			});
-			response.error(res);
+			request.object.set("ACL",addUsersACL(request,users));
+			response.success();
 		},
 		function(error){
 			response.error(error);
@@ -396,6 +396,15 @@ Parse.Cloud.beforeSave("Message", function(request, response) {
 	);
 
 });
+
+function addUsersACL(request, users){
+	var acl = request.object.get("ACL");
+	users.forEach(function(user){
+		acl.setReadAccess(user, true);
+		acl.setWriteAccess(user, true);	
+	});
+	return acl;
+}
 
 function addModerator(request){
 	var acl = request.object.get("ACL");
