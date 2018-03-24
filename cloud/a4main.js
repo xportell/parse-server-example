@@ -1001,7 +1001,7 @@ var isAuthor = function(request){
 	return result;
 }
 
-var getMsgProfiles(profiles){
+var getMsgProfiles = function(profiles){
 	if(!profiles.lenght) return false;
 	
 	var Profile = Parse.Object.extend("Profile");
