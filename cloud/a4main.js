@@ -376,6 +376,14 @@ Parse.Cloud.beforeSave("Poll", function(request, response) {
 	response.success();
 });
 
+//No subactivities beforeSave
+
+Parse.Cloud.beforeSave("Message", function(request, response) {
+	//request.object.set("ACL",addModerator(request));
+	isUserProfile(request);
+	response.error();
+});
+
 function addModerator(request){
 	var acl = request.object.get("ACL");
 	acl.setReadAccess(moderatorRole, true);
@@ -965,4 +973,9 @@ var getWorkgroupRole = function(){
   		}
 		return role;
 	});
+}
+
+var isUserProfile = function(author,profiles,){
+	console.log('isUserProfile',request);
+	return false;
 }
