@@ -1009,10 +1009,10 @@ var getMsgProfiles = function(profiles){
 	query.containedIn('objectId',profiles);
 	var result = query.find({
 		success: function(results) {
-		    result.resolve(results);
+			result.resolve(results);
 	  	},
 		error: function(error){
-			result.resolve(reject);
+			result.reject(error);
 		}
   	});
 	return result;
