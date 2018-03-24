@@ -380,12 +380,13 @@ Parse.Cloud.beforeSave("Poll", function(request, response) {
 
 Parse.Cloud.beforeSave("Message", function(request, response) {
 	//request.object.set("ACL",addModerator(request));
+	console.log('User id', request.object.get("author").id);
 	getMsgProfiles(request.object.get("profiles")).then(
 		function(res){
 			console.log('isAuthor',res);
 			res.forEach(function(item){
 				console.log('item', item.get('user'));
-				console.log('item', item.get('user').objectId);
+				console.log('item', item.get('user').id);
 			});
 			response.error(res);
 		},
