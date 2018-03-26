@@ -1020,6 +1020,23 @@ var isAuthor = function(request){
 	return result;
 }
 
+getUserProfile(request){
+	var Profile = Parse.Object.extend("Profile");
+	var query = new Parse.Query(Profile);
+	var pointer = {
+			"__type": "Pointer",
+			"className": "_User",
+			"objectId": request.user.id
+		}
+	query.equalTo("user", pointer);
+	var result = query.first().then(function(object){
+		console.log('requester profile',object);
+		result.resolve('Wellcome');
+		else result.resolve('Really?');
+	});
+	return result;
+}
+
 var getMsgProfiles = function(profiles){	
 	var Profile = Parse.Object.extend("Profile");
 	var query = new Parse.Query(Profile);
