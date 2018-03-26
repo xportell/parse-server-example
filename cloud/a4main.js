@@ -381,7 +381,7 @@ Parse.Cloud.beforeSave("Poll", function(request, response) {
 Parse.Cloud.beforeSave("Message", function(request, response) {
 	//request.object.set("ACL",addModerator(request));
 	console.log('Request BeforeSave+++++', request.object.id);
-	if(!request.object.id) response.success();
+	if(request.object.id) response.success();
 	else{
 		getMsgProfiles(request.object.get("profiles")).then(
 			function(res){
