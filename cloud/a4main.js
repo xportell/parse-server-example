@@ -1066,8 +1066,17 @@ Parse.Cloud.define("markAsRead", function(request,response){
 		query.containedIn("objectId", items);
 		query.find({sessionToken: request.user.getSessionToken()}).then(
 			function(results){ //Find unread msgs
-				console.log('profileId',profileId);
-				response.success(results);
+				results.forEach(function(items){
+					item.addUnique("read", profileId);
+				})
+				results.saveAll(results).then(
+					function(saved){
+						response.success(results);						
+					}
+					function(error){
+						response.error(error);						
+					}
+				);
 			},
 			function(error){
 				console.log('markAsRead error',error);
@@ -1076,17 +1085,4 @@ Parse.Cloud.define("markAsRead", function(request,response){
 	}).catch(function(error){
 		response.error(error);
 	});
-	/*var items = request.params.msgs;
-	console.log('msgs ids',items);
-	var Message = Parse.Object.extend("Message");
-	var query = new Parse.Query(Message);
-	query.containedIn("objectId", items);
-	query.find({sessionToken: request.user.getSessionToken()}).then(function(results){
-		console.log('markAsRead',results);
-		response.success(results);
-	},
-	function(error){
-		console.log('markAsRead error',error);
-		response.error(error);
-	});*/	
 });
