@@ -1072,24 +1072,17 @@ Parse.Cloud.define("markAsRead", function(request,response){
 					msg.set("read", [profileId]);
 					return msg;
 				});
-				response.success(toSave);		
-				/*var toSave = results.map(function(item){
-					var msg = new Message;
-					msg.set('id', item.id);
-					msg.addUnique("read", profileId);
-					return msg;
-				});
-				
+				//response.success(toSave);		
 				console.log('toSave',toSave);
-				Parse.Object.saveAll(toSave).then(
-					function(saved){
+				Parse.Object.saveAll(toSave,{}).then(
+					function(saved,{sessionToken: request.user.getSessionToken()}){
 						console.log('saved',saved)
 						response.success(results);						
 					},
 					function(error){
 						response.error(error);						
 					}
-				);*/
+				);
 			},
 			function(error){
 				console.log('markAsRead error',error);
