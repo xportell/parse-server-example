@@ -1090,7 +1090,8 @@ Parse.Cloud.define("unreadAll", function(request,response){
 		query.find({useMasterKey: true}).then(
 			function(results){ //Find unread msgs
 				console.log('RESULTS',results);
-				var toSave = results.map(function(item){
+				response.success(results)
+				/*var toSave = results.map(function(item){
 					var msg = new Message;
 					msg.set('id', item.id);
 					msg.set("read", []);
@@ -1099,7 +1100,7 @@ Parse.Cloud.define("unreadAll", function(request,response){
 				Parse.Object.saveAll(toSave,{useMasterKey: true}).then(
 					function(saved){response.success(saved);},
 					function(error){response.error(error);}
-				);
+				);*/
 			},
 			function(error){response.error(error);}
 		);
