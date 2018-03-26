@@ -1074,8 +1074,8 @@ Parse.Cloud.define("markAsRead", function(request,response){
 				});
 				//response.success(toSave);		
 				console.log('toSave',toSave);
-				Parse.Object.saveAll(toSave,{}).then(
-					function(saved,{sessionToken: request.user.getSessionToken()}){
+				Parse.Object.saveAll(toSave,{sessionToken: request.user.getSessionToken()}).then(
+					function(saved){
 						console.log('saved',saved)
 						response.success(results);						
 					},
