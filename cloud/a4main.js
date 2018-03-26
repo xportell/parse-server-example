@@ -1065,7 +1065,7 @@ Parse.Cloud.define("getUserMsgGroups", function(request,response){
 		function(success){
 			response.success(success);
 		}
-	).catch(error){
+	).catch(function(error){
 		response.error(error);
 	});
 	/*getRequesterProfile(request).then(function(success){ //Get requester profile id
