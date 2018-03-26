@@ -1058,10 +1058,20 @@ var getMsgProfiles = function(profiles){
 }
 
 Parse.Cloud.define("markAsRead", function(request,response){
-	getRequesterProfile(request).then(function(success){
-		console.log(success);
-		response.success(success);
-		
+	getRequesterProfile(request).then(function(success){ //Get requester profile id
+		var profileId = success.id;
+		var Message = Parse.Object.extend("Message");
+		var query = new Parse.Query(Message);
+		query.find({sessionToken: request.user.getSessionToken()}).then(
+			function(results){ //Find unread msgs
+				console.log('markAsRead',results);
+				console.log('profileId',profileId);
+				response.success(results);
+			},
+			function(error){
+				console.log('markAsRead error',error);
+				response.error(error);
+			});
 	}).catch(function(error){
 		response.error(error);
 	});
