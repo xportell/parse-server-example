@@ -1069,10 +1069,10 @@ Parse.Cloud.define("markAsRead", function(request,response){
 				results.forEach(function(items){
 					item.addUnique("read", profileId);
 				})
-				results.saveAll(results).then(
+				Parse.Object.saveAll(results).then(
 					function(saved){
 						response.success(results);						
-					}
+					},
 					function(error){
 						response.error(error);						
 					}
