@@ -1020,7 +1020,7 @@ var isAuthor = function(request){
 	return result;
 }
 
-var getUserProfile = function(request){
+var getRequesterProfile = function(request){
 	var Profile = Parse.Object.extend("Profile");
 	var query = new Parse.Query(Profile);
 	var pointer = {
@@ -1029,11 +1029,16 @@ var getUserProfile = function(request){
 			"objectId": request.user.id
 		}
 	query.equalTo("user", pointer);
-	var result = query.first().then(function(object){
-		console.log('requester profile',object);
-		result.resolve('Wellcome');
-		//else result.resolve('Really?');
-	});
+	var result = query.first().then(
+		function(object){
+			console.log('requester profile',object);
+			result.resolve(object);
+			//else result.resolve('Really?');
+		},
+		function(error){
+			result.reject(error)
+		}
+	);
 	return result;
 }
 
@@ -1053,7 +1058,14 @@ var getMsgProfiles = function(profiles){
 }
 
 Parse.Cloud.define("markAsRead", function(request,response){
-	var items = request.params.msgs;
+	getRequesterProfile().then(function(success){
+		console.log(success);
+		response.success(success);
+		
+	}).catch(function(error){
+		response.error(error);
+	});
+	/*var items = request.params.msgs;
 	console.log('msgs ids',items);
 	var Message = Parse.Object.extend("Message");
 	var query = new Parse.Query(Message);
@@ -1065,5 +1077,5 @@ Parse.Cloud.define("markAsRead", function(request,response){
 	function(error){
 		console.log('markAsRead error',error);
 		response.error(error);
-	});	
+	});*/	
 });
