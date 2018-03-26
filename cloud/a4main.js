@@ -1069,7 +1069,7 @@ Parse.Cloud.define("getUserMsgGroups", function(request,response){
 			function(success){
 				response.success(success);
 			}
-	}).catch(function(error){
+	).catch(function(error){
 		response.error(error);
 	});
 });
