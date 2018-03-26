@@ -1060,6 +1060,19 @@ var getMsgProfiles = function(profiles){
 	return result;
 }
 
+Parse.Cloud.define("getUserMsgGroups", function(request,response){
+	getRequesterProfile(request).then(
+		function(success){ //Get requester profile id
+			response.success(success);
+		}
+		function(error){
+			response.error(error);
+		}
+	);
+		
+
+}
+
 Parse.Cloud.define("markAsRead", function(request,response){
 	getRequesterProfile(request).then(function(success){ //Get requester profile id
 		var profileId = success.id;
