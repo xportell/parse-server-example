@@ -1070,7 +1070,7 @@ Parse.Cloud.define("getUserMsgGroups", function(request,response){
 				response.success(success);
 			}
 		);
-	).catch(function(error){
+	}).catch(function(error){
 		response.error(error);
 	});
 });
