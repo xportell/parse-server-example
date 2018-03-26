@@ -1102,7 +1102,5 @@ Parse.Cloud.define("unreadAll", function(request,response){
 			},
 			function(error){response.error(error);}
 		);
-	}).catch(function(error){
-		response.error(error);
-	});
+
 });
