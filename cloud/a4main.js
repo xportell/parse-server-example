@@ -1069,25 +1069,15 @@ Parse.Cloud.define("markAsRead", function(request,response){
 				var toSave = results.map(function(item){
 					var msg = new Message;
 					msg.set('id', item.id);
-					msg.set("read", [profileId]);
+					msg.addUnique("read", profileId);
 					return msg;
 				});
-				//response.success(toSave);		
-				console.log('toSave',toSave);
 				Parse.Object.saveAll(toSave,{sessionToken: request.user.getSessionToken()}).then(
-					function(saved){
-						console.log('saved',saved)
-						response.success(results);						
-					},
-					function(error){
-						response.error(error);						
-					}
+					function(saved){response.success(saved);},
+					function(error){response.error(error);}
 				);
 			},
-			function(error){
-				console.log('markAsRead error',error);
-				response.error(error);
-			}
+			function(error){response.error(error);}
 		);
 	}).catch(function(error){
 		response.error(error);
