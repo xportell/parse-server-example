@@ -1062,9 +1062,9 @@ Parse.Cloud.define("markAsRead", function(request,response){
 		var profileId = success.id;
 		var Message = Parse.Object.extend("Message");
 		var query = new Parse.Query(Message);
+		query.containedIn("objectId", items);
 		query.find({sessionToken: request.user.getSessionToken()}).then(
 			function(results){ //Find unread msgs
-				console.log('markAsRead',results);
 				console.log('profileId',profileId);
 				response.success(results);
 			},
