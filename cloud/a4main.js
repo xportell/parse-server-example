@@ -1058,7 +1058,7 @@ var getMsgProfiles = function(profiles){
 }
 
 Parse.Cloud.define("markAsRead", function(request,response){
-	getRequesterProfile().then(function(success){
+	getRequesterProfile(request).then(function(success){
 		console.log(success);
 		response.success(success);
 		
