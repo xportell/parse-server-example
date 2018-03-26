@@ -1032,7 +1032,7 @@ getUserProfile(request){
 	var result = query.first().then(function(object){
 		console.log('requester profile',object);
 		result.resolve('Wellcome');
-		else result.resolve('Really?');
+		//else result.resolve('Really?');
 	});
 	return result;
 }
