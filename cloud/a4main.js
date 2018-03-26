@@ -1083,3 +1083,24 @@ Parse.Cloud.define("markAsRead", function(request,response){
 		response.error(error);
 	});
 });
+
+Parse.Cloud.define("unreadAll", function(request,response){
+		query.find({useMasterKey: true}).then(
+			function(results){ //Find unread msgs
+				var toSave = results.map(function(item){
+					var msg = new Message;
+					msg.set('id', item.id);
+					msg.set("read", []);
+					return msg;
+				});
+				Parse.Object.saveAll(toSave,{useMasterKey: true}).then(
+					function(saved){response.success(saved);},
+					function(error){response.error(error);}
+				);
+			},
+			function(error){response.error(error);}
+		);
+	}).catch(function(error){
+		response.error(error);
+	});
+});
