@@ -1069,7 +1069,7 @@ Parse.Cloud.define("markAsRead", function(request,response){
 				var toSave = results.map(function(item){
 					var msg = new Message;
 					msg.set('id', item.id);
-					msg.addUnique("read", profileId);
+					msg.set("read", [profileId]);
 					return msg;
 				});
 				response.success(toSave);		
