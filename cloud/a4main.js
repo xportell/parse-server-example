@@ -1061,18 +1061,17 @@ var getMsgProfiles = function(profiles){
 }
 
 Parse.Cloud.define("getUserMsgGroups", function(request,response){
-	query.find({sessionToken: request.user.getSessionToken()}).then(
-		function(success){
-			response.success(success);
-		}
-	).catch(function(error){
-		response.error(error);
-	});
-	/*getRequesterProfile(request).then(function(success){ //Get requester profile id
-		response.success(success);
+	getRequesterProfile(request).then(function(success){ //Get requester profile id
+		var profileId = success.id;
+		var Message = Parse.Object.extend("Message");
+		var query = new Parse.Query(Message);
+		query.find({sessionToken: request.user.getSessionToken()}).then(
+			function(success){
+				response.success(success);
+			}
 	}).catch(function(error){
 		response.error(error);
-	});*/
+	});
 });
 
 Parse.Cloud.define("markAsRead", function(request,response){
