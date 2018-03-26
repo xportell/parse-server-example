@@ -1085,6 +1085,8 @@ Parse.Cloud.define("markAsRead", function(request,response){
 });
 
 Parse.Cloud.define("unreadAll", function(request,response){
+		var Message = Parse.Object.extend("Message");
+		var query = new Parse.Query(Message);
 		query.find({useMasterKey: true}).then(
 			function(results){ //Find unread msgs
 				var toSave = results.map(function(item){
