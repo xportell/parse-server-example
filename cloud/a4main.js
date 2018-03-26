@@ -1020,7 +1020,7 @@ var isAuthor = function(request){
 	return result;
 }
 
-getUserProfile(request){
+var getUserProfile = function(request){
 	var Profile = Parse.Object.extend("Profile");
 	var query = new Parse.Query(Profile);
 	var pointer = {
