@@ -1066,16 +1066,14 @@ Parse.Cloud.define("markAsRead", function(request,response){
 		query.containedIn("objectId", items);
 		query.find({sessionToken: request.user.getSessionToken()}).then(
 			function(results){ //Find unread msgs
-				try{
-				var toSave = results.map(function(item){
+				response.success(results);		
+				/*var toSave = results.map(function(item){
 					var msg = new Message;
 					msg.set('id', item.id);
 					msg.addUnique("read", profileId);
 					return msg;
 				});
-				}catch(e){
-					console.log('Exception',e);
-				}
+				
 				console.log('toSave',toSave);
 				Parse.Object.saveAll(toSave).then(
 					function(saved){
@@ -1085,7 +1083,7 @@ Parse.Cloud.define("markAsRead", function(request,response){
 					function(error){
 						response.error(error);						
 					}
-				);
+				);*/
 			},
 			function(error){
 				console.log('markAsRead error',error);
