@@ -380,24 +380,26 @@ Parse.Cloud.beforeSave("Poll", function(request, response) {
 
 Parse.Cloud.beforeSave("Message", function(request, response) {
 	//request.object.set("ACL",addModerator(request));
-	console.log('Request BeforeSave+++++', request.object);
+	console.log('Request BeforeSave+++++', request.object.id);
 	if(!request.object.id) response.success();
-	getMsgProfiles(request.object.get("profiles")).then(
-		function(res){
-			var authorized = false;
-			var users = res.map(function(item){
-				if(item.get('user').id == request.user.id) authorized = true;
-				return item.get('user').id;
-			});
-			var acl = new Parse.ACL();
-			request.object.set("ACL",addUsersACL(acl,users));
-			if(!authorized) response.error('No permissions');
-			response.success();
-		},
-		function(error){
-			response.error(error);
-		}
-	);
+	else{
+		getMsgProfiles(request.object.get("profiles")).then(
+			function(res){
+				var authorized = false;
+				var users = res.map(function(item){
+					if(item.get('user').id == request.user.id) authorized = true;
+					return item.get('user').id;
+				});
+				var acl = new Parse.ACL();
+				request.object.set("ACL",addUsersACL(acl,users));
+				if(!authorized) response.error('No permissions');
+				response.success();
+			},
+			function(error){
+				response.error(error);
+			}
+		);
+	}
 
 });
 
