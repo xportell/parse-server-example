@@ -1066,7 +1066,13 @@ Parse.Cloud.define("markAsRead", function(request,response){
 		query.containedIn("objectId", items);
 		query.find({sessionToken: request.user.getSessionToken()}).then(
 			function(results){ //Find unread msgs
-				response.success(results);		
+				var toSave = results.map(function(item){
+					var msg = new Message;
+					msg.set('id', item.id);
+					msg.addUnique("read", profileId);
+					return msg;
+				});
+				response.success(toSave);		
 				/*var toSave = results.map(function(item){
 					var msg = new Message;
 					msg.set('id', item.id);
