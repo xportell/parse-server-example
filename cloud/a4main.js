@@ -1059,7 +1059,7 @@ Parse.Cloud.define("markAsRead", function(request,response){
 	var query = new Parse.Query(Message);
 	query.containedIn("objectId", items);
 	query.find({sessionToken: request.user.getSessionToken()}).then(function(results){
-		console.log('markAsRead',error);
+		console.log('markAsRead',results);
 		response.success(results);
 	},
 	function(error){
