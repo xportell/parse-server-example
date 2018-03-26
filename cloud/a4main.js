@@ -1098,10 +1098,15 @@ Parse.Cloud.define("unreadAll", function(request,response){
 					return msg;
 				});
 				//response.success(toSave);
+				try{
 				Parse.Object.saveAll(toSave,{useMasterKey: true}).then(
 					function(saved){response.success(saved);},
 					function(error){response.error(error);}
 				);
+				}
+				catch(e){
+					console.log('Exception',e);
+				}
 			},
 			function(error){response.error(error);}
 		);
