@@ -1034,3 +1034,19 @@ var getMsgProfiles = function(profiles){
   	});
 	return result;
 }
+
+Parse.Cloud.define("markAsRead", function(request,response){
+	var items = request.params.msgs;
+	var Message = Parse.Object.extend("Message");
+	var query = new Parse.Query(Message);
+	query.containedIn("objectId", items);
+	query.find({
+		success: function(results) {
+			response.success(results);
+		},
+		error: function(error) {
+			response.error(error);
+		}
+	});
+	
+});
