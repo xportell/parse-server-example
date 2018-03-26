@@ -1089,6 +1089,7 @@ Parse.Cloud.define("unreadAll", function(request,response){
 		var query = new Parse.Query(Message);
 		query.find({useMasterKey: true}).then(
 			function(results){ //Find unread msgs
+				console.log('RESULTS',results);
 				var toSave = results.map(function(item){
 					var msg = new Message;
 					msg.set('id', item.id);
