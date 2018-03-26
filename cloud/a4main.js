@@ -1097,10 +1097,11 @@ Parse.Cloud.define("unreadAll", function(request,response){
 					msg.set("read", []);
 					return msg;
 				});
-				Parse.Object.saveAll(toSave,{useMasterKey: true}).then(
+				response.success(toSave);
+				/*Parse.Object.saveAll(toSave,{useMasterKey: true}).then(
 					function(saved){response.success(saved);},
 					function(error){response.error(error);}
-				);
+				);*/
 			},
 			function(error){response.error(error);}
 		);
