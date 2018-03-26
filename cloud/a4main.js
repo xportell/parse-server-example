@@ -1058,13 +1058,12 @@ Parse.Cloud.define("markAsRead", function(request,response){
 	var Message = Parse.Object.extend("Message");
 	var query = new Parse.Query(Message);
 	query.containedIn("objectId", items);
-	query.find({
-		success: function(results) {
-			response.success(results);
-		},
-		error: function(error) {
-			response.error(error);
-		}
-	});
-	
+	query.find({sessionToken: request.user.getSessionToken()}).then(function(results){
+		console.log('markAsRead',error);
+		response.success(results);
+	},
+	function(error){
+		console.log('markAsRead error',error);
+		response.error(error);
+	});	
 });
